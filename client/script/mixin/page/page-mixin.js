@@ -1,7 +1,11 @@
 var PageMixin = {
+	"mixins": [
+		PageTraversalMixin
+	],
+
     "componentDidMount": function componentDidMount( ){
         var element = $( this.getDOMNode( ) );
 
-        this.page = Page( this );
+        this.page = PageComponent( this );
     }
 };

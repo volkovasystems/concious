@@ -4,7 +4,8 @@ var InputLabel = React.createClass( {
 	"mixins": [
 		ComponentMixin,
 
-        LabelMixin
+        LabelMixin,
+        SizeMixin
 	],
 
 	"render": function render( ){
@@ -14,7 +15,8 @@ var InputLabel = React.createClass( {
 			<div
 				id={ this.getID( ) }
 				data-component
-                data-input-label={ this.props.name }>
+                data-input-label={ this.props.name }
+                className={ this.type }>
                 <Label
 					name={ this.props.name }
 					label={ label }>

@@ -79,7 +79,8 @@ var TextInput = React.createClass( {
 			<div
 				id={ this.getID( ) }
 				data-component
-				data-text-input={ this.props.name }>
+				data-text-input={ this.props.name }
+				className={ this.type }>
 				<InputLabel
 					id="label"
 					name={ this.props.name }
@@ -89,13 +90,12 @@ var TextInput = React.createClass( {
 					id="input"
 					name={ this.props.name }
 
-					label={ this.props.label }
 					placeholder={ this.props.placeholder }
 					title={ this.props.title }
 
 					input={ this.props.input }
 
-					update={ this.update }
+					update={ this.props.update }
 					focus={ this.focus }
 					blur={ this.blur }
 					click={ this.click }>

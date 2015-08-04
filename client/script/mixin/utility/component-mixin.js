@@ -18,23 +18,8 @@ var ComponentMixin = {
 		};
 	},
 
-	"componentWillMount": function componentWillMount( ){
-		if( this.props.name ){
-			throw new Error( "component name was not initialized" );
-		}
-
-		if( typeof this.props.name != "string" ){
-			throw new Error( "invalid component name data type" );
-		}
-	},
-
 	"getID": function getID( ){
-		if( this.props.id ){
-			return this.props.id;
-
-		}else{
-			return this.props.name;
-		}
+		return this.props.id || this.props.name || this.type;
 	},
 
 	"getType": function getType( ){
@@ -48,8 +33,8 @@ var ComponentMixin = {
 	"componentDidMount": function componentDidMount( ){
 		this.getElement( ).data( "self", this );
 
-		var timeout = setTimeout( ( function onTimeout( ){
-			if( !_.isEmpty( this.props.id ) ){
+		setImmediate( ( function onImmediate( ){
+			if( this.getID( ) ){
 				var parentComponent = this.getElement( )
 					.parent( )
 					.closest( "[data-component]" )
@@ -58,11 +43,11 @@ var ComponentMixin = {
 				if( parentComponent ){
 					var componentName = S( this.getID( ) ).camelize( ).toString( );
 
-					parentComponent[ componentName ] = this;
+					harden.bind( parentComponent )( componentName, this );
+
+					this.parent = parentComponent;
 				}
 			}
-
-			clearTimeout( timeout );
-		} ).bind( this ), 0 );
+		} ).bind( this ) );
 	}
 };

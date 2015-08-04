@@ -13,21 +13,13 @@ Component.prototype.load = function load( selector, blueprint ){
 	$( selector ).ready( ( function onReady( ){
 		var element = $( selector );
 
-		var reactElement = React.createElement( blueprint, {
+		var reactComponent = React.render( blueprint, element[ 0 ] );
+
+		reactComponent.setProps( {
 			"element": element,
 			"name": this.name
 		} );
 
-		var reactComponent = React.render( reactElement, element[ 0 ] );
-
 		reactComponent.name = this.name;
-
-		Object.defineProperty( window, this.className,
-			{
-				"enumerable": false,
-				"configurable": false,
-				"writable": false,
-				"value": reactComponent
-			} );
 	} ).bind( this ) );
 };

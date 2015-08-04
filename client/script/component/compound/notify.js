@@ -1,82 +1,25 @@
 var Notify = React.createClass( {
+	"type": "notify",
+	
 	"mixins": [
 		ComponentMixin,
-		StateChangeMixin,
-		ClearStateMixin
+
+		NotifyMixin
 	],
 
-	"now": function now( type, title, description ){
-		this.open( );
-
-		this.setState( {
-			"type": type || "default",
-			"description": description || "",
-			"title": title || ""
-		} );
-	},
-
-	"showTitle": function showTitle( ){
-		$( "[data-title]", this.props.component )
-			.addClass( "hidden" )
-			.removeClass( "shown" );
-	},
-
-	"hideTitle": function hideTitle( ){
-		$( "[data-title]", this.props.component )
-			.addClass( "shown" )
-			.removeClass( "hidden" );
-	},
-
-	"getDefaultProps": function getDefaultProps( ){
-		return {
-			"type": "",
-			"title": "",
-			"description": ""
-		};
-	},
-
-	"getInitialState": function getInitialState( ){
-		return {
-			"type": "",
-			"title": "",
-			"description": ""
-		};
-	},
-
-	"render": function onRender( ){
-		var ID = this.getID( );
-
+	"render": function render( ){
 		return (
 			<div
-				id={ ID }
+				id={ this.getID( ) }
 				data-component
 				data-notify={ this.props.name }
-				data-notify-type={ this.state.type }
-				data-align-vertical>
-
-				<TitleLabel
-					name="notify-title"
-					label={ this.state.title }>
-				</TitleLabel>
-
+				className={ this.type }>
 				<Description
-					name="notify-description"
+					id="notify-description"
+					name={ this.props.name }
 					paragraph={ this.state.description }>
 				</Description>
 			</div>
 		);
-	},
-
-	"componentDidUpdate": function componentDidUpdate( prevProps, prevState ){
-		if( _.isEmpty( this.state.title ) ){
-			this.showTitle( );
-
-		}else{
-			this.hideTitle( );
-		}
-	},
-
-	"componentDidMount": function componentDidMount( ){
-		this.hide( );
 	}
 } );

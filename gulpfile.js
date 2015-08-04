@@ -11,6 +11,7 @@ require( "terraforma" )( {
 		"bower_components/tag-it/js/*.js",
 		"bower_components/svg-loaders/svg-loaders/*.svg",
 		"bower_components/nouislider/distribute/*.*",
+		"bower_components/nouislider/src/*.css",
 		"bower_components/history.js/scripts/compressed/*.js",
 
 		"!bower_components/pubsub.js/lib/**/*.js",

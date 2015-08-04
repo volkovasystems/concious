@@ -1,4 +1,8 @@
 var InputMixin = {
+    "mixins": [
+        SizeMixin
+    ],
+    
 	"getDefaultProps": function getDefaultProps( ){
 		return {
 			"input": "",

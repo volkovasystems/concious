@@ -1,4 +1,8 @@
 var LabelMixin = {
+    "mixins": [
+        SizeMixin
+    ],
+    
     "getDefaultProps": function getDefaultProps( ){
 		return {
             "label": ""

@@ -8,11 +8,9 @@ var Description = React.createClass( {
 	],
 
 	"render": function render( ){
-        var ID = this.getID( );
-
         return (
             <div
-                id={ ID }
+                id={ this.getID( ) }
                 data-component
                 data-description={ this.props.name }>
                 <Paragraph

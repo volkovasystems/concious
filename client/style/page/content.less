@@ -1,0 +1,32 @@
+.content {
+	position: relative;
+
+	height: 100%;
+	width: auto;
+	max-width: 100%;
+	min-width: auto;
+
+	display: flex;
+
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	
+	border: 0;
+}
+
+.grouped.content {
+	flex-direction: row;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+
+.content.item {
+	justify-content: flex-start;
+	flex-grow: 1;
+}
+
+.scrollable.content {
+	overflow-y: auto;
+	overflow-x: hidden;
+}

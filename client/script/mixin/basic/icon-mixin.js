@@ -1,7 +1,11 @@
 var IconMixin = {
-    "getDefaultProps": function getDefaultProps( ){
-        return {
-            "icon": ""
-        };
-    }
+	"mixins": [
+		SizeMixin
+	],
+	
+	"getDefaultProps": function getDefaultProps( ){
+		return {
+			"icon": ""
+		};
+	}
 };

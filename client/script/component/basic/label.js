@@ -4,18 +4,21 @@ var Label = React.createClass( {
 	"mixins": [
 		ComponentMixin,
 
-        LabelMixin
+		LabelMixin
 	],
 
 	"render": function render( ){
-        return (
-            <span
-                id={ this.getID( ) }
-                data-component
-                data-label={ this.props.name }
+		return (
+			<div
+				id={ this.getID( ) }
+				data-component
+				data-label={ this.props.name }
 				className={ this.type }>
-                { this.state.title }
-            </span>
-        );
+				<label
+					htmlFor={ this.props.name }>
+					{ this.state.title }
+				</label>	
+			</div>
+		);
 	}
 } );

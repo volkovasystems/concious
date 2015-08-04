@@ -1,16 +1,54 @@
-[data-input] {
-	input {
-		width: 100%;
-	    height: 50px;
+.input[data-input] {
+	display: flex;
+	align-items: center;
+	justify-content: center;
 
-		padding: 10px;
+	width: 100%;
+
+	input {
+		width: inherit;
+	    height: inherit;
+
+		&::-webkit-input-placeholder,
+		&:-moz-placeholder,
+		&::-moz-placeholder,
+		&:-ms-input-placeholder {
+			color: black !important;
+			opacity: 1 !important; 
+		}
+	}
+
+	&.hide-placeholder {
+		input {
+			&::-webkit-input-placeholder,
+			&:-moz-placeholder,
+			&::-moz-placeholder,
+			&:-ms-input-placeholder {
+				color: transparent !important;
+				opacity: 0 !important;
+			}
+		}
+	}
+
+	&.tiny {
+
+	}
+
+	&.small {
+
+	}
+
+	&.normal {
+		height: 50px;
+
+		input {
+			line-height: 50px;
+		}
+	}
+
+	&.large {
+
 	}
 }
 
-[data-input].hide-placeholder > input::-webkit-input-placeholder,
-[data-input].hide-placeholder > input:-moz-placeholder,
-[data-input].hide-placeholder > input::-moz-placeholder,
-[data-input].hide-placeholder > input:-ms-input-placeholder {
-	color:transparent;
-	opacity: 0;
-}
+
