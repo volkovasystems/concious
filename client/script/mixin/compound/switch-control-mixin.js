@@ -1,54 +1,56 @@
 var SwitchControlMixin = {
-    "turnOn": function turnOn( ){
-        $( "#on-switch", this.getElement( ) )
-            .addClass( "hidden" )
-            .removeClass( "shown" );
+	"turnOn": function turnOn( ){
+		this.onSwitch.getElement( )
+			.addClass( "hidden" )
+			.removeClass( "shown" );
 
-        $( "#off-switch", this.getElement( ) )
-            .addClass( "shown" )
-            .removeClass( "hidden" );
-    },
+		this.offSwitch.getElement( )
+			.addClass( "shown" )
+			.removeClass( "hidden" );
+	},
 
-    "switchOn": function switchOn( ){
-        this.turnOn( );
+	"switchOn": function switchOn( ){
+		this.turnOn( );
 
-        this.props.switchOn.apply( null, _.toArray( arguments ) );
-    },
+		this.props.switchOn.apply( null, _.toArray( arguments ) );
+	},
 
-    "turnOff": function turnOff( ){
-        $( "#off-switch", this.getElement( ) )
-            .addClass( "hidden" )
-            .removeClass( "shown" );
+	"turnOff": function turnOff( ){
+		$( "#off-switch", this.getElement( ) )
+			.addClass( "hidden" )
+			.removeClass( "shown" );
 
-        $( "#on-switch", this.getElement( ) )
-            .addClass( "shown" )
-            .removeClass( "hidden" );
-    },
+		$( "#on-switch", this.getElement( ) )
+			.addClass( "shown" )
+			.removeClass( "hidden" );
+	},
 
-    "switchOff": function switchOff( ){
-        this.turnOff( );
+	"switchOff": function switchOff( ){
+		this.turnOff( );
 
-        this.props.switchOff.apply( null, _.toArray( arguments ) );
-    },
+		this.props.switchOff.apply( null, _.toArray( arguments ) );
+	},
 
-    "getDefaultProps": function getDefaultProps( ){
-        return {
-            "status":"off",
-            "on": "",
-            "off": "",
-            "onIcon": "",
-            "offIcon": "",
-            "switchOn": function switchOn( ){ },
-            "switchOff": function switchOff( ){ }
-        }
-    },
+	"getDefaultProps": function getDefaultProps( ){
+		return {
+			"status":"off",
+			"onName": "",
+			"offName": "",
+			"onLabel": "",
+			"offLabel": "",
+			"onIcon": "",
+			"offIcon": "",
+			"switchOn": function switchOn( ){ },
+			"switchOff": function switchOff( ){ }
+		}
+	},
 
-    "componentDidMount": function componentDidMount( ){
-        if( this.props.status === "off" ){
-            this.turnOff( );
+	"componentDidMount": function componentDidMount( ){
+		if( this.props.status === "off" ){
+			this.turnOff( );
 
-        }else if( this.props.status === "on" ){
-            this.turnOn( );
-        }
-    }
+		}else if( this.props.status === "on" ){
+			this.turnOn( );
+		}
+	}
 };

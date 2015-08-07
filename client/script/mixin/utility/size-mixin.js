@@ -1,12 +1,12 @@
 var SizeMixin = {
-	"TINY_SIZE": "tiny-size",
-	"SMALL_SIZE": "small-size",
-	"NORMAL_SIZE": "normal-size",
-	"LARGE_SIZE": "large-size",
+	"TINY_SIZE": "tiny size",
+	"SMALL_SIZE": "small size",
+	"NORMAL_SIZE": "normal size",
+	"LARGE_SIZE": "large size",
 
 	"getDefaultProps": function getDefaultProps( ){
 		return {
-			"size": this.NORMAL_SIZE
+			"size": "normal size"
 		};
 	},
 
@@ -27,22 +27,21 @@ var SizeMixin = {
 
 	"resolveSize": function resolveSize( size ){
 		size = size || this.props.size;
-		
-		switch( size ){
-			case /tiny/.test( size ):
-				return this.TINY_SIZE;
 
-			case /small/.test( size ):
-				return this.SMALL_SIZE;
+		if( /tiny/.test( size ) ){
+			return this.TINY_SIZE;
 
-			case /normal/.test( size ):
-				return this.NORMAL_SIZE;
+		}else if( /small/.test( size ) ){
+			return this.SMALL_SIZE;
 
-			case /large/.test( size ):
-				return this.LARGE_SIZE;
+		}else if( /normal/.test( size ) ){
+			return this.NORMAL_SIZE;
 
-			default:
-				return "";
+		}else if( /large/.test( size ) ){
+			return this.LARGE_SIZE;
+
+		}else{
+			return "";
 		}
 	},
 
@@ -53,6 +52,6 @@ var SizeMixin = {
 	},
 
 	"componentDidMount": function componentDidMount( ){
-		this.applySize( );	
+		this.applySize( );
 	}
 }

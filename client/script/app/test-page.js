@@ -7,6 +7,14 @@ var TestPage = React.createClass( {
 		return; //: @template: template/test-page.html
 	},
 
+	"update": function update( event ){
+		console.debug( event );
+
+		this.setState( {
+			"firstName": event.target.value
+		} );
+	},
+
 	"componentDidMount": function componentDidMount( ){
 		this.show( );
 	}

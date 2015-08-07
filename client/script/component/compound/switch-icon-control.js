@@ -5,17 +5,16 @@ var SwitchIconControl = React.createClass( {
 		ComponentMixin,
 
         ControlMixin,
-        SwitchControlMixin
+        SwitchControlMixin,
+        SizeMixin
 	],
 
     "render": function render( ){
-        var ID = this.getID( );
-
         return (
             <div
-                id={ ID }
+                id={ this.getID( ) }
                 data-component
-                data-switch-control={ this.props.name }>
+                data-switch-icon-control={ this.props.name }>
                 <IconControl
                     id="on-switch"
                     icon={ this.props.onIcon }

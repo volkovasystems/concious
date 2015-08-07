@@ -4,7 +4,8 @@ var IconControl = React.createClass( {
     "mixins": [
 		ComponentMixin,
 
-        ControlMixin
+        ControlMixin,
+        SizeMixin
 	],
 
     "getDefaultProps": function getDefaultProps( ){

@@ -1,12 +1,11 @@
-var SwitchControl = React.createClass( {
-	"type": "switch-control",
+var SwitchLink = React.createClass( {
+	"type": "switch-link",
 
 	"mixins": [
 		ComponentMixin,
 
 		ControlMixin,
-		SwitchControlMixin,
-		SizeMixin
+		SwitchControlMixin
 	],
 
 	"render": function render( ){
@@ -14,20 +13,20 @@ var SwitchControl = React.createClass( {
 			<div
 				id={ this.getID( ) }
 				data-component
-				data-switch-control={ this.props.name }
+				data-switch-link={ this.props.name }
 				className={ this.type }>
-				<Control
+				<Link
 					id="on-switch"
 					name={ this.props.onName }
 					label={ this.props.onLabel }
 					click={ this.switchOn }> 
-				</Control>
-				<Control
+				</Link>
+				<Link
 					id="off-switch"
 					name={ this.props.offName }
 					label={ this.props.offLabel }
 					click={ this.switchOff }>
-				</Control>
+				</Link>
 			</div>
 		);
 	}

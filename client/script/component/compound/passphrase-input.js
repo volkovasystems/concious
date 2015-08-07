@@ -1,161 +1,125 @@
 /*:
-    @todo:
-        Input component for shown passphrase
-            should not be accessible internally.
-            It can only be shown and cannot be
-            transferrable.
-    @end-todo
+	@todo:
+		Input component for shown passphrase
+			should not be accessible internally.
+			It can only be shown and cannot be
+			transferrable.
+	@end-todo
 */
 var PassphraseInput = React.createClass( {
-    "type": "passphrase-input",
+	"type": "passphrase-input",
 
-    "mixins": [
+	"mixins": [
 		ComponentMixin,
 
-        LabelMixin,
-		InputMixin
+		InputMixin,
+		SizeMixin
 	],
 
-    "showPassphrase": function showPassphrase( ){
-        $( "#hidden-passphrase", this.getElement( ) )
-            .addClass( "hidden" )
-            .removeClass( "shown" );
-
-        $( "#shown-passphrase", this.getElement( ) )
-            .addClass( "shown" )
-            .removeClass( "hidden" );
-    },
-
-    "hidePassphrase": function hidePassphrase( ){
-        $( "#hidden-passphrase", this.getElement( ) )
-            .addClass( "shown" )
-            .removeClass( "hidden" );
-
-        $( "#shown-passphrase", this.getElement( ) )
-            .addClass( "hidden" )
-            .removeClass( "shown" );
-    },
-
-    "compressInputLabel": function compressInputLabel( ){
-		$( "#label", this.getElement( ) )
-			.removeClass( "hover-up" );
+	"showPassphrase": function showPassphrase( ){
+		this.shownPassphrase.getElement( )
+			.addClass( "shown" )
+			.removeClass( "hidden" );
+		
+		this.hiddenPassphrase.getElement( )
+			.removeClass( "shown" )
+			.addClass( "hidden" );
 	},
 
-	"hoverInputLabel": function hoverInputLabel( ){
-		$( "#label", this.getElement( ) )
-			.addClass( "hover-up" );
+	"hidePassphrase": function hidePassphrase( ){
+		this.hiddenPassphrase.getElement( )
+			.addClass( "shown" )
+			.removeClass( "hidden" );
+		
+		this.shownPassphrase.getElement( )
+			.removeClass( "shown" )
+			.addClass( "hidden" );
 	},
 
-    "toggleInputLabel": function toggleInputLabel( ){
-        if( this.timeout ){
-            clearTimeout( this.timeout );
+	"focus": function focus( ){
+		this.getElement( ).addClass( "hover up" );
+		this.label.getElement( ).addClass( "hover up" );
 
-            delete this.timeout;
-        }
-
-        this.timeout = setTimeout( ( function onTimeout( ){
-            if( _.isEmpty( this.props.input.toString( ) ) &&
-                !this.hasFocus )
-            {
-                this.compressInputLabel( );
-            
-            }else{
-                this.hoverInputLabel( );
-            }
-        } ).bind( this ), 0 );
-    },
-
-	"focusInput": function focusInput( ){
-		$( "[data-input].shown > input", this.getElement( ) )
-			.focus( );
+		this.props.focus( );
 	},
 
-	"blurInput": function blurInput( ){
-		$( "[data-input].shown > input", this.getElement( ) )
-			.blur( );
+	"blur": function blur( ){
+		if( !this.props.input ){
+			this.getElement( ).removeClass( "hover up" );
+			this.label.getElement( ).removeClass( "hover up" );
+		}
+		
+		this.props.blur( );
 	},
 
-    "click": function click( ){
-        this.hoverInputLabel( );
+	"render": function render( ){
+		return (
+			<div
+				id={ this.getID( ) }
+				data-component
+				data-passphrase-input={ this.props.name }
+				className={ this.type }>
 
-        this.focusInput( );
+				<InputLabel
+					id="label"
 
-        this.props.click( );
-    },
-
-    "focus": function focus( ){
-        this.hoverInputLabel( );
-
-        this.focusInput( );
-
-        this.props.focus( );
-
-        this.hasFocus = true;
-    },
-
-    "blur": function blur( ){
-        this.toggleInputLabel( );
-
-        this.blurInput( );
-            
-        this.props.blur( );
-
-        this.hasFocus = false
-    },
-
-    "render": function render( ){
-        var ID = this.getID( );
-
-        return (
-            <div
-                id={ ID }
-                data-component
-                data-passphrase-input={ this.props.name }>
-
-                <InputLabel
-                    id="label"
 					name={ this.props.name }
 					label={ this.props.label }
-                    click={ this.click }>
+
+					size={ this.props.size }>
 				</InputLabel>
 
-                <Input
-                    id="hidden-passphrase"
-                    format="password"
-                    name={ this.props.name }
-                    placeholder={ this.props.placeholder }
-                    input={ this.props.input }
-                    update={ this.update }
-                    focus={ this.focus }
-                    blur={ this.blur }>
-                </Input>
+				<Input
+					id="hidden-passphrase"
 
-                <Input
-                    id="shown-passphrase"
-                    name={ this.props.name }
-                    placeholder={ this.props.placeholder }
-                    input={ this.props.input }
-                    update={ this.update }
-                    focus={ this.focus }
-                    blur={ this.blur }>
-                </Input>
+					format="password"
+					name={ this.props.name } 
+					title={ this.props.title }
+					placeholder={ this.props.placeholder }
 
-                <SwitchControl
-                    name={ this.props.name }
-                    on={ "show-password" }
-                    off={ "hide-password" }
-                    switchOn={ this.showPassphrase }
-                    switchOff={ this.hidePassphrase }>
-                </SwitchControl>
-            </div>
-        );
-    },
+					input={ this.props.input }
 
-    "componentDidUpdate": function componentDidUpdate( ){
-        this.toggleInputLabel( );
-    },
+					update={ this.props.update }
+					click={ this.props.click }
 
-    "componentDidMount": function componentDidMount( ){
-        this.hidePassphrase( );
-    }
+					focus={ this.focus }
+					blur={ this.blur }
+
+					size={ this.props.size }>
+				</Input>
+
+				<Input
+					id="shown-passphrase"
+					
+					name={ this.props.name }
+					title={ this.props.title }
+					placeholder={ this.props.placeholder }
+					
+					input={ this.props.input }
+					
+					update={ this.props.update }
+					click={ this.props.click }
+
+					focus={ this.focus }
+					blur={ this.blur }
+
+					size={ this.props.size }>
+				</Input>
+
+				<SwitchLink
+					name={ this.props.name }
+					onName="show-password" 
+					offName="hide-password"
+					onLabel="Show Password"
+					offLabel="Hide Password"
+					switchOn={ this.showPassphrase }
+					switchOff={ this.hidePassphrase }>
+				</SwitchLink>
+			</div>
+		);
+	},
+
+	"componentDidMount": function componentDidMount( ){
+		this.hidePassphrase( );
+	}
 } );

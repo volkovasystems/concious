@@ -6,6 +6,7 @@ var Input = React.createClass( {
 
 		InputMixin,
         PlaceholderMixin,
+        SizeMixin
 	],
 
     "blur": function blur( ){
@@ -28,6 +29,10 @@ var Input = React.createClass( {
         } );
     },
 
+    "update": function update( event ){
+        this.props.update( EventWrapper( event.target.name, event.target.value ) )
+    },
+
 	"render": function render( ){
 		return (
             <div
@@ -46,7 +51,7 @@ var Input = React.createClass( {
 
                     onFocus={ this.focus }
                     onBlur={ this.blur }
-                    onChange={ this.props.update }/>
+                    onChange={ this.update }/>
             </div>
 		);
 	},

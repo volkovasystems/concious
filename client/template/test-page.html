@@ -5,11 +5,32 @@
 		</Header>
 		<Body>
 			<Content
-				size="medium size">
+				size="small size">
+				<TextInput
+					name="user-name"
+					input={ this.state.firstName }
+					title="FIRST NAME"
+					label="First Name"
+					update={ this.update }>
+				</TextInput>
+				<TextInput
+					name="first-name"
+					input={ this.state.firstName }
+					title="FIRST NAME"
+					label="First Name"
+					update={ this.update }>
+				</TextInput>
 			</Content>
 		</Body>
 		<Footer>
-			
+			<Control
+				name="test"
+				text="Login">
+			</Control>
+			<Control
+				name="test"
+				text="Cancel">
+			</Control>
 		</Footer>
 	</Content>
 </Page>

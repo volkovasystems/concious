@@ -1,7 +1,14 @@
 var EventWrapper = function EventWrapper( name, value ){
-    if( this instanceof EventWrapper ){
+	if( arguments.length == 1 && 
+		"target" in arguments[ 0 ] &&
+		"name" in arguments[ 0 ].target &&
+		"value" in arguments[ 0 ].target )
+	{
+		return EventWrapper( arguments[ 0 ].target.name, arguments[ 0 ].target.value );
+
+	}else if( this instanceof EventWrapper ){
         this.target = {
-            "name": name,
+            "name": llamalize( name ),
             "value": value
         };
 

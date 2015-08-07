@@ -32,6 +32,12 @@ require( "script-lister" )
 		"component/basic/label.js",
 		"component/basic/paragraph.js",
 
+		"component/compound/input-label.js",
+		"component/compound/text-input.js",
+		"component/compound/link.js",
+		"component/compound/switch-link.js",
+		"component/compound/passphrase-input.js",
+
 		"component/page/body.js",
 		"component/page/content.js",
 		"component/page/footer.js",

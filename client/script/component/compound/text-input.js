@@ -4,73 +4,32 @@ var TextInput = React.createClass( {
 	"mixins": [
 		ComponentMixin,
 
-		InputMixin
+		InputMixin,
+		SizeMixin
 	],
 
-	"compressInputLabel": function compressInputLabel( ){
-		$( "#label", this.getElement( ) )
-			.removeClass( "hover-up" );
-	},
-
-	"hoverInputLabel": function hoverInputLabel( ){
-		$( "#label", this.getElement( ) )
-			.addClass( "hover-up" );
-	},
-
-	"toggleInputLabel": function toggleInputLabel( ){
-		if( this.timeout ){
-			clearTimeout( this.timeout );
-
-			delete this.timeout;
-		}
-
-		this.timeout = setTimeout( ( function onTimeout( ){
-			if( _.isEmpty( this.props.input.toString( ) ) &&
-				!this.hasFocus )
-			{
-				this.compressInputLabel( );
-
-			}else{
-				this.hoverInputLabel( );
-			}
-		} ).bind( this ), 100 );
-	},
-
-	"focusInput": function focusInput( ){
-		$( "#input > input", this.getElement( ) )
-			.focus( );
-	},
-
-	"blurInput": function blurInput( ){
-		$( "#input > input", this.getElement( ) )
-			.blur( );
-	},
-
-	"click": function click( ){
-		this.hoverInputLabel( );
-
-		this.focusInput( );
-
-		this.props.click( );
-	},
-
 	"focus": function focus( ){
-		this.hasFocus = true;
+		this.getElement( ).addClass( "hover up" );
+		this.label.getElement( ).addClass( "hover up" );
 
-		this.hoverInputLabel( );
-
-		this.focusInput( );
+		if( this.props.input ){
+			this.hidePlaceholder( );
+		
+		}else{
+			this.showPlaceholder( );
+		}
 
 		this.props.focus( );
 	},
 
 	"blur": function blur( ){
-		this.hasFocus = false;
+		if( !this.props.input ){
+			this.getElement( ).removeClass( "hover up" );
+			this.label.getElement( ).removeClass( "hover up" );
+		}
 
-		this.toggleInputLabel( );
-
-		this.blurInput( );
-
+		this.hidePlaceholder( );
+		
 		this.props.blur( );
 	},
 
@@ -84,7 +43,9 @@ var TextInput = React.createClass( {
 				<InputLabel
 					id="label"
 					name={ this.props.name }
-					label={ this.props.label }>
+					label={ this.props.label }
+					
+					size={ this.props.size }>
 				</InputLabel>
 				<Input
 					id="input"
@@ -96,15 +57,14 @@ var TextInput = React.createClass( {
 					input={ this.props.input }
 
 					update={ this.props.update }
+					click={ this.props.click }
+
 					focus={ this.focus }
 					blur={ this.blur }
-					click={ this.click }>
+
+					size={ this.props.size }>
 				</Input>
 			</div>
 		);
-	},
-
-	"componentDidUpdate": function componentDidUpdate( ){
-		this.toggleInputLabel( );
 	}
 } );

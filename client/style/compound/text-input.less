@@ -1,30 +1,67 @@
-.text-input[data-text-input] {
-    display: flex;
-    flex-direction: row;
+.text-input {
+	display: flex;
+	flex-direction: column;
 
-    width: 100%;
+	width: 100%;
 
-    .label[data-label]{
+	padding-top: 50px;
 
-    }
+	pointer-events: none !important;
 
-    .input[data-input]{
+	&.hover.up {
+		padding-top: 0px;
+	}
 
-    }
+	.input-label {
+		margin-bottom: -50px;
+		
+		padding-left: 20px;
 
-    &.tiny {
+		z-index: 1;
+
+		pointer-events: none !important;
+
+		.label {
+			pointer-events: none !important;
+
+			label {
+				pointer-events: none !important;
+			}
+		}
+
+		&.hover.up {
+			margin-bottom: 0px;
+
+			padding-left: 10px;
+
+			.label {
+				align-items: flex-end;
+
+				padding-bottom: 5px;
+			}
+		}
+	}
+
+	.input {
+		input {
+			padding-left: 10px;
+			padding-right: 10px;
+		}
+	}
+
+	&.tiny.size {
 
 	}
 
-	&.small {
+	&.small.size {
 
 	}
 
-	&.normal {
+	&.normal.size {
 		height: 100px;
 	}
 
-	&.large {
+	&.large.size {
 
 	}
 }
