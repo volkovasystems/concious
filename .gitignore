@@ -3,3 +3,5 @@ bower_components/
 temp/
 client/library/
 client/fonts/
+build/
+deploy/
