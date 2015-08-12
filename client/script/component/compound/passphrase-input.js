@@ -120,6 +120,12 @@ var PassphraseInput = React.createClass( {
 	},
 
 	"componentDidMount": function componentDidMount( ){
-		this.hidePassphrase( );
+		this.event.on( [
+				"child-loaded:hidden-passphrase",
+				"child-loaded:shown-passphrase"
+			],
+			( function onLoadPassphrases( ){
+				this.hidePassphrase( );
+			} ).bind( this ) );
 	}
 } );

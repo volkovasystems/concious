@@ -1,5 +1,5 @@
 node_modules/
 bower_components/
-deploy/
-build/
 temp/
+client/library/
+client/fonts/

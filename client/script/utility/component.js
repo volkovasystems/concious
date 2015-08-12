@@ -9,7 +9,13 @@ var Component = function Component( name ){
 	}
 };
 
+Component.prototype.cache = { };
+
 Component.prototype.load = function load( selector, blueprint ){
+	if( this.name in this.cache ){
+		throw new Error( "component name is already cached" );
+	}
+
 	$( selector ).ready( ( function onReady( ){
 		var element = $( selector );
 
@@ -21,5 +27,13 @@ Component.prototype.load = function load( selector, blueprint ){
 		} );
 
 		reactComponent.name = this.name;
+
+		reactComponent.components = this;
+
+		this.cache[ this.name ] = reactComponent;
 	} ).bind( this ) );
+};
+
+Component.prototype.get = function get( name ){
+	return this.cache[ name ];
 };

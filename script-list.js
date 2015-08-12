@@ -11,6 +11,8 @@ require( "script-lister" )
 		"mixin/basic/list-mixin.js",
 		"mixin/basic/paragraph-mixin.js",
 
+		"mixin/compound/switch-control-mixin.js",
+
 		"mixin/utility/blur-mixin.js",
 		"mixin/utility/clear-state-mixin.js",
 		"mixin/utility/click-mixin.js",
@@ -44,5 +46,5 @@ require( "script-lister" )
 		"component/page/header.js",
 		"component/page/page.js",
 
-		"app/test-page.js"
+		"app/login.js"
 	] );

@@ -1,80 +1,104 @@
 var Headbar = React.createClass( {
-	"mixins": [
-		ComponentMixin,
-		StateChangeMixin,
-		ShowHidePageMixin,
-		ClearStateMixin,
-		PageTraversalMixin,
+	"type": "headbar",
 
-		PageMixin
+	"mixins": [
+		ComponentMixin
 	],
 
 	"getDefaultProps": function getDefaultProps( ){
 		return {
+			//: This is the initial tab.
 			"tab": "",
-			"tabs": [ ]
+
+			//: These are the list of current tabs.
+			"tabs": [ ],
+
+			""
 		};
 	},
 
 	"getInitialState": function getInitialState( ){
 		return {
+			//: This is the current selected tab.
 			"tab": ""
 		};
 	},
 
 	"onEachTab": function onEachTab( tab ){
-		var tabPage = S( [ "-", tab, "-page" ].join( "" ) ).camelize( ).toString( );
+		var tabName = [ tab, "page" ].join( "-" );
 
 		return (
 			<div
 				data-tab-item>
-				<Control
-					name={ tab }
-					click={ window[ tabPage ].open }>
-				</Control>
+				<Tab
+					name={ tabName }
+					icon={ tabName }
+					text={ tab }
+					click={ this.components.get( tabName ).open }>
+				</Tab>
 			</div>
 		);
 	},
 
-	"render": function onRender( ){
-		var ID = this.getID( );
+	"openDashbar": function openDashbar( ){
+		this.components.get( "dashbar" ).open( );
+	},
 
+	"closeDashbar": function closeDashbar( ){
+		this.components.get( "dashbar" ).close( );
+	},
+
+	"openOpbar": function openOpbar( ){
+		this.components.get( "opbar" ).open( );
+	},
+
+	"closeOpbar": function closeOpbar( ){
+		this.components.get( "opbar" ).close`1( );
+	},
+
+	"render": function onRender( ){
 		var tab = this.state.tab;
 
 		var tabs = _.without( this.props.tabs, tab );
 
 		return (
 			<div
-				id={ ID }
+				id={ this.getID( ) }
 				data-component
-				data-page>
+				data-headbar
+				className={ this.type }>
 				<div
-					data-headbar>
-					<div
-						data-dashbar-header>
-						<ExpandControl
-							name={ tab }
-							openIcon="menu"
-							closeIcon="close"
-							expanded={ false }
-							open={ Dashbar.of( tab ).open }
-							close={ Dashbar.of( tab ).close }>
-						</ExpandControl>
-					</div>
+					data-dashbar-header-control
+					className="dashbar-header-control">
+					<ExpandControl
+						name={ tab }
+						text={ tab }
+						openIcon="menu"
+						closeIcon="close"
+						expanded={ false }
+						open={ this.openDashbar }
+						close={ this.closeDashbar }>
+					</ExpandControl>
+				</div>
 
-					<div
-						data-tab-list>
-						{ tabs.map( this.onEachTab ) }
-					</div>
+				<div
+					data-tab-list
+					className="tab-list">
+					{ tabs.map( this.onEachTab ) }
+				</div>
 
-					<div
-						data-opbar-header>
-						<IconControl
-							name={ tab }
-							icon="more_vert"
-							click={ Opbar.of( tab ).open }>
-						</IconControl>
-					</div>
+				<div
+					data-opbar-header-control
+					className="opbar-header-control">
+					<SwitchIconControl
+						name={ tab }
+						onName="open-opbar"
+						offName="close-opbar"
+						onIcon="dots-vertical"
+						offIcon="chevron-up"
+						switchOn={ this.openOpbar }
+						switchOff={ this.closeOpbar }>
+					</SwitchIconControl>
 				</div>
 			</div>
 		);
@@ -88,3 +112,5 @@ var Headbar = React.createClass( {
 		this.hide( );
 	}
 } );
+
+Component( "headbar" ).load( "section[headbar]", <Headbar /> );

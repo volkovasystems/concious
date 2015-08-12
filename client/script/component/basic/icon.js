@@ -1,24 +1,43 @@
 var Icon = React.createClass( {
-    "type": "icon",
+	"type": "icon",
 
-    "mixins": [
+	"statics": {
+		"cache": { }
+	},
+
+	"mixins": [
 		ComponentMixin,
 
-        IconMixin
+		IconMixin
 	],
 
-    "render": function render( ){
-        return (
+	"register": function register( name, icon ){
+		if( name in Icon.cache ){
+			throw new Error( "icon name already registered" );
+		
+		}else{
+			Icon.cache[ name ] = icon;
+		}
+	},
+
+	"resolve": function resolve( name ){
+		return [ "mdi", Icon.cache[ name ] || name ].join( "-" );
+	},
+
+	"render": function render( ){
+		return (
 			<div
-                id={ this.getID( ) }
-                data-component
+				id={ this.getID( ) }
+				data-component
 				data-icon={ this.props.name }
-                className={ this.type }>
+				className={ this.type }>
 				<i
-                    className="material-icons">
-                    { this.props.icon }
-                </i>
+					className={ [
+						"mdi",
+						this.resolve( this.props.icon )
+					].join( " " ) }>
+				</i>
 			</div>
-        );
-    }
+		);
+	}
 } );

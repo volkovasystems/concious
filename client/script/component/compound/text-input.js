@@ -12,13 +12,6 @@ var TextInput = React.createClass( {
 		this.getElement( ).addClass( "hover up" );
 		this.label.getElement( ).addClass( "hover up" );
 
-		if( this.props.input ){
-			this.hidePlaceholder( );
-		
-		}else{
-			this.showPlaceholder( );
-		}
-
 		this.props.focus( );
 	},
 
@@ -27,8 +20,6 @@ var TextInput = React.createClass( {
 			this.getElement( ).removeClass( "hover up" );
 			this.label.getElement( ).removeClass( "hover up" );
 		}
-
-		this.hidePlaceholder( );
 		
 		this.props.blur( );
 	},

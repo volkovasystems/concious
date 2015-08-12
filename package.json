@@ -47,5 +47,8 @@
     "serve-static": "^1.6.3",
     "terraforma": "^0.2.4",
     "yargs": "^3.15.0"
+  },
+  "dependencies": {
+    "edo": "0.0.0"
   }
 }

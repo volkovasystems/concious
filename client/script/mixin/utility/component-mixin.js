@@ -30,6 +30,10 @@ var ComponentMixin = {
 		return $( this.getDOMNode( ) );
 	},
 
+	"componentWillMount": function componentWillMount( ){
+		this.event = new Edo( );
+	},
+
 	"componentDidMount": function componentDidMount( ){
 		this.getElement( ).data( "self", this );
 
@@ -46,6 +50,10 @@ var ComponentMixin = {
 					harden.bind( parentComponent )( componentName, this );
 
 					this.parent = parentComponent;
+
+					var eventName = [ "component-loaded", this.getID( ) ].join( ":" );
+
+					parentComponent.event.emit( eventName );
 				}
 			}
 		} ).bind( this ) );

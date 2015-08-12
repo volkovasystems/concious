@@ -1,0 +1,50 @@
+<Page
+	name="login">
+	<Content>
+		<Header>
+			
+		</Header>
+		<Body>
+			<Content
+				size="small size">
+				<TextInput
+					name="publicPhrase"
+					input={ this.state.publicPhrase }
+
+					label="Public Phrase"
+					title="Enter your public phrase."
+					placeholder="Public Phrase"
+
+					update={ this.update }>
+				</TextInput>
+				<PassphraseInput
+					name="privatePhrase"
+					input={ this.state.privatePhrase }
+					
+					label="Private Phrase"
+					title="Enter your private phrase."
+					placeholder="Private Phrase"
+
+					update={ this.update }>
+				</PassphraseInput>
+			</Content>
+		</Body>
+		<Footer>
+			<Control
+				name="login"
+				text="Login"
+				click={ this.login }>
+			</Control>
+			<Control
+				name="register"
+				text="Register"
+				click={ this.register }>
+			</Control>
+			<Control
+				name="cancel"
+				text="Cancel"
+				click={ this.cancel }>
+			</Control>
+		</Footer>
+	</Content>
+</Page>
