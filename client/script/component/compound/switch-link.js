@@ -18,13 +18,13 @@ var SwitchLink = React.createClass( {
 				<Link
 					id="on-switch"
 					name={ this.props.onName }
-					label={ this.props.onLabel }
+					text={ this.props.onLabel }
 					click={ this.switchOn }> 
 				</Link>
 				<Link
 					id="off-switch"
 					name={ this.props.offName }
-					label={ this.props.offLabel }
+					text={ this.props.offLabel }
 					click={ this.switchOff }>
 				</Link>
 			</div>

@@ -4,16 +4,10 @@ var ExpandControl = React.createClass( {
 	"mixins": [
 		ComponentMixin,
 
-		SwitchControlMixin
+		SwitchIconControlMixin,
+		IconMixin,
+		SizeMixin
 	],
-
-	"getDefaultProps": function getDefaultProps( ){
-		return {
-			"icon": "",
-			"openIcon": "",
-			"closeIcon": ""
-		};
-	},
 
 	"render": function render( ){
 		return (
@@ -22,19 +16,26 @@ var ExpandControl = React.createClass( {
 				data-component
 				data-expand-control={ this.props.name }
 				className={ this.type }>
+
 				<IconControl
 					id="on-switch"
 					name={ this.props.onName }
-					label={ this.props.onLabel }
-					icon={ this.props.openIcon || this.props.icon }
-					click={ this.onSwitch }>
+					
+					icon={ this.props.onIcon || this.props.icon }
+					click={ this.switchOn }
+
+					size={ this.props.size }>
 				</IconControl>
+				
 				<Bar
 					id="off-switch"
 					name={ this.props.offName }
-					label={ this.props.offabel }
-					icon={ this.props.closeIcon || this.props.icon }
-					click={ this.offSwitch }>
+					text={ this.props.offLabel }
+
+					icon={ this.props.offIcon || this.props.icon }
+					click={ this.switchOff }
+
+					size={ this.props.size }>
 				</Bar>
 			</div>
 		);

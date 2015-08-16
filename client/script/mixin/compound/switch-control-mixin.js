@@ -45,8 +45,8 @@ var SwitchControlMixin = {
 
 	"componentDidMount": function componentDidMount( ){
 		this.event.on( [
-				"child-loaded:off-switch",
-				"child-loaded:on-switch"
+				"component-loaded:off-switch",
+				"component-loaded:on-switch"
 			],
 			( function onLoadSwitches( ){
 				if( this.props.status === "off" ){

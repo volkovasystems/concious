@@ -8,7 +8,8 @@ var Icon = React.createClass( {
 	"mixins": [
 		ComponentMixin,
 
-		IconMixin
+		IconMixin,
+		SizeMixin
 	],
 
 	"register": function register( name, icon ){

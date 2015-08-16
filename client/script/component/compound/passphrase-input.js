@@ -121,8 +121,8 @@ var PassphraseInput = React.createClass( {
 
 	"componentDidMount": function componentDidMount( ){
 		this.event.on( [
-				"child-loaded:hidden-passphrase",
-				"child-loaded:shown-passphrase"
+				"component-loaded:hidden-passphrase",
+				"component-loaded:shown-passphrase"
 			],
 			( function onLoadPassphrases( ){
 				this.hidePassphrase( );

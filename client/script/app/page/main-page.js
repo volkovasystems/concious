@@ -6,7 +6,7 @@ var MainPage = React.createClass( {
 	],
 
 	"render": function onRender( ){
-		return; //: @template: template/main-page.html
+		return; //: @template: template/page/main-page.html
 	},
 
 	"getInitialState": function getInitialState( ){
@@ -20,7 +20,6 @@ var MainPage = React.createClass( {
 	},
 
 	"componentDidMount": function componentDidMount( ){
-		this.hide( );
 	}
 } );
 

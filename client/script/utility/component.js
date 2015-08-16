@@ -9,6 +9,9 @@ var Component = function Component( name ){
 	}
 };
 
+//: This will be the parent event.
+Component.prototype.event = new Edo( );
+
 Component.prototype.cache = { };
 
 Component.prototype.load = function load( selector, blueprint ){
@@ -31,6 +34,8 @@ Component.prototype.load = function load( selector, blueprint ){
 		reactComponent.components = this;
 
 		this.cache[ this.name ] = reactComponent;
+
+		reactComponent.event.emit( "component-loaded" );
 	} ).bind( this ) );
 };
 

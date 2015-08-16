@@ -15,7 +15,7 @@ var Label = React.createClass( {
 				data-label={ this.props.name }
 				className={ this.type }>
 				<label
-					htmlFor={ this.props.name }>
+					htmlFor={ this.props.reference }>
 					{ this.state.title }
 				</label>	
 			</div>

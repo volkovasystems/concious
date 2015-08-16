@@ -5,7 +5,8 @@ var LabelMixin = {
     
     "getDefaultProps": function getDefaultProps( ){
 		return {
-            "label": ""
+            "label": "",
+            "reference": ""
 		};
 	},
 

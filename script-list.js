@@ -12,11 +12,13 @@ require( "script-lister" )
 		"mixin/basic/paragraph-mixin.js",
 
 		"mixin/compound/switch-control-mixin.js",
+		"mixin/compound/switch-icon-control-mixin.js",
 
 		"mixin/utility/blur-mixin.js",
 		"mixin/utility/clear-state-mixin.js",
 		"mixin/utility/click-mixin.js",
 		
+		"mixin/utility/configure-mixin.js",
 		"mixin/utility/focus-mixin.js",
 		"mixin/utility/placeholder-mixin.js",
 		"mixin/utility/show-hide-mixin.js",
@@ -39,12 +41,17 @@ require( "script-lister" )
 		"component/compound/link.js",
 		"component/compound/switch-link.js",
 		"component/compound/passphrase-input.js",
-
+		"component/compound/icon-control.js",
+		"component/compound/switch-icon-control.js",
+		"component/compound/bar.js",
+		"component/compound/expand-control.js",
+		"component/compound/tab.js",
+		"component/compound/icon-tab.js",
+		"component/compound/headbar.js",
+ 
 		"component/page/body.js",
 		"component/page/content.js",
 		"component/page/footer.js",
 		"component/page/header.js",
-		"component/page/page.js",
-
-		"app/login.js"
+		"component/page/page.js"
 	] );

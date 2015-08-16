@@ -1,5 +1,5 @@
-var Bar = React.createClass( {
-	"type": "bar",
+var IconTab = React.createClass( {
+	"type": "icon-tab",
 
 	"mixins": [
 		ComponentMixin,
@@ -14,7 +14,7 @@ var Bar = React.createClass( {
 			<div
 				id={ this.getID( ) }
 				data-component
-				data-bar={ this.props.name }
+				data-tab={ this.props.name }
 				className={ this.type }>
 				<button
 					onClick={ this.props.click }
@@ -25,11 +25,6 @@ var Bar = React.createClass( {
 						name={ this.props.name }
 						icon={ this.props.icon }>
 					</Icon>
-					<Label
-						id="bar-label"
-						name={ this.props.name }
-						label={ this.props.text } >
-					</Label>
 				</button>
 			</div>
 		);

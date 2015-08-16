@@ -1,9 +1,9 @@
 var NotifyMixin = {
-	"NORMAL_STATUS": "normal-status",
-	"INFORM_STATUS": "inform-status",
-	"SUCCESS_STATUS": "success-status",
-	"WARNING_STATUS": "warning-status",
-	"ERROR_STATUS": "error-status",
+	"NORMAL_STATUS": "normal status",
+	"INFORM_STATUS": "inform status",
+	"SUCCESS_STATUS": "success status",
+	"WARNING_STATUS": "warning status",
+	"ERROR_STATUS": "error status",
 
 	"getDefaultProps": function getDefaultProps( ){
 		return {
