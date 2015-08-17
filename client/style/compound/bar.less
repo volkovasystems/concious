@@ -6,14 +6,18 @@
 	width: auto;
 
 	button {
-		border-radius: 0px !important;
+		width: inherit;
+		height: inherit;
+
+		border: 0;
+		border-radius: 0px;
 
 		.icon {
 
 		}
 
 		.label {
-
+			align-items: center;
 		}
 	}
 
@@ -27,6 +31,12 @@
 
 	&.normal.size {
 		height: 70px;
+
+		button {
+			.icon {
+				width: 70px;
+			}
+		}
 	}
 
 	&.large.size {

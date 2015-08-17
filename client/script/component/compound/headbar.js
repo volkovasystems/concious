@@ -127,7 +127,7 @@ var Headbar = React.createClass( {
 			<div
 				id={ this.getID( ) }
 				data-component
-				data-headbar
+				data-headbar={ this.props.name }
 				className={ this.type }>
 				<div
 					data-dashbar-header-control

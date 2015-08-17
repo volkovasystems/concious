@@ -27,7 +27,7 @@ var ComponentMixin = {
 	},
 
 	"getElement": function getElement( selector ){
-		return $( selector, this.getDOMNode( ) );
+		return resolveSelector( selector, $( this.getDOMNode( ) ) );
 	},
 
 	"componentWillMount": function componentWillMount( ){

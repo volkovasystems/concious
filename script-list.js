@@ -3,6 +3,7 @@ require( "script-lister" )
 		"utility/event-wrapper.js",
 		"utility/component.js",
 		"utility/page-component.js",
+		"utility/resolve-selector.js",
 
 		"mixin/basic/control-mixin.js",
 		"mixin/basic/icon-mixin.js",

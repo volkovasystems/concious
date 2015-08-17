@@ -1,40 +1,27 @@
 var Dashbar = React.createClass( {
-	"statics": {
-		"list": [ ],
-
-		"of": function of( name ){
-			return _( Dashbar.list )
-				.filter( function onEachDashbar( dashbar ){
-					return dashbar.props.name == name;
-				} )
-				.value( );
-		},
-
-		"flush": function flush( name ){
-			if( name ){
-				exclude.bind( Dashbar.list )( name,
-				 	function onEachDashbar( dashbar ){
-						return dashbar.props.name == name;
-					} );
-
-			}else{
-				Dashbar.list = [ ];
-			}
-		}
-	},
-
 	"mixins": [
 		ComponentMixin,
-		StateChangeMixin,
-		ShowHidePageMixin,
-		ClearStateMixin,
-		PageTraversalMixin,
 
-		PageMixin
+		SizeMixin,
+		ConfigureMixin
 	],
 
 	"getDefaultProps": function getDefaultProps( ){
 		return {
+			//: This is the initial bar.
+			"bar": "",
+
+			//: These are the list of initial bars.
+			"bars": [ ]
+		};
+	},
+
+	"getInitialState": function getInitialState( ){
+		return {
+			//: This is the current selected bar.
+			"bar": "",
+
+			//: These are the list of current bars.
 			"bars": [ ]
 		};
 	},
@@ -53,26 +40,24 @@ var Dashbar = React.createClass( {
 		return (
 			<div
 				data-dash-item>
-				<Control
+				<Bar
 					name={ name }
 					icon={ icon }
 					click={ window[ barPage ].open }>
-				</Control>
+				</Bar>
 			</div>
 		);
 	},
 
 	"render": function onRender( ){
-		var ID = this.getID( );
-
 		var bars = this.props.bars;
 
 		return (
 			<div
-				id={ ID }
+				id={ this.getID( ) }
 				data-component
-				data-page={ this.props.name }
-				data-align-left>
+				data-dashbar={ this.props.name }
+				className={ this.type }>
 				<div
 					data-dashbar
 					data-align-vertical>
@@ -84,10 +69,6 @@ var Dashbar = React.createClass( {
 				</div>
 			</div>
 		);
-	},
-
-	"componentWillMount": function componentWillMount( ){
-		Dashbar.list.push( this );
 	},
 
 	"componentDidUpdate": function componentDidUpdate( ){
