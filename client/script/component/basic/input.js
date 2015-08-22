@@ -4,9 +4,9 @@ var Input = React.createClass( {
 	"mixins": [
 		ComponentMixin,
 
-		InputMixin,
+		SizeMixin,
 		PlaceholderMixin,
-		SizeMixin
+		InputMixin
 	],
 
 	"blur": function blur( ){

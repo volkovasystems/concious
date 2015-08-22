@@ -9,8 +9,10 @@ var Component = function Component( name ){
 	}
 };
 
+Component.event = new Edo( );
+
 //: This will be the parent event.
-Component.prototype.event = new Edo( );
+Component.prototype.event = Component.event;
 
 Component.prototype.cache = { };
 

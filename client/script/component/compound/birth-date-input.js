@@ -3,7 +3,6 @@ var BirthDateInput = React.createClass( {
 
     "mixins": [
 		ComponentMixin,
-        ShowHideComponentMixin,
 
         LabelMixin,
 		InputMixin

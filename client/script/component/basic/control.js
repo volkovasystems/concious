@@ -4,8 +4,8 @@ var Control = React.createClass( {
 	"mixins": [
 		ComponentMixin,
 
-		ControlMixin,
-		SizeMixin
+		SizeMixin,
+		ControlMixin
 	],
 
 	"render": function render( ){

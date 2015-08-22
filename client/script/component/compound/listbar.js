@@ -1,38 +1,61 @@
-var ListBar = React.createClass( {
+var Listbar = React.createClass( {
 	"type": "listbar",
 
 	"mixins": [
 		ComponentMixin,
 
-		SizeMixin
+		SizeMixin,
+		ListbarMixin
 	],
 
-	"getDefaultProps": function getDefaultProps( ){
-		return {
-			//: These are the list of current bars.
-			"bars": [ ]
-		};
-	},
+	/*
+		Bar may contain optional click function then
+			use it to override the default action.
+	*/
+	"clickBar": function clickBar( bar ){
+		return ( function clickBarDelegate( event ){
+			if( "click" in bar &&
+				typeof bar.click == "function" )
+			{
+				bar.click( event );
 
-	"clickBar": function clickBar( barName ){
-		return ( function clickBarDelegate( ){
-			this.components.event.emit( [ "open", barName ].join( ":" ) );
+			}else{
+				this.components.event
+					.emit( [ "open", bar.name ].join( ":" ) );	
+			}
+
+			this.props.updateBar( bar );
 		} ).bind( this );
 	},
 
+	/*
+		Bar object should be in this format.
+			{
+				"name": String,
+				"icon": String,
+				"title": String
+			}
+
+		If bar contains a special render function
+			then we should use it.
+	*/
 	"onEachBar": function onEachBar( bar ){
-		var barName = [ bar, "page" ].join( "-" );
+		if( "render" in bar &&
+			typeof bar.render == "function" )
+		{
+			return bar.render.bind( this )( bar );
+		}
 
 		return (
 			<div
-				key={ barName }
+				key={ bar.name }
 				data-bar-item
 				className="bar-item">
 				<Bar
-					name={ barName }
-					icon={ barName }
-					text={ bar }
-					click={ this.clickBar( barName ) }>
+					name={ bar.name }
+					icon={ bar.icon }
+					text={ bar.title }
+					click={ this.clickBar( bar ) }>
 				</Bar>
 			</div>
 		);
@@ -43,7 +66,7 @@ var ListBar = React.createClass( {
 			<div
 				id={ this.getID( ) }
 				data-component
-				data-listbar
+				data-listbar={ this.props.name }
 				className={ this.type }>
 				
 				<div
@@ -54,13 +77,5 @@ var ListBar = React.createClass( {
 
 			</div>
 		);
-	},
-
-	"componentDidUpdate": function componentDidUpdate( ){
-
-	},
-
-	"componentDidMount": function componentDidMount( ){
-		this.hide( );
 	}
 } );

@@ -4,6 +4,7 @@ var Label = React.createClass( {
 	"mixins": [
 		ComponentMixin,
 
+		SizeMixin,
 		LabelMixin
 	],
 

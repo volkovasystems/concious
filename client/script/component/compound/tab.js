@@ -4,6 +4,7 @@ var Tab = React.createClass( {
 	"mixins": [
 		ComponentMixin,
 
+		SizeMixin,
 		ControlMixin
 	],
 

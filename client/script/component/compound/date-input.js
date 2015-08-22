@@ -3,8 +3,6 @@ var DateInput = React.createClass( {
 
 	"mixins": [
 		ComponentMixin,
-		ClearStateMixin,
-		ShowHideComponentMixin,
 
 		LabelMixin,
 		InputMixin

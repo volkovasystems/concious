@@ -4,24 +4,24 @@ var InputHeaderLabel = React.createClass( {
 	"mixins": [
 		ComponentMixin,
 
-        LabelMixin
+		LabelMixin
 	],
 
 	"render": function render( ){
-        var ID = this.getID( );
+		var ID = this.getID( );
 
-        var label = [ this.props.label, ":" ].join( "" );
+		var label = [ this.props.label, ":" ].join( "" );
 
-        return (
-            <div
-                id={ ID }
-                data-component
-                data-input-header-label={ this.props.name }>
-                <HeaderLabel
-                    name={ this.props.name }
-                    label={ label }>
-                </HeaderLabel>
-            </div>
-        );
+		return (
+			<div
+				id={ ID }
+				data-component
+				data-input-header-label={ this.props.name }>
+				<HeaderLabel
+					name={ this.props.name }
+					label={ label }>
+				</HeaderLabel>
+			</div>
+		);
 	}
 } );

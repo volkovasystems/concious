@@ -4,9 +4,9 @@ var Bar = React.createClass( {
 	"mixins": [
 		ComponentMixin,
 
-		ControlMixin,
+		SizeMixin,
 		IconMixin,
-		SizeMixin
+		ControlMixin
 	],
 
 	"render": function render( ){

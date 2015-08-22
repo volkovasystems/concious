@@ -12,8 +12,8 @@ var PassphraseInput = React.createClass( {
 	"mixins": [
 		ComponentMixin,
 
-		InputMixin,
-		SizeMixin
+		SizeMixin,
+		InputMixin
 	],
 
 	"showPassphrase": function showPassphrase( ){

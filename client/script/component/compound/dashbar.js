@@ -1,81 +1,46 @@
 var Dashbar = React.createClass( {
+	"statics": {
+		"open": function open( ){
+
+		},
+
+		"close": function close( ){
+
+		}
+	},
+
+	"type": "dashbar",
+
 	"mixins": [
 		ComponentMixin,
 
 		SizeMixin,
-		ConfigureMixin
+		ListbarMixin,
+		
+		DashbarConfigure
 	],
 
-	"getDefaultProps": function getDefaultProps( ){
-		return {
-			//: This is the initial bar.
-			"bar": "",
-
-			//: These are the list of initial bars.
-			"bars": [ ]
-		};
-	},
-
-	"getInitialState": function getInitialState( ){
-		return {
-			//: This is the current selected bar.
-			"bar": "",
-
-			//: These are the list of current bars.
-			"bars": [ ]
-		};
-	},
-
-	"onEachBar": function onEachBar( bar ){
-		var name = bar;
-		var icon = "";
-
-		if( typeof bar == "object" ){
-			name = bar.name;
-			icon = bar.icon;
-		}
-
-		var barPage = S( [ "-", name ].join( "" ) ).camelize( ).toString( );
-
-		return (
-			<div
-				data-dash-item>
-				<Bar
-					name={ name }
-					icon={ icon }
-					click={ window[ barPage ].open }>
-				</Bar>
-			</div>
-		);
-	},
-
 	"render": function onRender( ){
-		var bars = this.props.bars;
-
 		return (
 			<div
 				id={ this.getID( ) }
 				data-component
 				data-dashbar={ this.props.name }
 				className={ this.type }>
-				<div
-					data-dashbar
-					data-align-vertical>
-					<div
-						data-dash-list
-						data-align-vertical>
-						{ bars.map( this.onEachBar ) }
-					</div>
-				</div>
+				<Listbar
+					id={ this.getID( ) }
+					name={ this.props.name }
+
+					bar={ this.props.bar }
+					bars={ this.props.bars }
+
+					updateBar={ this.updateBar }
+
+					size={ this.props.size }>
+				</Listbar>
 			</div>
 		);
-	},
-
-	"componentDidUpdate": function componentDidUpdate( ){
-
-	},
-
-	"componentDidMount": function componentDidMount( ){
-		this.hide( );
 	}
-} )
+} );
+
+Component( "dashbar" ).load( "section[dashbar]", <Dashbar /> );
