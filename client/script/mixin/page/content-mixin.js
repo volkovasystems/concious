@@ -1,8 +1,16 @@
+var ContentType = { };
+harden.bind( ContentType )( "GROUPED_CONTENT", "grouped type" );
+harden.bind( ContentType )( "ITEM_CONTENT", "item type" );
+
 var ContentMixin = {
+	"mixins": [
+		SizeMixin
+	],
+
 	"getDefaultProps": function getDefaultProps( ){
 		return {
 			"type": "",
-			"size": ""
+			"scrollable": false
 		};
 	},
 
@@ -12,9 +20,22 @@ var ContentMixin = {
 		}
 	},
 
-	"setSize": function setSize( size ){
-		if( size ){
-			this.content.addClass( size );	
+	"resolveScrollable": function resolveScrollable( ){
+		if( this.props.scrollable ){
+			this.content.addClass( "scrollable" );
+		
+		}else{
+			this.content.removeClass( "scrollable" );
+		}
+	},
+
+	"componentDidUpdate": function componentDidUpdate( prevProps ){
+		if( this.props.type != prevProps.type ){
+			this.setType( this.props.type );
+		}
+
+		if( this.props.scrollable != prevProps.scrollable ){
+			this.resolveScrollable( );
 		}
 	},
 
@@ -23,6 +44,6 @@ var ContentMixin = {
 
 		this.setType( this.props.type );
 
-		this.setSize( this.props.size );
+		this.resolveScrollable( );
 	}
 };

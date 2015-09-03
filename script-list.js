@@ -65,5 +65,7 @@ require( "script-lister" )
 		"component/page/content.js",
 		"component/page/footer.js",
 		"component/page/header.js",
-		"component/page/page.js"
+		"component/page/page.js",
+
+		"app/page/main-page.js"
 	] );

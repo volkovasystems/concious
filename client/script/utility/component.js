@@ -1,17 +1,20 @@
+/*:
+	Wraps the component as root component with direct
+		attachment to the dom.
+*/
 var Component = function Component( name ){
 	if( this instanceof Component ){
 		this.name = name;
 
-		this.className = S( [ "-", name ].join( "" ) ).camelize( ).toString( );
+		this.className = llamalize( name, true );
 
 	}else{
 		return new Component( name );
 	}
 };
 
-Component.event = new Edo( );
-
 //: This will be the parent event.
+harden.bind( Component )( "event", new Edo( ) );
 Component.prototype.event = Component.event;
 
 Component.prototype.cache = { };
@@ -24,6 +27,10 @@ Component.prototype.load = function load( selector, blueprint ){
 	$( selector ).ready( ( function onReady( ){
 		var element = $( selector );
 
+		if( !element.exists( ) ){
+			throw new Error( "component element does not exists" );
+		}
+
 		var reactComponent = React.render( blueprint, element[ 0 ] );
 
 		reactComponent.setProps( {
@@ -33,7 +40,7 @@ Component.prototype.load = function load( selector, blueprint ){
 
 		reactComponent.name = this.name;
 
-		reactComponent.components = this;
+		reactComponent.component = this;
 
 		this.cache[ this.name ] = reactComponent;
 

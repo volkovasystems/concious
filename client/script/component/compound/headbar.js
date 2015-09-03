@@ -13,19 +13,27 @@ var Headbar = React.createClass( {
 		},
 
 		"addTabs": function addTabs( tabs ){
-			Component.event.emit( "add:headbar/tabs" );
+			Component.event.emit( "add:headbar/tabs", tabs );
 		},
 
 		"addTab": function addTab( tab ){
+			Component.event.emit( "add:headbar/tab", tab );
+		},
 
+		"disableTabs": function disableTabs( tabs ){
+			Component.event.emit( "disable:headbar/tabs", tabs );
+		},
+
+		"enableTabs": function enableTabs( tabs ){
+			Component.event.emit( "enable:headbar/tabs", tabs );
 		},
 
 		"disableTab": function disableTab( tab ){
-
+			Component.event.emit( "disable:headbar/tab", tab );
 		},
 
 		"enableTab": function enableTab( tab ){
-
+			Component.event.emit( "enable:headbar/tab", tab );
 		}
 	},
 
@@ -71,8 +79,8 @@ var Headbar = React.createClass( {
 							offName="close-dashbar"
 							onIcon="menu"
 							offIcon="close"
-							switchOn={ Dashbar.open( ) }
-							switchOff={ Dashbar.close( ) }>
+							switchOn={ Dashbar.open }
+							switchOff={ Dashbar.close }>
 						</SwitchIconControl>
 					</div>
 

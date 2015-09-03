@@ -1,21 +1,28 @@
-var SizeMixin = {
-	"TINY_SIZE": "tiny size",
-	"SMALL_SIZE": "small size",
-	"NORMAL_SIZE": "normal size",
-	"LARGE_SIZE": "large size",
+var Size = { };
+harden.bind( Size )( "TINY_SIZE", "tiny size" );
+harden.bind( Size )( "SMALL_AND_TINY_SIZE", "small and tiny size" );
+harden.bind( Size )( "SMALL_SIZE", "small size" );
+harden.bind( Size )( "NORMAL_AND_SMALL_SIZE", "normal and small size" );
+harden.bind( Size )( "NORMAL_SIZE", "normal size" );
+harden.bind( Size )( "LARGE_AND_NORMAL_SIZE", "large and normal size" );
+harden.bind( Size )( "LARGE_SIZE", "large size" );
 
+var SizeMixin = {
 	"getDefaultProps": function getDefaultProps( ){
 		return {
-			"size": "normal size"
+			"size": Size.TINY_SIZE
 		};
 	},
 
 	"clearAllSizes": function clearAllSizes( ){
 		$( this.getDOMNode( ) ).removeClass( [ 
-			this.TINY_SIZE,
-			this.SMALL_SIZE,
-			this.NORMAL_SIZE,
-			this.LARGE_SIZE
+			Size.TINY_SIZE,
+			Size.SMALL_AND_TINY_SIZE,
+			Size.SMALL_SIZE,
+			Size.NORMAL_AND_SMALL_SIZE,
+			Size.NORMAL_SIZE,
+			Size.LARGE_AND_NORMAL_SIZE,
+			Size.LARGE_SIZE
 		].join( " " ) );
 	},
 
@@ -29,16 +36,22 @@ var SizeMixin = {
 		size = size || this.props.size;
 
 		if( /tiny/.test( size ) ){
-			return this.TINY_SIZE;
+			return Size.TINY_SIZE;
+
+		}else if( /small/.test( size ) &&
+			/and/.test( size ) &&
+			/tiny/.test( size ) )
+		{
+			return Size.SMALL_AND_TINY_SIZE;
 
 		}else if( /small/.test( size ) ){
-			return this.SMALL_SIZE;
+			return Size.SMALL_SIZE;
 
 		}else if( /normal/.test( size ) ){
-			return this.NORMAL_SIZE;
+			return Size.NORMAL_SIZE;
 
 		}else if( /large/.test( size ) ){
-			return this.LARGE_SIZE;
+			return Size.LARGE_SIZE;
 
 		}else{
 			return "";
