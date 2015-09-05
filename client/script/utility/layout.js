@@ -41,6 +41,8 @@
 
 	@todo:
 		Layout with zero priority is the containing layout.
+
+		Support for adjusting layout properties with percentage values.
 	@end-todo
 */
 var Layout = function Layout( adjustment ){
@@ -65,6 +67,13 @@ harden.bind( Layout )
 	} );
 
 harden.bind( Layout )
+	( "LAYOUT_VALUE_TYPES", {
+		"pixel": /^\d+px$/,
+		"percentage": /^\d+\%$/,
+		"auto": /^auto$/ 
+	} );
+
+harden.bind( Layout )
 	( "LAYOUT_SIZES", {
 		"width": true,
 		"height": true
@@ -81,8 +90,8 @@ harden.bind( Layout )
 		"zIndex": true
 	} );
 
+//: This is the collection of looks.
 harden.bind( Layout )( "looks", { } );
-
 Layout.prototype.looks = Layout.looks;
 
 // This is the root look.
@@ -95,9 +104,38 @@ Layout.prototype.current = Layout.current;
 // Then we can add the current look here.
 Layout.current.look = Layout.looks[ 0 ];
 
+/*:
+	Generally, we are permitting a move to be in
+		percentage value or auto.
+
+	BUT! This should not be applied as much as possible.
+
+	We want strict pixel values for every move as much as possible.
+
+	We only did this because we will support for 
+		backward compatibility and simplicity of procedures
+		of other functions.
+
+	resolveValue requires accepting percentage, auto and pixel values.
+*/
 Layout.prototype.move = function move( movement, value ){
 	if( !Layout.LAYOUT_MOVEMENTS[ movement ] ){
 		throw new Error( "invalid layout movement" );
+	}
+
+	if( value &&
+		( /^\d+\%$|^auto$/ ).test( value ) )
+	{
+		this.adjustment[ movement ] = value;
+
+		return this;
+	}
+
+	var thisValue = this.adjustment[ movement ];
+	if( !value &&
+		( /^\d+\%$|^auto$/ ).test( thisValue ) )
+	{
+		return thisValue;
 	}
 
 	if( value ){
@@ -107,7 +145,11 @@ Layout.prototype.move = function move( movement, value ){
 		return this;
 
 	}else{
-		return parseInt( this.adjustment[ movement ].match( /^\d+/ )[ 0 ] );
+		if( !( movement in this.adjustment ) ){
+			return null;
+		}
+
+		return parseInt( thisValue.match( /^\d+/ )[ 0 ] );
 	}
 };
 
@@ -122,11 +164,13 @@ Layout.prototype.resize = function resize( size, value ){
 		this.adjustment[ size ] = value;
 
 		return this;
-	
-	}else if( !value &&
-		( /^\d+\%$|^auto$/ ).test( this.adjustment[ size ] ) )
+	}
+
+	var thisValue = this.adjustment[ size ];
+	if( !value &&
+		( /^\d+\%$|^auto$/ ).test( thisValue ) )
 	{
-		return this.adjustment[ size ];
+		return thisValue;
 	}
 
 	if( value ){
@@ -136,7 +180,11 @@ Layout.prototype.resize = function resize( size, value ){
 		return this;
 
 	}else{
-		return parseInt( this.adjustment[ size ].match( /^\d+/ )[ 0 ] );
+		if( !( size in this.adjustment ) ){
+			return null;
+		}
+
+		return parseInt( thisValue.match( /^\d+/ )[ 0 ] );
 	}
 };
 
@@ -144,6 +192,8 @@ Layout.prototype.priority = function priority( value ){
 	if( value ){
 		this.adjustment.priority = value;
 		
+		//: The level is a private value alias property for priority.
+		//: This is exposed outside so that we can sort it by level.
 		this.level = value;
 
 		this.adjust( );
@@ -151,7 +201,7 @@ Layout.prototype.priority = function priority( value ){
 		return this;
 
 	}else{
-		return this.level;	
+		return this.adjustment.priority;	
 	}
 };
 
@@ -205,13 +255,13 @@ Layout.prototype.adjust = function adjust( ){
 		var target = layout;
 
 		//: Negative priorities are disabled adjustments.
-		if( target.priority( ) < 0 ){
+		if( target.isDisabled( ) ){
 			return;
 		}
 
 		look.each( function onEachLayout( layout ){
 			//: Negative priorities are disabled adjustments.
-			if( layout.priority( ) < 0 ){
+			if( layout.isDisabled( ) ){
 				return;
 			}
 
@@ -225,54 +275,45 @@ Layout.prototype.adjust = function adjust( ){
 				return;
 			}
 
-			if( "left" in target && 
-				target.left == "0px" &&
-				"width" in target &&
-				( /^\d+px$/ ).test( target.width ) &&
-				parseInt( target.width.match( /^\d+/ )[ 1 ] ) > 0 )
+			if( target.isAnchoredLeft( ) &&
+				target.hasWidth( ) &&
+				target.hasPixelValueWidth( ) )
 			{
-				if( "left" in adjustment ){
-					adjustment.left = target.width;
+				if( layout.hasLeft( ) ){
+					layout.left( target.width( ) );
 				}
 			}
 
-			if( "right" in target && 
-				target.right == "0px" &&
-				"width" in target &&
-				( /^\d+px$/ ).test( target.width ) &&
-				parseInt( target.width.match( /^\d+/ )[ 1 ] ) > 0 )
+			if( target.isAnchoredRight( ) &&
+				target.hasWidth( ) &&
+				target.hasPixelValueWidth( ) )
 			{
-				if( "right" in adjustment ){
-					adjustment.right = target.width;
+				if( layout.hasRight( ) ){
+					layout.right( target.width( ) );
 				}
 			}
 
-			if( "top" in target && 
-				target.top == "0px" &&
-				"height" in target &&
-				( /^\d+px$/ ).test( target.height ) &&
-				parseInt( target.height.match( /^\d+/ )[ 1 ] ) > 0 )
+			if( target.isAnchoredTop( ) &&
+				target.hasHeight( ) &&
+				target.hasPixelValueHeight( ) )
 			{
-				if( "top" in adjustment ){
-					adjustment.top = target.height;
+				if( layout.hasTop( ) ){
+					layout.top( target.height( ) );
 				}
 			}
 
-			if( "bottom" in target && 
-				target.bottom == "0px" &&
-				"height" in target &&
-				( /^\d+px$/ ).test( target.height ) &&
-				parseInt( target.height.match( /^\d+/ )[ 1 ] ) > 0 )
+			if( target.isAnchoredBottom( ) &&
+				target.hasHeight( ) &&
+				target.hasPixelValueHeight( ) )
 			{
-				if( "bottom" in adjustment ){
-					adjustment.bottom = target.height;
+				if( layout.hasBottom( ) ){
+					layout.bottom( target.height( ) );
 				}
 			}
 
 			if( "left" in target && 
 				parseInt( target.left.match( /^\d+/ )[ 1 ] ) > 0 &&
-				"width" in target &&
-				( /^\d+px$/ ).test( target.width ) &&
+				target.hasWidth &&
 				parseInt( target.width.match( /^\d+/ )[ 1 ] ) > 0 )
 			{
 				if( "left" in adjustment ){
@@ -292,20 +333,24 @@ Layout.prototype.resolveValue = function resolveValue( name, value ){
 		throw new Error( "invalid layout property" );
 	}
 
+	//: If value is percentage or auto.
 	if( ( /^\d+\%$|^auto$/ ).test( value ) ){
 		return value;
 	}
 
-	value = value || ( this[ name ]( ) + 1 );
+	//: If value is not in percentage and auto.
+	var oldValue = this[ name ]( ) || 0
+	value = value || ( oldValue + 1 );
 
+	//: If value is negative.
 	if( typeof value == "number" &&
 	 	value < 0 )
 	{
-		value = Math.abs( this[ name ]( ) - value );
+		value = Math.abs( oldValue + value );
 	}
 
 	return value;
-}
+};
 
 Layout.prototype.moveLeft = function moveLeft( name, value ){
 	this.left( this.resolveValue( name, value ) );
@@ -371,3 +416,151 @@ Layout.prototype.disable = function disable( ){
 	return this;
 };
 
+Layout.prototype.isDisabled = function isDisabled( ){
+	return this.adjustment.priority < 0;
+};
+
+Layout.prototype.isEnabled = function isEnabled( ){
+	return this.adjustment.priority > 0;
+};
+
+Layout.prototype.checkValueType = function checkValueType( property, type ){
+	if( !Layout.LAYOUT_PROPERTIES[ property ] ){
+		throw new Error( "invalid layout property" );
+	}
+
+	if( !Layout.LAYOUT_VALUE_TYPES[ type ] ){
+		throw new Error( "invalid value type" );
+	}
+
+	return ( Layout.LAYOUT_VALUE_TYPES[ type ] )
+		.test( this.adjustment[ property ] );
+};
+
+Layout.prototype.isPixelValue = function isPixelValue( property ){
+	return this.checkValueType( property, "pixel" );
+};
+
+Layout.prototype.hasMovement = function hasMovement( movement ){
+	if( !Layout.LAYOUT_MOVEMENTS[ movement ] ){
+		throw new Error( "invalid layout movement" );
+	}
+
+	return ( movement in this.adjustment );
+};
+
+Layout.prototype.hasSize = function hasSize( size ){
+	if( !Layout.LAYOUT_SIZES[ size ] ){
+		throw new Error( "invalid layout size" );
+	}
+
+	return ( size in this.adjustment );
+};
+
+Layout.prototype.hasLeft = function hasLeft( ){
+	return this.hasMovement( "left" );
+};
+
+Layout.prototype.isAnchoredLeft = function isAnchoredLeft( ){
+	return sive( this.hasLeft( ),
+		this.left( ) === 0,
+		!this.hasRight( ) );
+};
+
+Layout.prototype.isPixelValueLeft = function isPixelValueLeft( ){
+	return this.isPixelValue( "left" );
+};
+
+Layout.prototype.hasPixelValueLeft = function hasPixelValueLeft( ){
+	return sive( this.hasLeft( ),
+		this.isPixelValueLeft( ),
+		this.left( ) > 0 );
+};
+
+Layout.prototype.hasRight = function hasRight( ){
+	return this.hasMovement( "right" );
+};
+
+Layout.prototype.isAnchoredRight = function isAnchoredRight( ){
+	return sive( this.hasRight( ),
+		this.right( ) === 0,
+		!this.hasLeft( ) );
+};
+
+Layout.prototype.isPixelValueRight = function isPixelValueRight( ){
+	return this.isPixelValue( "right" );
+};
+
+Layout.prototype.hasPixelValueRight = function hasPixelValueRight( ){
+	return sive( this.hasRight( ),
+		this.isPixelValueRight( ),
+		this.right( ) > 0 );
+};
+
+Layout.prototype.hasTop = function hasTop( ){
+	return this.hasMovement( "top" );
+};
+
+Layout.prototype.isAnchoredTop = function isAnchoredTop( ){
+	return sive( this.hasTop( ),
+		this.top( ) === 0,
+		!this.hasBottom( ) );
+};
+
+Layout.prototype.isPixelValueTop = function isPixelValueTop( ){
+	return this.isPixelValue( "top" );
+};
+
+Layout.prototype.hasPixelValueTop = function hasPixelValueTop( ){
+	return sive( this.hasTop( ),
+		this.isPixelValueTop( ),
+		this.top( ) > 0 );
+};
+
+Layout.prototype.hasBottom = function hasBottom( ){
+	return this.hasMovement( "bottom" );
+};
+
+Layout.prototype.isAnchoredBottom = function isAnchoredBottom( ){
+	return sive( this.hasBottom( ),
+		this.bottom( ) === 0,
+		!this.hasTop( ) );
+};
+
+Layout.prototype.isPixelValueBottom = function isPixelValueBottom( ){
+	return this.isPixelValue( "bottom" );
+};
+
+Layout.prototype.hasPixelValueBottom = function hasPixelValueBottom( ){
+	return sive( this.hasBottom( ),
+		this.isPixelValueBottom( ),
+		this.bottom( ) > 0 );
+};
+
+Layout.prototype.hasWidth = function hasWidth( ){
+	return this.hasSize( "width" );
+};
+
+Layout.prototype.isPixelValueWidth = function isPixelValueWidth( ){
+	return this.isPixelValue( "width" );
+};
+
+Layout.prototype.hasPixelValueWidth = function hasPixelValueWidth( ){
+	return sive( this.hasWidth( ),
+		this.isPixelValueWidth( ),
+		this.width( ) > 0 );
+};
+
+Layout.prototype.hasHeight = function hasHeight( ){
+	return this.hasSize( "height" );
+};
+
+Layout.prototype.isPixelValueHeight = function isPixelValueHeight( ){
+	return this.isPixelValue( "height" );
+};
+
+Layout.prototype.hasPixelValueHeight = function hasPixelValueHeight( ){
+	return sive( this.hasHeight( ),
+		this.isPixelValueHeight( ),
+		this.height( ) > 0 );
+};
