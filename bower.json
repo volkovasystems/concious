@@ -49,6 +49,7 @@
     "pubsub.js": "~0.1.0",
     "react": "~0.12.0",
     "setImmediate": "https://github.com/YuzuJS/setImmediate.git#~1.0.2",
+    "sive": "~0.0.0",
     "string": "~3.1.1",
     "svg-loaders": "~1.0.2",
     "tag-it": "https://github.com/aehlke/tag-it.git",

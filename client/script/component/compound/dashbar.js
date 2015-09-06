@@ -50,23 +50,28 @@ var Dashbar = React.createClass( {
 
 	"render": function onRender( ){
 		return (
-			<div
-				id={ this.getID( ) }
-				data-component
-				data-dashbar={ this.props.name }
-				className={ this.type }>
-				<Listbar
-					id={ this.getID( ) }
-					name={ this.props.name }
+			<Page
+				name="dashbar">
+				<Content>
+					<div
+						id={ this.getID( ) }
+						data-component
+						data-dashbar={ this.props.name }
+						className={ this.type }>
+						<Listbar
+							id={ this.getID( ) }
+							name={ this.props.name }
 
-					bar={ this.props.bar }
-					bars={ this.props.bars }
+							bar={ this.props.bar }
+							bars={ this.props.bars }
 
-					updateBar={ this.updateBar }
+							updateBar={ this.updateBar }
 
-					size={ this.props.size }>
-				</Listbar>
-			</div>
+							size={ this.props.size }>
+						</Listbar>
+					</div>		
+				</Content>
+			</Page>
 		);
 	}
 } );

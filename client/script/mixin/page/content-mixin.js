@@ -10,7 +10,8 @@ var ContentMixin = {
 	"getDefaultProps": function getDefaultProps( ){
 		return {
 			"type": "",
-			"scrollable": false
+			"scrollable": false,
+			"spread": false
 		};
 	},
 
