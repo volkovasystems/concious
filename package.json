@@ -23,7 +23,8 @@
   "license": "MIT",
   "devDependencies": {
     "gulp": "^3.9.0",
-    "script-lister": "^0.1.0"
+    "script-lister": "^0.1.0",
+    "terraforma": "^0.2.7"
   },
   "dependencies": {}
 }
