@@ -15,6 +15,7 @@ var Column = React.createClass( {
 				data-column={ this.props.name }
 				className={ this.type }>
 				
+				
 			</div>
 		);
 	}
