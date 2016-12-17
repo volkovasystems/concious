@@ -1,0 +1,48 @@
+{
+  "name": "concious",
+  "version": "0.0.0",
+  "description": "ReactJS based Concise UI Framework.",
+  "main": "index.js",
+  "scripts": {
+    "build": "gulp && babel concious.js -o concious.support.js && webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/volkovasystems/concious.git"
+  },
+  "keywords": [
+    "concise",
+    "ui",
+    "framework",
+    "reactjs",
+    "concious"
+  ],
+  "author": "Richeve S. Bebedor <richeve.bebedor@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/volkovasystems/concious/issues"
+  },
+  "homepage": "https://github.com/volkovasystems/concious#readme",
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-core": "^6.20.0",
+    "babel-plugin-transform-runtime": "^6.15.0",
+    "babel-preset-latest": "^6.16.0",
+    "babel-preset-react": "^6.16.0",
+    "css-loader": "^0.26.1",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-plumber": "^1.1.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sourcemaps": "^1.9.1",
+    "gulp-uglify": "^2.0.0",
+    "style-loader": "^0.13.1",
+    "webpack": "^1.14.0"
+  },
+  "dependencies": {
+    "harden": "^0.12.0",
+    "react": "^15.4.1",
+    "react-dom": "^15.4.1"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "name": "concious",
+  "description": "ReactJS based Concise UI Framework.",
+  "main": "index.js",
+  "authors": [
+    "Richeve S. Bebedor <richeve.bebedor@gmail.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "concise",
+    "ui",
+    "framework",
+    "reactjs",
+    "concious"
+  ],
+  "homepage": "https://github.com/volkovasystems/concious",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "harden": "^0.12.0"
+  }
+}
