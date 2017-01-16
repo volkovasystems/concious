@@ -3,5 +3,10 @@ bower_components
 node_modules
 */*.js
 */*.css
-test.js
+*.js
+*.css
 !.*.js
+!gulpfile.js
+!webpack.config.js
+!concious.support.js
+!concious.deploy.js
