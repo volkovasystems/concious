@@ -5,7 +5,7 @@
 		The MIT License (MIT)
 		@mit-license
 
-		Copyright (@c) 2016 Richeve Siodina Bebedor
+		Copyright (@c) 2017 Richeve Siodina Bebedor
 		@email: richeve.bebedor@gmail.com
 
 		Permission is hereby granted, free of charge, to any person obtaining
@@ -31,9 +31,9 @@
 	@module-configuration:
 		{
 			"package": "concious",
-			"path": "concious/label/label.jsx",
-			"file": "label.jsx",
-			"module": "Button",
+			"path": "concious/control/control.jsx",
+			"file": "control.jsx",
+			"module": "Control",
 			"author": "Richeve S. Bebedor",
 			"eMail": "richeve.bebedor@gmail.com",
 			"repository": "https://github.com/volkovasystems/concious.git",
@@ -43,40 +43,58 @@
 	@end-module-configuration
 
 	@module-documentation:
-		Label Component
+		Control Component
 	@end-module-documentation
 
 	@include:
 		{
-			"React": "react",
-			"Component": "component"
+			"React": "react"
 		}
 	@end-include
 */
 
-import doubt from "doubt";
+import kley from "kley";
 
 import React from "react";
 import Component from "component";
+import Button from "button";
+import Icon from "icon";
 
-class Label extends Component {
+class Control extends Component {
 	constructor( property ){ super( property ); }
-	
+
 	render( ){
-		let { text, children } = this.state;
+		let {
+			icon,
+			label,
+			notice,
+			status,
+			action,
+			purpose,
+			children,
+			loading,
+			click,
+			press,
+			release,
+		} = this.state;
 
-		if( doubt( children, ARRAY ) ){
-			children = children[ 0 ];
-		}
+		let control = children.filter( ( child ) => { return clazof( child, Button ); } );
 
-		text = text || children;
-
-		return ( <label
-					htmlFor={ this.state.target }
+		return ( <div
+					className={ kley( {
+						"icon": !!icon
+					} ).join( " " ) }
 				>
-					{ text }
-				</label> );
+					{
+						control? control :
+							( [
+								icon? <Button icon={ icon }></Button> : null,
+								label? <Button>{ label }</Button> : null,
+								loading? <Icon loading={ true }></Icon> : null
+							] )
+					}
+				</div> );
 	}
 }
 
-export default Label;
+export default Control;

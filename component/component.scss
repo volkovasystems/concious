@@ -1,0 +1,41 @@
+.component {
+	display: flex;
+
+	height: 70px;
+	min-height: 70px;
+	max-height: 70px;
+
+	width: 100%;
+	max-width: 100%;
+	min-width: fit-content;
+
+	box-sizing: border-box;
+
+	margin: 0;
+	padding: 0;
+	border: 0;
+
+	font-size: 1em;
+	line-height: 1;
+
+	overflow: hidden;
+
+	background: 0;
+
+	&.hidden {
+		opacity: 0 !important;
+
+		width: 0 !important;
+		height: 0 !important;
+
+		display: none !important;
+
+		visibility: hidden !important;
+	}
+
+	&.disabled {
+		pointer-events: none !important;
+
+		cursor: not-allowed !important;
+	}
+}

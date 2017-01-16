@@ -5,7 +5,7 @@
 		The MIT License (MIT)
 		@mit-license
 
-		Copyright (@c) 2016 Richeve Siodina Bebedor
+		Copyright (@c) 2017 Richeve Siodina Bebedor
 		@email: richeve.bebedor@gmail.com
 
 		Permission is hereby granted, free of charge, to any person obtaining
@@ -31,9 +31,9 @@
 	@module-configuration:
 		{
 			"package": "concious",
-			"path": "concious/label/label.jsx",
-			"file": "label.jsx",
-			"module": "Button",
+			"path": "concious/link/link.jsx",
+			"file": "link.jsx",
+			"module": "Link",
 			"author": "Richeve S. Bebedor",
 			"eMail": "richeve.bebedor@gmail.com",
 			"repository": "https://github.com/volkovasystems/concious.git",
@@ -43,40 +43,27 @@
 	@end-module-configuration
 
 	@module-documentation:
-		Label Component
+		Link Component
 	@end-module-documentation
 
 	@include:
 		{
-			"React": "react",
-			"Component": "component"
+			"React": "react"
 		}
 	@end-include
 */
 
-import doubt from "doubt";
-
 import React from "react";
 import Component from "component";
 
-class Label extends Component {
+class Link extends Component {
 	constructor( property ){ super( property ); }
-	
+
 	render( ){
-		let { text, children } = this.state;
+		return ( <a href={ this.state.url }>
 
-		if( doubt( children, ARRAY ) ){
-			children = children[ 0 ];
-		}
-
-		text = text || children;
-
-		return ( <label
-					htmlFor={ this.state.target }
-				>
-					{ text }
-				</label> );
+				</a> );
 	}
 }
 
-export default Label;
+export default Link;

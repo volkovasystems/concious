@@ -1,3 +1,4 @@
+
 "use strict";
 
 /*;
@@ -31,9 +32,9 @@
 	@module-configuration:
 		{
 			"package": "concious",
-			"path": "concious/label/label.jsx",
-			"file": "label.jsx",
-			"module": "Button",
+			"path": "concious/item/item.jsx",
+			"file": "item.jsx",
+			"module": "Item",
 			"author": "Richeve S. Bebedor",
 			"eMail": "richeve.bebedor@gmail.com",
 			"repository": "https://github.com/volkovasystems/concious.git",
@@ -43,40 +44,66 @@
 	@end-module-configuration
 
 	@module-documentation:
-		Label Component
+		Item Component
 	@end-module-documentation
 
 	@include:
 		{
-			"React": "react",
-			"Component": "component"
+			"React": "react"
 		}
 	@end-include
 */
 
 import doubt from "doubt";
+import truly from "truly";
 
 import React from "react";
 import Component from "component";
+import Icon from "icon";
+import Label from "label";
 
-class Label extends Component {
+class Item extends Component {
 	constructor( property ){ super( property ); }
-	
-	render( ){
-		let { text, children } = this.state;
 
+	render( ){
+		let { icon, set, children, label, notice } = this.state;
+
+		let content = children;
 		if( doubt( children, ARRAY ) ){
-			children = children[ 0 ];
+			content = children[ 0 ];
 		}
 
-		text = text || children;
-
-		return ( <label
-					htmlFor={ this.state.target }
+		return ( <div
+					onClick={ this.click.bind( this ) }
+					onMouseDown={ this.press.bind( this ) }
+					onMouseUp={ this.release.bind( this ) }
+					onMouseEnter={ this.focus.bind( this ) }
+					onMouseLeave={ this.rest.bind( this ) }
 				>
-					{ text }
-				</label> );
+					{ truly( label )?
+						<Label
+							category="title">
+							{ label }
+						</Label> : null
+					}
+					{ truly( icon )?
+						<Icon
+							icon={ icon }>
+							{ content }
+						</Icon> :
+						<Label
+							for={ this.id }>
+							{ content }
+						</Label>
+					}
+					{ truly( notice )?
+						<Label
+							category="notice">
+							{ notice }
+						</Label> : null
+					}
+				</div> );
 	}
 }
 
-export default Label;
+export default Item;

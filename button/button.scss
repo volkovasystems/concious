@@ -1,3 +1,30 @@
 button.button {
-	display: flex;
+	position: relative;
+
+	flex-direction: column;
+
+	justify-content: center;
+	align-items: center;
+
+	flex: 2 0 auto;
+
+	&:focus {
+		outline: none;
+	}
+
+	.title.label {
+		position: absolute;
+
+		top: 0px;
+		left: 0px;
+		right: 0px;
+	}
+
+	.notice.label {
+		position: absolute;
+
+		bottom: 0px;
+		left: 0px;
+		right: 0px;
+	}
 }

@@ -1,4 +1,5 @@
 {
 	"presets": [ "latest", "react" ],
-	"plugins": [ "transform-runtime" ]
+	"plugins": [ "transform-runtime" ],
+	"sourceMaps": true
 }

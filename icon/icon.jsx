@@ -5,7 +5,7 @@
 		The MIT License (MIT)
 		@mit-license
 
-		Copyright (@c) 2016 Richeve Siodina Bebedor
+		Copyright (@c) 2017 Richeve Siodina Bebedor
 		@email: richeve.bebedor@gmail.com
 
 		Permission is hereby granted, free of charge, to any person obtaining
@@ -31,9 +31,9 @@
 	@module-configuration:
 		{
 			"package": "concious",
-			"path": "concious/label/label.jsx",
-			"file": "label.jsx",
-			"module": "Button",
+			"path": "concious/icon/icon.jsx",
+			"file": "icon.jsx",
+			"module": "Icon",
 			"author": "Richeve S. Bebedor",
 			"eMail": "richeve.bebedor@gmail.com",
 			"repository": "https://github.com/volkovasystems/concious.git",
@@ -43,40 +43,44 @@
 	@end-module-configuration
 
 	@module-documentation:
-		Label Component
+		Icon Component
 	@end-module-documentation
 
 	@include:
 		{
-			"React": "react",
-			"Component": "component"
+			"React": "react"
 		}
 	@end-include
 */
 
+import depher from "depher";
 import doubt from "doubt";
+import kley from "kley";
+import truly from "truly";
 
 import React from "react";
 import Component from "component";
 
-class Label extends Component {
+class Icon extends Component {
 	constructor( property ){ super( property ); }
-	
-	render( ){
-		let { text, children } = this.state;
 
+	render( ){
+		let { icon, image, children, loading } = this.state;
+
+		let content = children;
 		if( doubt( children, ARRAY ) ){
-			children = children[ 0 ];
+			image = depher( children, STRING, image || null );
 		}
 
-		text = text || children;
-
-		return ( <label
-					htmlFor={ this.state.target }
+		return ( <div
+					className={ kley( {
+						"loading": !!loading || icon,
+						[ `${ icon }-${ image }` ]: !loading && truly( image )
+					} ).join( " " ) }
 				>
-					{ text }
-				</label> );
+					{ loading? <div className="loader"></div> : image }
+				</div> );
 	}
 }
 
-export default Label;
+export default Icon;

@@ -53,29 +53,35 @@
 	@end-include
 */
 
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-exports.Label = exports.Button = undefined;
+import harden from "harden";
 
-var _harden = require("harden");
+import { default as Button } from "button";
+import { default as Component } from "component";
+import { default as Dashbar } from "dashbar";
+import { default as Header } from "header";
+import { default as Icon } from "icon";
+import { default as Item } from "item";
+import { default as Label } from "label";
+import { default as List } from "list";
 
-var _harden2 = _interopRequireDefault(_harden);
+import "./concious.css";
 
-var _button = require("button");
+harden( "Button", Button );
+harden( "Component", Component );
+harden( "Dashbar", Dashbar );
+harden( "Header", Header );
+harden( "Icon", Icon );
+harden( "Item", Item );
+harden( "Label", Label );
+harden( "List", List );
 
-var _button2 = _interopRequireDefault(_button);
-
-var _label = require("label");
-
-var _label2 = _interopRequireDefault(_label);
-
-require("./concious.css");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-(0, _harden2.default)("Button", _button2.default);
-(0, _harden2.default)("Label", _label2.default);
-
-exports.Button = _button2.default;
-exports.Label = _label2.default;
+export {
+	Button,
+	Component,
+	Dashbar,
+	Header,
+	Icon,
+	Item,
+	Label,
+	List
+};

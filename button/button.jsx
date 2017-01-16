@@ -53,25 +53,68 @@
 	@end-include
 */
 
-import React from "react";
-import Label from "label";
-import "./button.css";
+import doubt from "doubt";
+import truly from "truly";
+import kley from "kley";
 
-class Button extends React.Component {
-	constructor( property ){
-		super( property );
-	}
+import React from "react";
+import Component from "component";
+import Icon from "icon";
+import Label from "label";
+
+class Button extends Component {
+	constructor( property ){ super( property ); }
 
 	render( ){
+		let {
+			icon,
+			children,
+			title,
+			notice,
+			state,
+			purpose
+		} = this.state;
+
+		let content = children;
+		if( doubt( children, ARRAY ) ){
+			content = children[ 0 ];
+		}
+
 		return ( <button
 					type="button"
-					name={ name }
-					className={ [
-						"button",
-						"component",
-					].join( " " ) }
+
+					className={ kley( {
+						"icon": !!icon
+					}, state, purpose ).join( " " ) }
+
+					onClick={ this.click.bind( this ) }
+					onMouseDown={ this.press.bind( this ) }
+					onMouseUp={ this.release.bind( this ) }
+					onMouseEnter={ this.focus.bind( this ) }
+					onMouseLeave={ this.rest.bind( this ) }
 				>
-					Hello World
+					{ truly( label )?
+						<Label
+							category="title">
+							{ title }
+						</Label> : null
+					}
+					{ truly( icon )?
+						<Icon
+							icon={ icon }>
+							{ content }
+						</Icon> :
+						<Label
+							for={ this.id }>
+							{ content }
+						</Label>
+					}
+					{ truly( notice )?
+						<Label
+							category="notice">
+							{ notice }
+						</Label> : null
+					}
 				</button> );
 	}
 }
