@@ -2692,15 +2692,16 @@ kind-of@^3.0.2:
   dependencies:
     is-buffer "^1.0.2"
 
-kley@^0.0.0:
-  version "0.0.0"
-  resolved "https://registry.yarnpkg.com/kley/-/kley-0.0.0.tgz#1d6b80d03a5a95ff80e18753156d99b30cd2bf19"
+kley@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/kley/-/kley-0.1.0.tgz#90cf4dff636ee8eb581672eec9cef8d8f5cea02f"
   dependencies:
     babel-runtime "^6.20.0"
     outre "^0.6.0"
     plough "^0.5.0"
     protype "^0.8.0"
     truky "^0.2.0"
+    truly "^0.5.0"
 
 kloak@0.0.0:
   version "0.0.0"
