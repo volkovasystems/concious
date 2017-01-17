@@ -5,7 +5,7 @@
 		The MIT License (MIT)
 		@mit-license
 
-		Copyright (@c) 2016 Richeve Siodina Bebedor
+		Copyright (@c) 2017 Richeve Siodina Bebedor
 		@email: richeve.bebedor@gmail.com
 
 		Permission is hereby granted, free of charge, to any person obtaining
@@ -58,9 +58,12 @@
 import clazof from "clazof";
 import doubt from "doubt";
 import een from "een";
+import plough from "plough";
+import pyck from "pyck";
 import protype from "protype";
 import shardize from "shardize";
 import snapd from "snapd";
+import truly from "truly";
 import truu from "truu";
 
 import React from "react";
@@ -88,38 +91,38 @@ class Component extends React.Component {
 		@end-method-documentation
 	*/
 	focus( event ){
-		if( this.component ){
+		if( truu( this.component ) ){
 			this.component.addClass( "focus" );
 		}
 
-		if( this.property && typeof this.property.focus === "function" ){
+		if( truu( this.property ) && protype( this.property.focus, FUNCTION ) ){
 			this.property.focus( this, event );
 		}
 	}
 	rest( event ){
-		if( this.component ){
+		if( truu( this.component ) ){
 			this.component.removeClass( "focus" );
 		}
 
-		if( this.property && typeof this.property.rest === "function" ){
+		if( truu( this.property ) && protype( this.property.rest, FUNCTION ) ){
 			this.property.rest( this, event );
 		}
 	}
 	press( event ){
-		if( this.component ){
+		if( truu( this.component ) ){
 			this.component.addClass( "press" );
 		}
 
-		if( this.property && typeof this.property.press === "function" ){
+		if( truu( this.property ) && protype( this.property.press, FUNCTION ) ){
 			this.property.press( this, event );
 		}
 	}
 	release( event ){
-		if( this.component ){
+		if( truu( this.component ) ){
 			this.component.removeClass( "press" );
 		}
 
-		if( this.property && typeof this.property.release === "function" ){
+		if( truu( this.property ) && protype( this.property.release, FUNCTION ) ){
 			this.property.release( this, event );
 		}
 	}
@@ -130,11 +133,18 @@ class Component extends React.Component {
 			this.release( );
 		} );
 
-		if( this.property && typeof this.property.click === "function" ){
+		if( truu( this.property ) && protype( this.property.click, FUNCTION ) ){
 			this.property.click( this, event );
 		}
 	}
 
+	content( ){
+		if( truu( this.state ) ){
+			return pyck( plough( [ this.state.children ] ), STRING );
+		}
+
+		return null;
+	}
 	register( parent ){
 		this.parent = parent;
 
@@ -148,7 +158,7 @@ class Component extends React.Component {
 	rename( name ){
 		this.name = name;
 
-		this.refresh( )
+		this.refresh( );
 	}
 	set( property ){
 		if( protype( property, OBJECT ) && truu( property ) ){
@@ -160,7 +170,7 @@ class Component extends React.Component {
 		}
 	}
 	get( name ){
-		if( typeof name === "string" && name ){
+		if( protype( name, STRING ) && truly( name ) ){
 			return this.state[ name ];
 
 		}else{
@@ -168,11 +178,13 @@ class Component extends React.Component {
 		}
 	}
 	refresh( ){
-		this.set( this.property );
+		if( protype( this.property, OBJECT ) && truu( this.property ) ){
+			this.set( this.property );
+		}
 	}
 
 	bindName( ){
-		if( this.component ){
+		if( truu( this.component ) ){
 			snapd.bind( this )( function onTimeout( ){
 				this.component.attr( "name", this.name );
 			} );
@@ -181,21 +193,21 @@ class Component extends React.Component {
 	bindID( ){
 		this.id = [ this.name, Math.ceil( Date.now( ) * Math.random( ) ) ].join( "-" );
 
-		if( this.component ){
+		if( truu( this.component ) ){
 			snapd.bind( this )( function onTimeout( ){
 				this.component.attr( "id", this.id );
 			} );
 		}
 	}
 	bindClass( ){
-		if( this.component ){
+		if( truu( this.component ) ){
 			snapd.bind( this )( function onTimeout( ){
 				this.component.addClass( this.type.join( " " ) );
 			} );
 		}
 	}
 	bindCategory( ){
-		if( this.component && this.property && this.property.category ){
+		if( truu( this.component ) && truu( this.property ) && truu( this.property.category ) ){
 			snapd.bind( this )( function onTimeout( ){
 				this.component.addClass( this.property.category );
 			} );
@@ -233,7 +245,7 @@ class Component extends React.Component {
 		this.bindClass( );
 	}
 	resetClass( ){
-		if( this.component ){
+		if( truu( this.component ) ){
 			this.component.removeClass( );
 		}
 	}

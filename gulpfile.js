@@ -70,7 +70,8 @@ gulp.task( "watch", function watchTask( ){
 
 		state = "running";
 
-		del.sync( [ "test.js", "test.deploy.js" ] );
+		//: This will run triggers.
+		del.sync( "test.deploy.js" );
 
 		child.execSync( "npm run test", { "cwd": process.cwd( ), "stdio": [ 0, 1, 2 ] } );
 

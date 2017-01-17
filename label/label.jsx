@@ -5,7 +5,7 @@
 		The MIT License (MIT)
 		@mit-license
 
-		Copyright (@c) 2016 Richeve Siodina Bebedor
+		Copyright (@c) 2017 Richeve Siodina Bebedor
 		@email: richeve.bebedor@gmail.com
 
 		Permission is hereby granted, free of charge, to any person obtaining
@@ -63,17 +63,14 @@ class Label extends Component {
 	constructor( property ){ super( property ); }
 
 	render( ){
-		let { text, children, target } = this.state;
+		let { text, target } = this.state;
 
-		if( doubt( children, ARRAY ) ){
-			children = children[ 0 ];
-		}
+		text = text || this.content( );
 
-		text = text || children;
+		console.log( text );
 
 		return ( <label
-					htmlFor={ target }
-				>
+					htmlFor={ target }>
 					{ text }
 				</label> );
 	}

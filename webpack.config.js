@@ -113,6 +113,7 @@ module.exports = {
 		},
 		"inline": false,
 		"port": 4000,
-		"hot": true
+		"hot": true,
+		"stats": { "warnings": false }
 	}
 };

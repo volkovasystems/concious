@@ -53,7 +53,12 @@
 	@end-include
 */
 
+import clazof from "clazof";
 import kley from "kley";
+import plough from "plough";
+import pyck from "pyck";
+import truly from "truly";
+import truu from "truu";
 
 import React from "react";
 import Component from "component";
@@ -63,26 +68,40 @@ import Icon from "icon";
 class Control extends Component {
 	constructor( property ){ super( property ); }
 
+	control( ){
+		if( truu( this.state ) ){
+			return pyck( plough( [ this.state.children ] ),
+				( child ) => { return clazof( child, Button ); } );
+		}
+
+		return null;
+	}
+
 	render( ){
 		let {
 			icon,
-			label,
-			notice,
-			status,
-			action,
-			purpose,
-			children,
 			loading,
+			title,
+			notice,
+
+			status,
+			purpose,
+
+			action,
+
 			click,
 			press,
 			release,
 		} = this.state;
 
-		let control = children.filter( ( child ) => { return clazof( child, Button ); } );
+		let control = this.control( );
+		let content = this.content( );
 
 		return ( <div
 					className={ kley( {
-						"icon": !!icon
+						"icon": truly( icon ),
+						"set": truu( control ),
+						"loading": loading
 					} ).join( " " ) }
 				>
 					{

@@ -68,24 +68,24 @@ class Button extends Component {
 	render( ){
 		let {
 			icon,
-			children,
+			image,
 			title,
 			notice,
 			state,
 			purpose
 		} = this.state;
 
-		let content = children;
-		if( doubt( children, ARRAY ) ){
-			content = children[ 0 ];
-		}
+		let content = this.content( );
 
 		return ( <button
 					type="button"
 
 					className={ kley( {
 						"icon": !!icon
-					}, state, purpose ).join( " " ) }
+					}, [
+						state,
+						purpose
+					] ).join( " " ) }
 
 					onClick={ this.click.bind( this ) }
 					onMouseDown={ this.press.bind( this ) }
@@ -101,7 +101,8 @@ class Button extends Component {
 					}
 					{ truly( icon )?
 						<Icon
-							icon={ icon }>
+							icon={ icon }
+							image={ image }>
 							{ content }
 						</Icon> :
 						<Label
