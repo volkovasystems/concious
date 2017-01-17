@@ -58,8 +58,10 @@
 import clazof from "clazof";
 import doubt from "doubt";
 import een from "een";
+import protype from "protype";
 import shardize from "shardize";
 import snapd from "snapd";
+import truu from "truu";
 
 import React from "react";
 import ReactDOM from "react-dom";
@@ -149,11 +151,11 @@ class Component extends React.Component {
 		this.refresh( )
 	}
 	set( property ){
-		this.property = property;
+		if( protype( property, OBJECT ) && truu( property ) ){
+			this.property = property;
 
-		if( typeof property === "object" ){
 			snapd.bind( this )( function onTimeout( ){
-				this.setState( property );
+				this.setState( this.property );
 			} );
 		}
 	}

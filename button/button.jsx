@@ -93,7 +93,7 @@ class Button extends Component {
 					onMouseEnter={ this.focus.bind( this ) }
 					onMouseLeave={ this.rest.bind( this ) }
 				>
-					{ truly( label )?
+					{ truly( title )?
 						<Label
 							category="title">
 							{ title }
@@ -105,7 +105,7 @@ class Button extends Component {
 							{ content }
 						</Icon> :
 						<Label
-							for={ this.id }>
+							target={ this.id }>
 							{ content }
 						</Label>
 					}

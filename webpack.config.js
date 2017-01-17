@@ -51,7 +51,7 @@ module.exports = {
 	"output": {
 		"library": parameter.test? "test" : "concious",
 		"libraryTarget": "umd",
-		"filename": parameter.test? "test.js" : "concious.deploy.js"
+		"filename": parameter.test? "test.deploy.js" : "concious.deploy.js"
 	},
 
 	"module": {
@@ -84,9 +84,11 @@ module.exports = {
 
 		new ResolverPlugin( new DirectoryDescriptionFilePlugin( "bower.json", [ "support" ] ) ),
 
+		new ResolverPlugin( new DirectoryDescriptionFilePlugin( "package.json", [ "browser" ] ) ),
+
 		new ResolverPlugin( new DirectoryDescriptionFilePlugin( ".bower.json", [ "main" ] ) ),
 
-		( mode === "production"? new UglifyJsPlugin( {
+		( ( mode === "production" || mode === "test" )? new UglifyJsPlugin( {
 			"compress": {
 				"keep_fargs": true,
 				"keep_fnames": true,
@@ -97,7 +99,7 @@ module.exports = {
 			"mangle": false
 		} ) : null ),
 
-		new HotModuleReplacementPlugin( )
+		( mode === "test"? new HotModuleReplacementPlugin( ) : null )
 	].filter( ( plugin ) => { return !!plugin; } ),
 
 	"devtool": "inline-source-map",
@@ -109,7 +111,6 @@ module.exports = {
 		"historyApiFallback": {
 			"index": "test.html"
 		},
-		"quite": true,
 		"inline": false,
 		"port": 4000,
 		"hot": true

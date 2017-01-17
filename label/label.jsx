@@ -61,9 +61,9 @@ import Component from "component";
 
 class Label extends Component {
 	constructor( property ){ super( property ); }
-	
+
 	render( ){
-		let { text, children } = this.state;
+		let { text, children, target } = this.state;
 
 		if( doubt( children, ARRAY ) ){
 			children = children[ 0 ];
@@ -72,7 +72,7 @@ class Label extends Component {
 		text = text || children;
 
 		return ( <label
-					htmlFor={ this.state.target }
+					htmlFor={ target }
 				>
 					{ text }
 				</label> );

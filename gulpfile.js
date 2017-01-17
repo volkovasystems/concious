@@ -61,9 +61,21 @@ gulp.task( "script", function scriptTask( ){
 gulp.task( "default", [ "style", "script" ] );
 
 gulp.task( "watch", function watchTask( ){
-	child.execSync( "npm run test", { "cwd": process.cwd( ), "stdio": [ 0, 1, 2 ] } );
-
 	let state = "idle";
+
+	let rebuild = ( ) => {
+		if( state == "running" ){
+			return;
+		}
+
+		state = "running";
+
+		del.sync( [ "test.js", "test.deploy.js" ] );
+
+		child.execSync( "npm run test", { "cwd": process.cwd( ), "stdio": [ 0, 1, 2 ] } );
+
+		state = "idle";
+	};
 
 	return watch( [
 		"package.json",
@@ -76,19 +88,7 @@ gulp.task( "watch", function watchTask( ){
 		"!./node_modules/**",
 		"!./bower_components/**",
 		"!.*"
-	], {
-		"readDelay": 10000
-	}, function onChanged( ){
-		if( state == "running" ){
-			return;
-		}
-
-		state = "running";
-
-		child.execSync( "npm run test", { "cwd": process.cwd( ), "stdio": [ 0, 1, 2 ] } );
-
-		state = "idle";
-	} );
+	], { "readDelay": 10000 }, rebuild );
 } );
 
 gulp.task( "clean", function cleanTask( ){
@@ -97,9 +97,7 @@ gulp.task( "clean", function cleanTask( ){
 		"*.css",
 		"./*/*.js",
 		"./*/*.css",
-		"concious.support.js",
-		"concious.deploy.js",
-		"npm-debug.log",
+		"*.log",
 		"!gulpfile.js",
 		"!webpack.config.js",
 		"!./node_modules/**",
