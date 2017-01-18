@@ -34,16 +34,6 @@ module.exports = {
 				"item": resolve( "item" )
 			};
 
-			if( mode === "production" || mode === "test" ){
-				let resolve = ( location, file ) => {
-					return path.resolve( directory, "bower_components", `${ location }/${ file }` );
-				};
-
-				component[ "react" ] = resolve( "react", "react-with-addons.min.js" );
-				component[ "react-dom" ] = resolve( "react", "react-dom.min.js" );
-				component[ "jquery" ] = resolve( "jquery/dist", "jquery.slim.min.js" );
-			}
-
 			return component;
 		} )( )
 	},
@@ -56,7 +46,7 @@ module.exports = {
 
 	"module": {
 		"preLoaders": [
-			{ "test": /\.support\.js$|\.css/, "loaders": [ "source-map-loader" ] }
+			{ "test": /\.support\.js$/, "loaders": [ "source-map-loader" ] }
 		],
 		"loaders": [
 			{ "test": /\.css$/, "loaders": [ "style-loader?singleton", "css-loader" ] }
@@ -107,13 +97,18 @@ module.exports = {
 	"stats": { "warnings": false },
 
 	"devServer": {
+		"clientLogLevel": "none",
+		"compress": true,
 		"colors": true,
 		"historyApiFallback": {
-			"index": "test.html"
+			"index": "test-index.html"
 		},
-		"inline": false,
-		"port": 4000,
 		"hot": true,
-		"stats": { "warnings": false }
+		"inline": true,
+		"port": 4000,
+		"stats": { "warnings": false },
+		"watchOptions": {
+			"aggregateTimeout": 1500,
+		}
 	}
 };

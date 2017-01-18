@@ -24,9 +24,9 @@ gulp.task( "style", function styleTask( ){
 		.pipe( plumber( ) )
 		.pipe( changed( "./", { "extension": ".css" } ) )
 		.pipe( debug( { "title": "File:" } ) )
-		.pipe( sourcemap.init( ) )
+		.pipe( sourcemap.init( { "identityMap": true } ) )
 		.pipe( sass( { "outputStyle": "compressed" } ).on( "error", sass.logError ) )
-		.pipe( sourcemap.write( ) )
+		.pipe( sourcemap.write( { "includeContent": true } ) )
 		.pipe( gulp.dest( "./" ) );
 } );
 
@@ -41,7 +41,7 @@ gulp.task( "script", function scriptTask( ){
 		.pipe( plumber( ) )
 		.pipe( changed( "./", { "extension": ".js" } ) )
 		.pipe( debug( { "title": "File:" } ) )
-		.pipe( sourcemap.init( ) )
+		.pipe( sourcemap.init( { "identityMap": true } ) )
 		.pipe( babel( ) )
 		.pipe( uglify( {
 			"compress": {
@@ -54,7 +54,7 @@ gulp.task( "script", function scriptTask( ){
 			"mangle": false
 		} ) )
 		.pipe( rename( { "extname": ".js" } ) )
-		.pipe( sourcemap.write( ) )
+		.pipe( sourcemap.write( { "includeContent": true } ) )
 		.pipe( gulp.dest( "./" ) );
 } );
 
@@ -71,12 +71,14 @@ gulp.task( "watch", function watchTask( ){
 		state = "running";
 
 		//: This will run triggers.
-		del.sync( "test.deploy.js" );
+		//del.sync( "test.deploy.js" );
 
 		child.execSync( "npm run test", { "cwd": process.cwd( ), "stdio": [ 0, 1, 2 ] } );
 
 		state = "idle";
 	};
+
+	rebuild( );
 
 	return watch( [
 		"package.json",
@@ -89,7 +91,7 @@ gulp.task( "watch", function watchTask( ){
 		"!./node_modules/**",
 		"!./bower_components/**",
 		"!.*"
-	], { "readDelay": 10000 }, rebuild );
+	], { "readDelay": 1000 }, rebuild );
 } );
 
 gulp.task( "clean", function cleanTask( ){

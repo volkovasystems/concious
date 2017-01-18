@@ -55,6 +55,7 @@
 */
 
 import doubt from "doubt";
+import falzy from "falzy";
 
 import React from "react";
 import Component from "component";
@@ -67,7 +68,9 @@ class Label extends Component {
 
 		text = text || this.content( );
 
-		console.log( text );
+		if( falzy( text ) ){
+			return null;
+		}
 
 		return ( <label
 					htmlFor={ target }>

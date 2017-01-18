@@ -165,6 +165,7 @@ class Component extends React.Component {
 			this.property = property;
 
 			snapd.bind( this )( function onTimeout( ){
+				console.log( this.name, "is updated" );
 				this.setState( this.property );
 			} );
 		}
