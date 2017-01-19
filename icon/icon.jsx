@@ -65,20 +65,21 @@ class Icon extends Component {
 	constructor( property ){ super( property ); }
 
 	render( ){
-		let { icon, image, children, loading } = this.state;
+		let {
+			icon,
+			image,
+			loading
+		} = this.state;
 
-		let content = children;
-		if( doubt( children, ARRAY ) ){
-			image = depher( children, STRING, image || null );
-		}
+		image = image || this.content( );
 
 		return ( <div
 					className={ kley( {
-						"loading": !!loading || icon,
-						[ `${ icon }-${ image }` ]: !loading && truly( image )
+						"loading": loading || icon,
+						[ `${ icon }-${ image }`.replace( /\-$/, "" ) ]: !loading && truly( image )
 					} ).join( " " ) }
 				>
-					{ loading? <div className="loader"></div> : image }
+					{ loading? <div className="loader"></div> : ( image || null ) }
 				</div> );
 	}
 }

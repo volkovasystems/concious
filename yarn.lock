@@ -1015,6 +1015,15 @@ clazof@^0.2.0:
     een "^0.1.0"
     protype "^0.8.0"
 
+clazof@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/clazof/-/clazof-0.3.0.tgz#d479120cf9ba37a22c6f1b44337e3125193356be"
+  dependencies:
+    babel-runtime "^6.20.0"
+    budge "^0.5.0"
+    een "^0.1.0"
+    protype "^0.8.0"
+
 cliui@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/cliui/-/cliui-2.1.0.tgz#4b475760ff80264c762c3a1719032e91c7fea0d1"

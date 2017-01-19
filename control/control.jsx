@@ -71,7 +71,7 @@ class Control extends Component {
 	control( ){
 		if( truu( this.state ) ){
 			return pyck( plough( [ this.state.children ] ),
-				( child ) => { return clazof( child, Button ); } );
+				( child ) => { return clazof( child, Button, Control ); } );
 		}
 
 		return null;
@@ -80,6 +80,7 @@ class Control extends Component {
 	render( ){
 		let {
 			icon,
+			image,
 			loading,
 			title,
 			notice,
@@ -92,6 +93,11 @@ class Control extends Component {
 			click,
 			press,
 			release,
+			rest,
+			focus,
+
+			disabled,
+			hidden
 		} = this.state;
 
 		let control = this.control( );
@@ -102,14 +108,79 @@ class Control extends Component {
 						"icon": truly( icon ),
 						"set": truu( control ),
 						"loading": loading
-					} ).join( " " ) }
+					}, [
+						status,
+						purpose
+					] ).join( " " ) }
 				>
 					{
-						control? control :
+						control?
+							control :
 							( [
-								icon? <Button icon={ icon }></Button> : null,
-								label? <Button>{ label }</Button> : null,
-								loading? <Icon loading={ true }></Icon> : null
+								icon?
+									<Button
+										icon={ icon }
+										image={ image }
+
+										status={ status }
+										purpose={ purpose }
+
+										click={ click }
+										press={ press }
+										release={ release }
+										rest={ rest }
+										focus={ focus }
+
+										disabled={ disabled }
+										hidden={ hidden }>
+										{ content }
+									</Button> : null,
+
+								label?
+									<Button
+										title={ title }
+										notice={ notice }
+
+										status={ status }
+										purpose={ purpose }
+
+										click={ click }
+										press={ press }
+										release={ release }
+										rest={ rest }
+										focus={ focus }
+
+										disabled={ disabled }
+										hidden={ hidden }>
+										{ content }
+									</Button> : null,
+
+								action?
+									<Button
+										title={ title }
+										notice={ notice }
+
+										status={ status }
+										purpose={ purpose }
+
+										click={ click }
+										press={ press }
+										release={ release }
+										rest={ rest }
+										focus={ focus }
+
+										disabled={ disabled }
+										hidden={ hidden }>
+										{ content }
+									</Button> : null,
+
+								loading?
+									<Icon
+										loading={ true }
+
+										disabled={ disabled }
+										hidden={ hidden }>
+									</Icon> : null
 							] )
 					}
 				</div> );

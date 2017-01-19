@@ -1,4 +1,4 @@
-button.button {
+button.button.component {
 	position: relative;
 
 	flex-direction: column;
@@ -8,8 +8,33 @@ button.button {
 
 	flex: 2 0 auto;
 
+	background-color: rgba( 153, 153, 153, 1 );
+
 	&:focus {
 		outline: none;
+	}
+
+	&.focus {
+		filter: brightness( 120% );
+	}
+
+	&.press {
+		filter: brightness( 80% );
+	}
+
+	&.icon,
+	&.loading {
+		width: 70px;
+		min-width: 70px;
+		max-width: 70px;
+
+		height: 70px;
+		min-height: 70px;
+		max-height: 70px;
+	}
+
+	&.loading {
+		cursor: progress;
 	}
 
 	.title.label {

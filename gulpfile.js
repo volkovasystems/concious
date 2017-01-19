@@ -14,6 +14,8 @@ const watch = require( "gulp-watch" );
 const vinylPath = require( "vinyl-paths" );
 
 gulp.task( "style", function styleTask( ){
+	del.sync( "concious.css" );
+
 	return gulp.src( [
 			"*.scss",
 			"./*/*.scss",
@@ -69,9 +71,6 @@ gulp.task( "watch", function watchTask( ){
 		}
 
 		state = "running";
-
-		//: This will run triggers.
-		//del.sync( "test.deploy.js" );
 
 		child.execSync( "npm run test", { "cwd": process.cwd( ), "stdio": [ 0, 1, 2 ] } );
 

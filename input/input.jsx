@@ -32,9 +32,9 @@
 	@module-configuration:
 		{
 			"package": "concious",
-			"path": "concious/item/item.jsx",
-			"file": "item.jsx",
-			"module": "Item",
+			"path": "concious/input/input.jsx",
+			"file": "input.jsx",
+			"module": "Input",
 			"author": "Richeve S. Bebedor",
 			"eMail": "richeve.bebedor@gmail.com",
 			"repository": "https://github.com/volkovasystems/concious.git",
@@ -44,40 +44,25 @@
 	@end-module-configuration
 
 	@module-documentation:
-		Item Component
+		Input Component
 	@end-module-documentation
 
 	@include:
 		{
-			"React": "react"
+			"React": "react",
+			"Component": "component"
 		}
 	@end-include
 */
 
-import doubt from "doubt";
-import truly from "truly";
 
 import React from "react";
 import Component from "component";
-import Icon from "icon";
-import Label from "label";
 
-class Item extends Component {
+class Input extends Component {
 	constructor( property ){ super( property ); }
 
-	render( ){
-		let { icon, set, children, label, notice } = this.state;
 
-		return ( <li
-					onClick={ this.click.bind( this ) }
-					onMouseDown={ this.press.bind( this ) }
-					onMouseUp={ this.release.bind( this ) }
-					onMouseEnter={ this.focus.bind( this ) }
-					onMouseLeave={ this.rest.bind( this ) }
-				>
-
-				</li> );
-	}
 }
 
-export default Item;
+export default Input;

@@ -48,6 +48,8 @@
 
 	@include:
 		{
+			"clazof": "clazof",
+
 			"$": "jquery",
 			"React": "react",
 			"ReactDOM": "react-dom",
@@ -58,6 +60,8 @@
 import clazof from "clazof";
 import doubt from "doubt";
 import een from "een";
+import falze from "falze";
+import kein from "kein";
 import plough from "plough";
 import pyck from "pyck";
 import protype from "protype";
@@ -66,9 +70,9 @@ import snapd from "snapd";
 import truly from "truly";
 import truu from "truu";
 
+import $ from "jquery";
 import React from "react";
 import ReactDOM from "react-dom";
-import $ from "jquery";
 
 class Component extends React.Component {
 	constructor( property ){
@@ -76,11 +80,13 @@ class Component extends React.Component {
 
 		this.state = { };
 
-		this.type = [ "component" ];
-
 		this.children = [ ];
 
-		this.name = shardize( property.name || this.name || this.constructor.name );
+		let name = shardize( this.constructor.name );
+
+		this.type = [ name, "component" ];
+
+		this.name = shardize( property.name || this.name ) || name;
 
 		this.set( property );
 	}
@@ -137,6 +143,64 @@ class Component extends React.Component {
 			this.property.click( this, event );
 		}
 	}
+	disable( flag ){
+		if( truly( flag ) && truu( this.component ) && flag ){
+			this.component.addClass( "disabled" );
+
+		}else if( truly( flag ) && truu( this.component ) && !flag ){
+			this.enable( true );
+
+		}else if( truu( this.property ) &&
+			protype( this.property.disabled, BOOLEAN ) &&
+			this.property.disabled )
+		{
+			this.disable( true );
+
+		}else if( truu( this.property ) &&
+			( ( protype( this.property.disabled, BOOLEAN ) &&
+				!this.property.disabled ) ||
+			!kein( this.property, "disabled" ) ) )
+		{
+			this.enable( true );
+		}
+	}
+	enable( flag ){
+		if( truly( flag ) && truu( this.component ) && flag ){
+			this.component.removeClass( "disabled" );
+
+		}else if( truly( flag ) && truu( this.component ) && !flag ){
+			this.disable( true );
+		}
+	}
+	hide( flag ){
+		if( truly( flag ) && truu( this.component ) && flag ){
+			this.component.addClass( "hidden" );
+
+		}else if( truly( flag ) && truu( this.component ) && !flag ){
+			this.show( true );
+
+		}else if( truu( this.property ) &&
+			protype( this.property.hidden, BOOLEAN ) &&
+			this.property.hidden )
+		{
+			this.hide( true );
+
+		}else if( truu( this.property ) &&
+			( ( protype( this.property.hidden, BOOLEAN ) &&
+				!this.property.hidden ) ||
+			!kein( this.property, "hidden" ) ) )
+		{
+			this.show( true );
+		}
+	}
+	show( flag ){
+		if( truly( flag ) && truu( this.component ) && flag ){
+			this.component.removeClass( "hidden" );
+
+		}else if( truly( flag ) && truu( this.component ) && !flag ){
+			this.hide( true );
+		}
+	}
 
 	content( ){
 		if( truu( this.state ) ){
@@ -158,17 +222,20 @@ class Component extends React.Component {
 	rename( name ){
 		this.name = name;
 
-		this.refresh( );
+		return this;
 	}
 	set( property ){
 		if( protype( property, OBJECT ) && truu( property ) ){
 			this.property = property;
 
 			snapd.bind( this )( function onTimeout( ){
-				console.log( this.name, "is updated" );
-				this.setState( this.property );
+				if( truu( this.component ) ){
+					this.setState( this.property );
+				}
 			} );
 		}
+
+		return this;
 	}
 	get( name ){
 		if( protype( name, STRING ) && truly( name ) ){
@@ -178,46 +245,47 @@ class Component extends React.Component {
 			return this.state;
 		}
 	}
-	refresh( ){
-		if( protype( this.property, OBJECT ) && truu( this.property ) ){
+	refresh( property ){
+		if( protype( property, OBJECT ) && truu( property ) ){
+			this.set( property );
+
+		}else if( protype( this.property, OBJECT ) && truu( this.property ) ){
 			this.set( this.property );
 		}
 	}
 
 	bindName( ){
 		if( truu( this.component ) ){
-			snapd.bind( this )( function onTimeout( ){
-				this.component.attr( "name", this.name );
-			} );
+			this.component.attr( "name", this.name );
 		}
 	}
 	bindID( ){
 		this.id = [ this.name, Math.ceil( Date.now( ) * Math.random( ) ) ].join( "-" );
 
 		if( truu( this.component ) ){
-			snapd.bind( this )( function onTimeout( ){
-				this.component.attr( "id", this.id );
-			} );
+			this.component.attr( "id", this.id );
 		}
 	}
 	bindClass( ){
 		if( truu( this.component ) ){
-			snapd.bind( this )( function onTimeout( ){
-				this.component.addClass( this.type.join( " " ) );
-			} );
+			this.component.addClass( this.type.join( " " ) );
 		}
 	}
 	bindCategory( ){
 		if( truu( this.component ) && truu( this.property ) && truu( this.property.category ) ){
-			snapd.bind( this )( function onTimeout( ){
-				this.component.addClass( this.property.category );
-			} );
+			this.component.addClass( plough( [ this.property.category ] ).join( " " ) );
 		}
+
+		return this;
 	}
 	bindParent( ){
-		let parent = this;
+		if( falze( this.state ) ){
+			return this;
+		}
 
 		let children = this.state.children;
+
+		let parent = this;
 
 		if( doubt( children, ARRAY ) ){
 			children.forEach( ( child ) => {
@@ -227,45 +295,61 @@ class Component extends React.Component {
 			} );
 		}
 
-		this.component.children( ).map( function onEachChild( ){
-			let child = $( this ).data( "instance" );
+		if( truu( this.component ) ){
+			this.component.children( ).map( function onEachChild( ){
+				let child = $( this ).data( "instance" );
 
-			if( clazof( child, Component ) ){
-				child.register( parent );
-			}
-		} );
+				if( clazof( child, Component ) ){
+					child.register( parent );
+				}
+			} );
+		}
+
+		return this;
 	}
 	addClass( type ){
-		this.type.push( type );
+		if( !een( this.type, type ) ){
+			this.type.push( type );
+		}
 
 		this.bindClass( );
+
+		return this;
 	}
 	removeClass( type ){
 		this.type = this.type.filter( ( name ) => { return name !== type; } );
 
 		this.bindClass( );
+
+		return this;
 	}
 	resetClass( ){
 		if( truu( this.component ) ){
 			this.component.removeClass( );
 		}
+
+		return this;
 	}
 
 	initialize( ){
 		this.rename( this.property.name || this.name );
-
-		this.addClass( this.name );
 
 		this.build( );
 
 		this.mount( );
 
 		this.bound( );
+
+		this.check( );
+
+		return this;
 	}
 	build( ){
 		this.component = $( ReactDOM.findDOMNode( this ) );
 
 		this.component.data( "instance", this );
+
+		return this;
 	}
 	bound( ){
 		this.bindName( );
@@ -277,6 +361,15 @@ class Component extends React.Component {
 		this.bindCategory( );
 
 		this.bindParent( );
+
+		return this;
+	}
+	check( ){
+		this.disable( );
+
+		this.hide( );
+
+		return this;
 	}
 
 	/*;
@@ -291,14 +384,18 @@ class Component extends React.Component {
 		this.resetClass( );
 	}
 	componentWillReceiveProps( property ){
-		this.set( property );
+		this.refresh( property );
 	}
 	componentDidUpdate( ){
+		this.rename( this.property.name || this.name );
+		
 		this.build( );
 
 		this.update( );
 
 		this.bound( );
+
+		this.check( );
 	}
 	componentDidMount( ){
 		this.initialize( );

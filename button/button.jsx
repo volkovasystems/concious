@@ -5,7 +5,7 @@
 		The MIT License (MIT)
 		@mit-license
 
-		Copyright (@c) 2016 Richeve Siodina Bebedor
+		Copyright (@c) 2017 Richeve Siodina Bebedor
 		@email: richeve.bebedor@gmail.com
 
 		Permission is hereby granted, free of charge, to any person obtaining
@@ -48,9 +48,24 @@
 
 	@include:
 		{
-			"React": "react"
+			"React": "react",
+			"Component": "component"
 		}
 	@end-include
+
+	@usage:
+		1. Basic button:
+			<Button>Hello World</Button>
+
+		2. Complete button:
+			<Button title="Name" notice="This is your name.">Juan Dela Cruz</Button>
+
+		3. Icon button:
+			<Button icon="<icon set name>" image="<ligature name>">[ligature name]<Button>
+
+		4. Loading button:
+			<Button loading={ true }></Button>
+	@end-usage
 */
 
 import doubt from "doubt";
@@ -67,10 +82,15 @@ class Button extends Component {
 
 	render( ){
 		let {
+			name,
+
 			icon,
+			loading,
 			image,
+
 			title,
 			notice,
+
 			state,
 			purpose
 		} = this.state;
@@ -81,7 +101,8 @@ class Button extends Component {
 					type="button"
 
 					className={ kley( {
-						"icon": !!icon
+						"icon": !!icon || loading,
+						"loading": loading
 					}, [
 						state,
 						purpose
@@ -91,30 +112,37 @@ class Button extends Component {
 					onMouseDown={ this.press.bind( this ) }
 					onMouseUp={ this.release.bind( this ) }
 					onMouseEnter={ this.focus.bind( this ) }
-					onMouseLeave={ this.rest.bind( this ) }
-				>
-					{ truly( title )?
-						<Label
-							category="title">
-							{ title }
-						</Label> : null
+					onMouseLeave={ this.rest.bind( this ) }>
+					{
+						truly( title )?
+							<Label
+								name={ name }
+								category="title">
+								{ title }
+							</Label> : null
 					}
-					{ truly( icon )?
-						<Icon
-							icon={ icon }
-							image={ image }>
-							{ content }
-						</Icon> :
-						<Label
-							target={ this.id }>
-							{ content }
-						</Label>
+					{
+						( truly( icon ) || loading )?
+							<Icon
+								name={ name }
+								icon={ icon }
+								image={ image }
+								loading={ loading }>
+								{ content }
+							</Icon> :
+							<Label
+								name={ name }
+								target={ this.id }>
+								{ content }
+							</Label>
 					}
-					{ truly( notice )?
-						<Label
-							category="notice">
-							{ notice }
-						</Label> : null
+					{
+						truly( notice )?
+							<Label
+								name={ name }
+								category="notice">
+								{ notice }
+							</Label> : null
 					}
 				</button> );
 	}

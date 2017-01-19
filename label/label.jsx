@@ -52,10 +52,15 @@
 			"Component": "component"
 		}
 	@end-include
-*/
 
-import doubt from "doubt";
-import falzy from "falzy";
+	@usage:
+		<Label target="<id of target>">[text]</Label>
+
+		or
+
+		<Label target="<id of target>" text="Hello World"></Label>
+	@end-usage
+*/
 
 import React from "react";
 import Component from "component";
@@ -67,10 +72,6 @@ class Label extends Component {
 		let { text, target } = this.state;
 
 		text = text || this.content( );
-
-		if( falzy( text ) ){
-			return null;
-		}
 
 		return ( <label
 					htmlFor={ target }>
