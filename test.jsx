@@ -6,7 +6,7 @@ import "./concious.js";
 
 ReactDOM.render( <Control
 		icon={ { "set": "material-icon", "ligature": "home" } }
-		action={ { "set": "material-icon", "ligature": "more_vert" } }>
+		loading={ true }>
 		Hello World
 	</Control>,
 	document.getElementById( "root" ) )

@@ -51,6 +51,9 @@
 			"React": "react"
 		}
 	@end-include
+
+	@usage:
+	@end-usage
 */
 
 import clazof from "clazof";
