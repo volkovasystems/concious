@@ -10,6 +10,12 @@ button.button.component {
 
 	background-color: rgba( 153, 153, 153, 1 );
 
+	cursor: pointer;
+
+	&.label {
+		flex: 1 1 auto;
+	}
+
 	&:focus {
 		outline: none;
 	}

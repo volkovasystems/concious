@@ -51,35 +51,118 @@
 			"React": "react"
 		}
 	@end-include
+
+	@usage:
+		1. Simple icon:
+			<Icon set="<icon set [icon name]>">[ligature]<Icon>
+
+		2. Loading icon:
+			<Icon loading={ true } />
+
+		3. Image icon:
+			<Icon image="<data uri>" />
+
+			or
+
+			<Icon source="<url>" />
+
+		4. Different icon looks.
+			Round edge:
+			<Icon edge="round" /> or <Icon edge={ ROUND } />
+
+			Soft edge:
+			<Icon edge="soft" /> or <Icon edge={ SOFT } />
+
+			Fit image layout:
+			<Icon layout="fit" /> or <Icon layout={ FIT } />
+
+			Spread image layout:
+			<Icon layout="spread" /> or <Icon layout={ SPREAD } />
+	@end-usage
 */
 
+import budge from "budge";
 import depher from "depher";
 import doubt from "doubt";
+import falzy from "falzy";
+import harden from "harden";
 import kley from "kley";
+import optfor from "optfor";
+import protype from "protype";
+import raze from "raze";
 import truly from "truly";
 
 import React from "react";
 import Component from "component";
 
+harden( "SOFT", "soft" );
+harden( "ROUND", "round" );
+harden( "FIT", "fit" );
+harden( "SPREAD", "spread" );
+
 class Icon extends Component {
 	constructor( property ){ super( property ); }
 
+	static resolve( icon, loading, name ){
+		if( falzy( icon ) ){
+			return null;
+		}
+
+		let parameter = raze( arguments );
+
+		if( protype( icon, STRING ) ){
+			icon = { "set": icon }
+		}
+
+		if( !protype( icon, OBJECT ) ){
+			icon = { };
+		}
+
+		loading = optfor( parameter, BOOLEAN );
+		if( protype( loading, BOOLEAN ) && loading ){
+			icon.loading = loading;
+		}
+
+		name = optfor( budge( parameter ), STRING );
+		if( protype( name, STRING ) && truly( name ) ){
+			icon.name = icon.name || name;
+		}
+
+		return icon;
+	}
+
 	render( ){
 		let {
-			icon,
+			set,
+			ligature,
+
 			image,
-			loading
+			source,
+			layout,
+
+			loading,
+
+			edge
 		} = this.state;
 
-		image = image || this.content( );
+		ligature = ligature || this.content( );
+
+		let imageMode = ( truly( image ) || truly( source ) );
 
 		return ( <div
 					className={ kley( {
-						"loading": loading || icon,
-						[ `${ icon }-${ image }`.replace( /\-$/, "" ) ]: !loading && truly( image )
+						"loading": loading || set,
+
+						"image": !loading && imageMode,
+						"layout": !loading && imageMode && layout,
+
+						"soft edge": edge === SOFT,
+						"round edge": edge === ROUND,
 					} ).join( " " ) }
+
+					style={ { "backgroundImage": imageMode? `url( ${ image || source } )` : "none" } }
 				>
-					{ loading? <div className="loader"></div> : ( image || null ) }
+					{ loading? <div className="loader"></div> : ( ligature || null ) }
 				</div> );
 	}
 }

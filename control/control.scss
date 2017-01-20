@@ -3,5 +3,12 @@ div.control.component {
 
 	flex-direction: column;
 
+	justify-content: center;
+	align-items: center;
+
+	flex: 2 0 auto;
+
+	background-color: rgba( 153, 153, 153, 1 );
+
 	
 }

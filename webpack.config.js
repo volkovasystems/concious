@@ -26,12 +26,9 @@ module.exports = {
 			let component = {
 				"button": resolve( "button" ),
 				"component": resolve( "component" ),
-				"dashbar": resolve( "dashbar" ),
-				"header": resolve( "header" ),
+				"control": resolve( "control" ),
 				"label": resolve( "label" ),
-				"list": resolve( "list" ),
-				"icon": resolve( "icon" ),
-				"item": resolve( "item" )
+				"icon": resolve( "icon" )
 			};
 
 			return component;
@@ -49,7 +46,8 @@ module.exports = {
 			{ "test": /\.support\.js$/, "loaders": [ "source-map-loader" ] }
 		],
 		"loaders": [
-			{ "test": /\.css$/, "loaders": [ "style-loader?singleton", "css-loader" ] }
+			{ "test": /\.css$/, "loaders": [ "style-loader?singleton", "css-loader", "resolve-url" ] },
+			{ "test": /\.(ttf|svg|eot|woff2?)$/, "loaders": [ "url-loader" ] }
 		]
 	},
 
@@ -61,12 +59,9 @@ module.exports = {
 
 		"Button": "button",
 		"Component": "component",
-		"Dashbar": "dashbar",
-		"Header": "header",
+		"Control": "control",
 		"Label": "label",
-		"List": "list",
-		"Icon": "icon",
-		"Item": "item"
+		"Icon": "icon"
 	},
 
 	"plugins": [

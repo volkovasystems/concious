@@ -57,20 +57,41 @@
 		1. Basic button:
 			<Button>Hello World</Button>
 
+			or
+
+			<Button label="Hello World"/>
+
 		2. Complete button:
 			<Button title="Name" notice="This is your name.">Juan Dela Cruz</Button>
 
 		3. Icon button:
-			<Button icon="<icon set name>" image="<ligature name>">[ligature name]<Button>
+			<Button icon={ <icon data> }>[ligature name]<Button>
 
 		4. Loading button:
 			<Button loading={ true }></Button>
+
+		5. Button with status:
+			<Button status="<status name>">Hello World</Button>
+
+		6. Button with purpose:
+			<Button purpose="<purpose name>">Hello World</Button>
+
+		@note:
+			You can combine title, notice, status, purpose.
+
+			If the button is icon or loading type it will not contain any text.
+				all textual data will be disregarded in. Icon have higher priority
+				over textual data.
+
+			Icon and loading button can have state and purpose.
+		@end-note
 	@end-usage
 */
 
 import doubt from "doubt";
-import truly from "truly";
 import kley from "kley";
+import truly from "truly";
+import truu from "truu";
 
 import React from "react";
 import Component from "component";
@@ -86,8 +107,8 @@ class Button extends Component {
 
 			icon,
 			loading,
-			image,
 
+			label,
 			title,
 			notice,
 
@@ -97,11 +118,16 @@ class Button extends Component {
 
 		let content = this.content( );
 
+		label = label || content;
+
+		icon = Icon.resolve( icon, loading, name );
+
 		return ( <button
 					type="button"
 
 					className={ kley( {
-						"icon": !!icon || loading,
+						"icon": truu( icon ) || loading,
+						"label": !truu( icon ) && truly( label ),
 						"loading": loading
 					}, [
 						state,
@@ -122,19 +148,15 @@ class Button extends Component {
 							</Label> : null
 					}
 					{
-						( truly( icon ) || loading )?
-							<Icon
-								name={ name }
-								icon={ icon }
-								image={ image }
-								loading={ loading }>
-								{ content }
-							</Icon> :
+						( truu( icon ) || loading )?
+							<Icon { ...icon }>{ content }</Icon> :
+
+						truly( label )?
 							<Label
 								name={ name }
 								target={ this.id }>
-								{ content }
-							</Label>
+								{ label }
+							</Label> : null
 					}
 					{
 						truly( notice )?

@@ -57,31 +57,22 @@ import harden from "harden";
 
 import { default as Button } from "button";
 import { default as Component } from "component";
-import { default as Dashbar } from "dashbar";
-import { default as Header } from "header";
+import { default as Control } from "control";
 import { default as Icon } from "icon";
-import { default as Item } from "item";
 import { default as Label } from "label";
-import { default as List } from "list";
 
 import "./concious.css";
 
 harden( "Button", Button );
 harden( "Component", Component );
-harden( "Dashbar", Dashbar );
-harden( "Header", Header );
+harden( "Control", Control );
 harden( "Icon", Icon );
-harden( "Item", Item );
 harden( "Label", Label );
-harden( "List", List );
 
 export {
 	Button,
 	Component,
-	Dashbar,
-	Header,
+	Control,
 	Icon,
-	Item,
-	Label,
-	List
+	Label
 };

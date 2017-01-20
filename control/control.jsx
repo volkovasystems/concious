@@ -54,6 +54,7 @@
 */
 
 import clazof from "clazof";
+import falze from "falze";
 import kley from "kley";
 import plough from "plough";
 import pyck from "pyck";
@@ -79,9 +80,12 @@ class Control extends Component {
 
 	render( ){
 		let {
+			name,
+
 			icon,
-			image,
 			loading,
+
+			label,
 			title,
 			notice,
 
@@ -101,11 +105,15 @@ class Control extends Component {
 		} = this.state;
 
 		let control = this.control( );
+
 		let content = this.content( );
+
+		if( falze( control ) ){
+			icon = Icon.resolve( icon, name );
+		}
 
 		return ( <div
 					className={ kley( {
-						"icon": truly( icon ),
 						"set": truu( control ),
 						"loading": loading
 					}, [
@@ -114,13 +122,16 @@ class Control extends Component {
 					] ).join( " " ) }
 				>
 					{
-						control?
+						truu( control )?
 							control :
 							( [
-								icon?
+								truu( icon )?
 									<Button
+										key={ `icon-${ Date.now( ) + Math.random( ) }` }
+
+										name={ name }
+
 										icon={ icon }
-										image={ image }
 
 										status={ status }
 										purpose={ purpose }
@@ -132,15 +143,18 @@ class Control extends Component {
 										focus={ focus }
 
 										disabled={ disabled }
-										hidden={ hidden }>
-										{ content }
-									</Button> : null,
+										hidden={ hidden } /> : null,
 
-								label?
+								( truly( label ) || truly( content ) )?
 									<Button
+										key={ `label-${ Date.now( ) + Math.random( ) }` }
+
+										name={ name }
+
 										title={ title }
 										notice={ notice }
 
+										label={ label }
 										status={ status }
 										purpose={ purpose }
 
@@ -155,27 +169,35 @@ class Control extends Component {
 										{ content }
 									</Button> : null,
 
-								action?
+								truu( action )?
 									<Button
-										title={ title }
-										notice={ notice }
+										key={ `action-${ Date.now( ) + Math.random( ) }` }
 
-										status={ status }
-										purpose={ purpose }
+										name={ name }
 
-										click={ click }
-										press={ press }
-										release={ release }
-										rest={ rest }
-										focus={ focus }
+										icon={ {
+											"set": action.set || "material-design",
+											"ligature": action.ligature || "more_vert"
+										} }
 
-										disabled={ disabled }
-										hidden={ hidden }>
-										{ content }
-									</Button> : null,
+										status={ action.status || status }
+										purpose={ action.purpose || purpose }
+
+										click={ action.click || click }
+										press={ action.press || press }
+										release={ action.release || release }
+										rest={ action.rest || rest }
+										focus={ action.focus || focus }
+
+										disabled={ action.disabled || disabled }
+										hidden={ action.hidden || hidden } /> : null,
 
 								loading?
 									<Icon
+										key={ `loading-${ Date.now( ) + Math.random( ) }` }
+
+										name={ name }
+
 										loading={ true }
 
 										disabled={ disabled }

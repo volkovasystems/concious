@@ -122,6 +122,10 @@ class Component extends React.Component {
 		if( truu( this.property ) && protype( this.property.press, FUNCTION ) ){
 			this.property.press( this, event );
 		}
+
+		snapd.bind( this )( function onTimeout( ){
+			this.release( );
+		}, 1000 );
 	}
 	release( event ){
 		if( truu( this.component ) ){
@@ -388,7 +392,7 @@ class Component extends React.Component {
 	}
 	componentDidUpdate( ){
 		this.rename( this.property.name || this.name );
-		
+
 		this.build( );
 
 		this.update( );

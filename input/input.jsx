@@ -62,7 +62,7 @@ import Component from "component";
 class Input extends Component {
 	constructor( property ){ super( property ); }
 
-
+	
 }
 
 export default Input;

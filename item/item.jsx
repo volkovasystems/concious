@@ -65,17 +65,20 @@ import Label from "label";
 class Item extends Component {
 	constructor( property ){ super( property ); }
 
+	item( ){
+		if( truu( this.state ) ){
+			return pyck( plough( [ this.state.children ] ),
+				( child ) => { return clazof( child, Component ); } );
+		}
+
+		return null;
+	}
+
 	render( ){
-		let { icon, set, children, label, notice } = this.state;
+		let item = this.item( );
 
-		return ( <li
-					onClick={ this.click.bind( this ) }
-					onMouseDown={ this.press.bind( this ) }
-					onMouseUp={ this.release.bind( this ) }
-					onMouseEnter={ this.focus.bind( this ) }
-					onMouseLeave={ this.rest.bind( this ) }
-				>
-
+		return ( <li>
+					{ item }
 				</li> );
 	}
 }
