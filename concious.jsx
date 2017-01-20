@@ -62,6 +62,8 @@ import { default as Icon } from "icon";
 import { default as Label } from "label";
 import { default as Button } from "button";
 import { default as Control } from "control";
+import { default as Plate } from "plate";
+import { default as Header } from "header";
 import { default as Item } from "item";
 import { default as List } from "list";
 
@@ -70,6 +72,8 @@ harden( "Icon", Icon );
 harden( "Label", Label );
 harden( "Button", Button );
 harden( "Control", Control );
+harden( "Plate", Plate );
+harden( "Header", Header );
 harden( "Item", Item );
 harden( "List", List );
 
@@ -79,6 +83,8 @@ export {
 	Label,
 	Button,
 	Control,
+	Plate,
+	Header,
 	Item,
 	List
 };

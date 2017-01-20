@@ -1,5 +1,57 @@
 div.plate.component {
 	flex-direction: row;
 
-	
+	justify-content: center;
+	align-items: center;
+
+	flex: 1 1 auto;
+
+	.content {
+		position: relative;
+
+		display: flex;
+
+		flex-direction: column;
+		justify-content: center;
+
+		flex: 1 1 auto;
+
+		width: inherit;
+		min-width: inherit;
+		max-width: inherit;
+
+		height: inherit;
+		min-height: inherit;
+		max-height: inherit;
+
+		.title.label {
+			position: absolute;
+
+			top: 0px;
+			left: 0px;
+			right: 0px;
+		}
+
+		.description.label {
+			font-size: .85em;
+			line-height: .95em;
+		}
+
+		.notice.label {
+			position: absolute;
+
+			bottom: 0px;
+			left: 0px;
+			right: 0px;
+		}
+	}
+
+	&.descriptive {
+		.content {
+			.value.label,
+			.description.label {
+				justify-content: flex-start;
+			}
+		}
+	}
 }

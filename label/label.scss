@@ -8,8 +8,14 @@ div.label.component {
 	min-height: fit-content;
 	max-height: fit-content;
 
+	padding-left: 15px;
+	padding-right: 15px;
+
 	label {
 		font-size: 1em;
+		line-height: 1.1em;
+
+		letter-spacing: .5px;
 
 		text-overflow: ellipsis;
 
@@ -23,16 +29,11 @@ div.label.component {
 	&.title,
 	&.notice {
 		line-height: 1.5em;
-
-		padding-left: 15px;
-		padding-right: 15px;
 	}
 	&.title {
 		font-size: .8em;
 
 		text-transform: uppercase;
-
-		letter-spacing: .5px;
 
 		padding-top: 5px;
 		padding-bottom: 0;
@@ -41,8 +42,6 @@ div.label.component {
 	}
 	&.notice {
 		font-size: .8em;
-
-		letter-spacing: .5px;
 
 		padding-top: 0;
 		padding-bottom: 5px;

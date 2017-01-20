@@ -55,19 +55,33 @@
 
 import React from "react";
 import Component from "component";
+import Plate from "plate";
 
 class Header extends Component {
 	constructor( property ){ super( property ); }
 
 	render( ){
 		let {
+			name,
+
+			icon,
+			loading,
+
+			label,
+			description,
+			notice,
+
+			action,
+
+			status,
+			purpose,
+
 			hidden
 		} = this.state;
 
 		return ( <header
 					hidden={ hidden }
 				>
-
 				</header> );
 	}
 }
