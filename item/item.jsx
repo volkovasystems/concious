@@ -1,4 +1,3 @@
-
 "use strict";
 
 /*;
@@ -45,6 +44,8 @@
 
 	@module-documentation:
 		Item Component
+
+			Items are higher order components.
 	@end-module-documentation
 
 	@include:
@@ -54,18 +55,19 @@
 	@end-include
 */
 
-import doubt from "doubt";
-import truly from "truly";
+import clazof from "clazof";
+import kley from "kley";
+import plough from "plough";
+import pyck from "pyck";
+import truu from "truu";
 
 import React from "react";
 import Component from "component";
-import Icon from "icon";
-import Label from "label";
 
 class Item extends Component {
 	constructor( property ){ super( property ); }
 
-	item( ){
+	component( ){
 		if( truu( this.state ) ){
 			return pyck( plough( [ this.state.children ] ),
 				( child ) => { return clazof( child, Component ); } );
@@ -75,10 +77,30 @@ class Item extends Component {
 	}
 
 	render( ){
-		let item = this.item( );
+		let {
+			name,
 
-		return ( <li>
-					{ item }
+			title,
+			label,
+			description,
+			notice,
+
+			status,
+			purpose,
+
+			hidden
+		} = this.state;
+
+		let component = this.component( );
+
+		return ( <li
+					className={ kley( [
+						status,
+						purpose
+					] ) }
+					hidden={ hidden }
+				>
+					{ component }
 				</li> );
 	}
 }

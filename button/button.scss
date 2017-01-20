@@ -1,19 +1,32 @@
 button.button.component {
-	position: relative;
-
 	flex-direction: column;
 
 	justify-content: center;
 	align-items: center;
 
+	/*:
+		@note:
+			By default the button will not adjust.
+		@end-note
+	*/
 	flex: 2 0 auto;
 
-	background-color: rgba( 153, 153, 153, 1 );
+	background-color: rgba( 153, 153, 153, 0.5 );
 
 	cursor: pointer;
 
+	/*:
+		@note:
+			The button will only adjust if it is paird with another and is a label.
+		@end-note
+	*/
 	&.label {
 		flex: 1 1 auto;
+
+		align-items: stretch;
+
+		padding-left: 5%;
+		padding-right: 5%;
 	}
 
 	&:focus {

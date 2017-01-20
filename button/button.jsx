@@ -112,8 +112,10 @@ class Button extends Component {
 			title,
 			notice,
 
-			state,
-			purpose
+			status,
+			purpose,
+
+			hidden
 		} = this.state;
 
 		let content = this.content( );
@@ -130,7 +132,7 @@ class Button extends Component {
 						"label": !truu( icon ) && truly( label ),
 						"loading": loading
 					}, [
-						state,
+						status,
 						purpose
 					] ).join( " " ) }
 
@@ -138,7 +140,10 @@ class Button extends Component {
 					onMouseDown={ this.press.bind( this ) }
 					onMouseUp={ this.release.bind( this ) }
 					onMouseEnter={ this.focus.bind( this ) }
-					onMouseLeave={ this.rest.bind( this ) }>
+					onMouseLeave={ this.rest.bind( this ) }
+
+					hidden={ hidden }
+				>
 					{
 						truly( title )?
 							<Label

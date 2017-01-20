@@ -53,26 +53,32 @@
 	@end-include
 */
 
-import harden from "harden";
-
-import { default as Button } from "button";
-import { default as Component } from "component";
-import { default as Control } from "control";
-import { default as Icon } from "icon";
-import { default as Label } from "label";
-
 import "./concious.css";
 
-harden( "Button", Button );
+import harden from "harden";
+
+import { default as Component } from "component";
+import { default as Icon } from "icon";
+import { default as Label } from "label";
+import { default as Button } from "button";
+import { default as Control } from "control";
+import { default as Item } from "item";
+import { default as List } from "list";
+
 harden( "Component", Component );
-harden( "Control", Control );
 harden( "Icon", Icon );
 harden( "Label", Label );
+harden( "Button", Button );
+harden( "Control", Control );
+harden( "Item", Item );
+harden( "List", List );
 
 export {
-	Button,
 	Component,
-	Control,
 	Icon,
-	Label
+	Label,
+	Button,
+	Control,
+	Item,
+	List
 };

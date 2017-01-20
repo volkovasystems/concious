@@ -31,9 +31,9 @@
 	@module-configuration:
 		{
 			"package": "concious",
-			"path": "concious/label/label.jsx",
-			"file": "label.jsx",
-			"module": "Button",
+			"path": "concious/plate/plate.jsx",
+			"file": "plate.jsx",
+			"module": "Plate",
 			"author": "Richeve S. Bebedor",
 			"eMail": "richeve.bebedor@gmail.com",
 			"repository": "https://github.com/volkovasystems/concious.git",
@@ -43,50 +43,87 @@
 	@end-module-configuration
 
 	@module-documentation:
-		Label Component
+		Plate Component
+
+			Plates are higher order components.
 	@end-module-documentation
 
 	@include:
 		{
-			"React": "react",
-			"Component": "component"
+			"React": "react"
 		}
 	@end-include
-
-	@usage:
-		<Label target="<id of target>">[text]</Label>
-
-		or
-
-		<Label target="<id of target>" text="Hello World"></Label>
-	@end-usage
 */
+
+import clazof from "clazof";
+import kley from "kley";
+import truly from "truly";
+import truu from "truu";
 
 import React from "react";
 import Component from "component";
+import Icon from "icon";
+import Label from "label";
+import Button from "button";
 
-class Label extends Component {
+class Plate extends Component {
 	constructor( property ){ super( property ); }
 
 	render( ){
 		let {
-			text,
+			name,
+
+			title,
+			label,
+			description,
+			notice,
 			target,
+
+			icon,
+			loading,
+
+			action,
+
+			status,
+			purpose,
+
 			hidden
 		} = this.state;
 
-		text = text || this.content( );
+		label = label || this.content( );
+
+		let hasContent = truly( title ) || truly( label ) || truly( description ) || truly( notice );
 
 		return ( <div
+					className={ kley( [
+						status,
+						purpose
+					] ) }
 					hidden={ hidden }
 				>
-					<label
-						htmlFor={ target }
-					>
-						{ text }
-					</label>
+					{
+						hasContent?
+							<div
+								className="content">
+								{
+									[
+										truly( title )?
+											<Label category="title">{ title }</Label> : null,
+											
+										truly( label )?
+											<Label target={ target }>{ label }</Label> : null,
+
+										truly( description )?
+											<Label category="description">{ description }</Label> : null,
+
+										truly( notice )?
+											<Label category="notice">{ notice }</Label> : null,
+									]
+								}
+							</div> : null
+					}
 				</div> );
 	}
 }
 
-export default Label;
+export default Plate;

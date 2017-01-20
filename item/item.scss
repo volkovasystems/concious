@@ -1,7 +1,28 @@
 li.item.component {
-	position: relative;
+	/*;
+		@note:
+			All child if items are listed from top to bottom.
+		@end-note
+	*/
+	flex-direction: column;
 
-	flex-direction: row;
+	justify-content: space-between;
 
-	
+	/*;
+		@note:
+			They will spread horizontally.
+		@end-note
+	*/
+	align-items: stretch;
+
+	margin-top: 0.5px;
+	margin-bottom: 0.5px;
+
+	.component:nth-child( n + 2 ) {
+		margin-top: 0.5px;
+	}
+
+	.component:nth-last-child( n + 2 ) {
+		margin-bottom: 0.5px;
+	}
 }

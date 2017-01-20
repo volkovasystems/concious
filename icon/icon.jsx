@@ -111,7 +111,9 @@ class Icon extends Component {
 		let parameter = raze( arguments );
 
 		if( protype( icon, STRING ) ){
-			icon = { "set": icon }
+			let [ set, type ] = icon.split( " " );
+
+			icon = { "set": set, "icon": type };
 		}
 
 		if( !protype( icon, OBJECT ) ){
@@ -134,6 +136,7 @@ class Icon extends Component {
 	render( ){
 		let {
 			set,
+			icon,
 			ligature,
 
 			image,
@@ -142,7 +145,9 @@ class Icon extends Component {
 
 			loading,
 
-			edge
+			edge,
+
+			hidden
 		} = this.state;
 
 		ligature = ligature || this.content( );
@@ -153,6 +158,8 @@ class Icon extends Component {
 					className={ kley( {
 						"loading": loading || set,
 
+						"icon": icon,
+
 						"image": !loading && imageMode,
 						"layout": !loading && imageMode && layout,
 
@@ -161,6 +168,10 @@ class Icon extends Component {
 					} ).join( " " ) }
 
 					style={ { "backgroundImage": imageMode? `url( ${ image || source } )` : "none" } }
+
+					aria-hidden="true"
+
+					hidden={ hidden }
 				>
 					{ loading? <div className="loader"></div> : ( ligature || null ) }
 				</div> );

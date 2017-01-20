@@ -44,6 +44,20 @@
 
 	@module-documentation:
 		Component
+
+			There are many ways to add class to a component dom.
+				1. type
+					This determines the type of the component.
+					The component type as well as the component namespace will not be removed.
+
+				2. category
+					This determines how the component is associated.
+
+				3. name
+					This is a single value for component names.
+
+				4. behavior
+					This determines how the component will behave. This is internal.
 	@end-module-documentation
 
 	@include:
@@ -61,6 +75,7 @@ import clazof from "clazof";
 import doubt from "doubt";
 import een from "een";
 import falze from "falze";
+import harden from "harden";
 import kein from "kein";
 import plough from "plough";
 import pyck from "pyck";
@@ -74,6 +89,14 @@ import $ from "jquery";
 import React from "react";
 import ReactDOM from "react-dom";
 
+const INSTANCE = Symbol( "instance" );
+
+harden( "COMPONENT", "component" );
+harden( "FOCUS", "focus" );
+harden( "PRESS", "press" );
+harden( "HIDDEN", "hidden" );
+harden( "DISABLED", "disabled" );
+
 class Component extends React.Component {
 	constructor( property ){
 		super( property );
@@ -83,10 +106,11 @@ class Component extends React.Component {
 		this.children = [ ];
 
 		let name = shardize( this.constructor.name );
-
-		this.type = [ name, "component" ];
+		this.type = [ name, COMPONENT ];
 
 		this.name = shardize( property.name || this.name ) || name;
+
+		this.behavior = [ ];
 
 		this.set( property );
 	}
@@ -98,25 +122,29 @@ class Component extends React.Component {
 	*/
 	focus( event ){
 		if( truu( this.component ) ){
-			this.component.addClass( "focus" );
+			this.behave( FOCUS );
 		}
 
 		if( truu( this.property ) && protype( this.property.focus, FUNCTION ) ){
 			this.property.focus( this, event );
 		}
+
+		return this;
 	}
 	rest( event ){
 		if( truu( this.component ) ){
-			this.component.removeClass( "focus" );
+			this.suppress( FOCUS );
 		}
 
 		if( truu( this.property ) && protype( this.property.rest, FUNCTION ) ){
 			this.property.rest( this, event );
 		}
+
+		return this;
 	}
 	press( event ){
 		if( truu( this.component ) ){
-			this.component.addClass( "press" );
+			this.behave( PRESS );
 		}
 
 		if( truu( this.property ) && protype( this.property.press, FUNCTION ) ){
@@ -126,15 +154,19 @@ class Component extends React.Component {
 		snapd.bind( this )( function onTimeout( ){
 			this.release( );
 		}, 1000 );
+
+		return this;
 	}
 	release( event ){
 		if( truu( this.component ) ){
-			this.component.removeClass( "press" );
+			this.suppress( PRESS );
 		}
 
 		if( truu( this.property ) && protype( this.property.release, FUNCTION ) ){
 			this.property.release( this, event );
 		}
+
+		return this;
 	}
 	click( event ){
 		this.press( );
@@ -146,10 +178,12 @@ class Component extends React.Component {
 		if( truu( this.property ) && protype( this.property.click, FUNCTION ) ){
 			this.property.click( this, event );
 		}
+
+		return this;
 	}
 	disable( flag ){
 		if( truly( flag ) && truu( this.component ) && flag ){
-			this.component.addClass( "disabled" );
+			this.behave( DISABLED );
 
 		}else if( truly( flag ) && truu( this.component ) && !flag ){
 			this.enable( true );
@@ -163,22 +197,26 @@ class Component extends React.Component {
 		}else if( truu( this.property ) &&
 			( ( protype( this.property.disabled, BOOLEAN ) &&
 				!this.property.disabled ) ||
-			!kein( this.property, "disabled" ) ) )
+			!kein( this.property, DISABLED ) ) )
 		{
 			this.enable( true );
 		}
+
+		return this;
 	}
 	enable( flag ){
 		if( truly( flag ) && truu( this.component ) && flag ){
-			this.component.removeClass( "disabled" );
+			this.suppress( DISABLED );
 
 		}else if( truly( flag ) && truu( this.component ) && !flag ){
 			this.disable( true );
 		}
+
+		return this;
 	}
 	hide( flag ){
 		if( truly( flag ) && truu( this.component ) && flag ){
-			this.component.addClass( "hidden" );
+			this.behave( HIDDEN );
 
 		}else if( truly( flag ) && truu( this.component ) && !flag ){
 			this.show( true );
@@ -192,18 +230,22 @@ class Component extends React.Component {
 		}else if( truu( this.property ) &&
 			( ( protype( this.property.hidden, BOOLEAN ) &&
 				!this.property.hidden ) ||
-			!kein( this.property, "hidden" ) ) )
+			!kein( this.property, HIDDEN ) ) )
 		{
 			this.show( true );
 		}
+
+		return this;
 	}
 	show( flag ){
 		if( truly( flag ) && truu( this.component ) && flag ){
-			this.component.removeClass( "hidden" );
+			this.suppress( HIDDEN );
 
 		}else if( truly( flag ) && truu( this.component ) && !flag ){
 			this.hide( true );
 		}
+
+		return this;
 	}
 
 	content( ){
@@ -217,14 +259,21 @@ class Component extends React.Component {
 		this.parent = parent;
 
 		parent.associate( this );
+
+		return this;
 	}
 	associate( child ){
 		if( !een( this.children, child, ( item, child ) => { return item.id === child.id; } ) ){
 			this.children.push( child );
 		}
+
+		return this;
 	}
 	rename( name ){
-		this.name = name;
+		this.name = shardize( name ||
+			( truu( this.property ) && this.property.name ) ||
+			this.name ||
+			this.constructor.name );
 
 		return this;
 	}
@@ -256,25 +305,27 @@ class Component extends React.Component {
 		}else if( protype( this.property, OBJECT ) && truu( this.property ) ){
 			this.set( this.property );
 		}
+
+		return this;
 	}
 
 	bindName( ){
 		if( truu( this.component ) ){
 			this.component.attr( "name", this.name );
 		}
+
+		return this;
 	}
 	bindID( ){
-		this.id = [ this.name, Math.ceil( Date.now( ) * Math.random( ) ) ].join( "-" );
+		this.id = this.id || `${ this.name }-${ Math.ceil( Date.now( ) * Math.random( ) ) }`;
 
 		if( truu( this.component ) ){
 			this.component.attr( "id", this.id );
 		}
+
+		return this;
 	}
-	bindClass( ){
-		if( truu( this.component ) ){
-			this.component.addClass( this.type.join( " " ) );
-		}
-	}
+
 	bindCategory( ){
 		if( truu( this.component ) && truu( this.property ) && truu( this.property.category ) ){
 			this.component.addClass( plough( [ this.property.category ] ).join( " " ) );
@@ -282,6 +333,7 @@ class Component extends React.Component {
 
 		return this;
 	}
+
 	bindParent( ){
 		if( falze( this.state ) ){
 			return this;
@@ -301,7 +353,7 @@ class Component extends React.Component {
 
 		if( truu( this.component ) ){
 			this.component.children( ).map( function onEachChild( ){
-				let child = $( this ).data( "instance" );
+				let child = $( this ).data( INSTANCE );
 
 				if( clazof( child, Component ) ){
 					child.register( parent );
@@ -311,23 +363,74 @@ class Component extends React.Component {
 
 		return this;
 	}
-	addClass( type ){
+
+	addType( type ){
 		if( !een( this.type, type ) ){
 			this.type.push( type );
 		}
 
-		this.bindClass( );
+		this.bindType( );
 
 		return this;
 	}
-	removeClass( type ){
-		this.type = this.type.filter( ( name ) => { return name !== type; } );
+	removeType( type ){
+		let component = this.constructor.name;
+		this.type = this.type.filter( ( name ) => {
+			if( name === component || name === COMPONENT ){
+				return true;
+			}
 
-		this.bindClass( );
+			return name !== type;
+		} );
+
+		this.bindType( );
 
 		return this;
 	}
-	resetClass( ){
+	bindType( ){
+		if( truu( this.component ) ){
+			this.component.addClass( this.type.join( " " ) );
+		}
+
+		return this;
+	}
+
+	behave( behavior ){
+		this.resetBehavior( );
+
+		if( !een( this.behavior, behavior ) ){
+			this.behavior.push( behavior );
+		}
+
+		this.bindBehavior( );
+
+		return this;
+	}
+	suppress( behavior ){
+		this.resetBehavior( );
+
+		this.behavior = this.behavior.filter( ( name ) => {
+			return name !== behavior;
+		} );
+
+		this.bindBehavior( );
+
+		return this;
+	}
+	resetBehavior( ){
+		if( truu( this.component ) ){
+			this.component.removeClass( this.behavior.join( " " ) );
+		}
+	}
+	bindBehavior( ){
+		if( truu( this.component ) ){
+			this.component.addClass( this.behavior.join( " " ) );
+		}
+
+		return this;
+	}
+
+	reset( ){
 		if( truu( this.component ) ){
 			this.component.removeClass( );
 		}
@@ -335,23 +438,10 @@ class Component extends React.Component {
 		return this;
 	}
 
-	initialize( ){
-		this.rename( this.property.name || this.name );
-
-		this.build( );
-
-		this.mount( );
-
-		this.bound( );
-
-		this.check( );
-
-		return this;
-	}
 	build( ){
 		this.component = $( ReactDOM.findDOMNode( this ) );
 
-		this.component.data( "instance", this );
+		this.component.data( INSTANCE, this );
 
 		return this;
 	}
@@ -360,9 +450,11 @@ class Component extends React.Component {
 
 		this.bindID( );
 
-		this.bindClass( );
+		this.bindType( );
 
 		this.bindCategory( );
+
+		this.bindBehavior( );
 
 		this.bindParent( );
 
@@ -376,6 +468,20 @@ class Component extends React.Component {
 		return this;
 	}
 
+	initialize( ){
+		this.rename( );
+
+		this.build( );
+
+		this.mount( );
+
+		this.bound( );
+
+		this.check( );
+
+		return this;
+	}
+
 	/*;
 		@note:
 			Do not implement anything on this because this will be overriden.
@@ -385,13 +491,13 @@ class Component extends React.Component {
 	update( ){ }
 
 	componentWillUpdate( ){
-		this.resetClass( );
+		this.reset( );
 	}
 	componentWillReceiveProps( property ){
 		this.refresh( property );
 	}
 	componentDidUpdate( ){
-		this.rename( this.property.name || this.name );
+		this.rename( );
 
 		this.build( );
 

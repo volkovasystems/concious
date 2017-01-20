@@ -24,11 +24,13 @@ module.exports = {
 			};
 
 			let component = {
-				"button": resolve( "button" ),
 				"component": resolve( "component" ),
-				"control": resolve( "control" ),
+				"icon": resolve( "icon" ),
 				"label": resolve( "label" ),
-				"icon": resolve( "icon" )
+				"button": resolve( "button" ),
+				"control": resolve( "control" ),
+				"item": resolve( "item" ),
+				"list": resolve( "list" )
 			};
 
 			return component;

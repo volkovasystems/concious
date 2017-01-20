@@ -1,27 +1,31 @@
-label.label.component {
-	font-size: 1em;
+div.label.component {
+	flex-direction: row;
 
-	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-
-	text-overflow: ellipsis;
-
-	word-wrap: normal;
-	word-break: keep-all;
-	white-space: nowrap;
-
-	width: fit-content;
-	min-width: 100%;
-	max-width: 100%;
 
 	height: fit-content;
 	min-height: fit-content;
 	max-height: fit-content;
 
+	label {
+		font-size: 1em;
+
+		text-overflow: ellipsis;
+
+		word-wrap: normal;
+		word-break: keep-all;
+		white-space: nowrap;
+
+		overflow: hidden;
+	}
+
 	&.title,
 	&.notice {
-		padding: 1%;
+		line-height: 1.5em;
+
+		padding-left: 15px;
+		padding-right: 15px;
 	}
 	&.title {
 		font-size: .8em;
@@ -30,9 +34,10 @@ label.label.component {
 
 		letter-spacing: .5px;
 
+		padding-top: 5px;
 		padding-bottom: 0;
 
-		align-items: flex-start;
+		justify-content: flex-start;
 	}
 	&.notice {
 		font-size: .8em;
@@ -40,8 +45,9 @@ label.label.component {
 		letter-spacing: .5px;
 
 		padding-top: 0;
+		padding-bottom: 5px;
 
-		align-items: flex-end;
+		justify-content: flex-end;
 
 		opacity: 0.7;
 	}

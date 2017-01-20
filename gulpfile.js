@@ -18,7 +18,6 @@ gulp.task( "style", function styleTask( ){
 
 	return gulp.src( [
 			"*.scss",
-			"./*/*.scss",
 			"!./node_modules/**",
 			"!./bower_components/**",
 			"!.*"

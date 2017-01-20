@@ -5,7 +5,7 @@
 		The MIT License (MIT)
 		@mit-license
 
-		Copyright (@c) 2016 Richeve Siodina Bebedor
+		Copyright (@c) 2017 Richeve Siodina Bebedor
 		@email: richeve.bebedor@gmail.com
 
 		Permission is hereby granted, free of charge, to any person obtaining
@@ -60,10 +60,15 @@ class Header extends Component {
 	constructor( property ){ super( property ); }
 
 	render( ){
-		return ( <div
+		let {
+			hidden
+		} = this.state;
+
+		return ( <header
+					hidden={ hidden }
 				>
 
-				</div> );
+				</header> );
 	}
 }
 

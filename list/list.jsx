@@ -5,7 +5,7 @@
 		The MIT License (MIT)
 		@mit-license
 
-		Copyright (@c) 2016 Richeve Siodina Bebedor
+		Copyright (@c) 2017 Richeve Siodina Bebedor
 		@email: richeve.bebedor@gmail.com
 
 		Permission is hereby granted, free of charge, to any person obtaining
@@ -48,21 +48,37 @@
 
 	@include:
 		{
-			"React": "react"
+			"React": "react",
+			"Component": "component",
+			"Item": "item"
 		}
 	@end-include
 */
 
 import React from "react";
 import Component from "component";
+import Item from "item";
 
 class List extends Component {
 	constructor( property ){ super( property ); }
 
+	item( ){
+		if( truu( this.state ) ){
+			return pyck( plough( [ this.state.children ] ),
+				( child ) => { return clazof( child, Item ); } );
+		}
+
+		return null;
+	}
+
 	render( ){
-		return ( <div>
-					Hello World
-				</div> );
+		let {
+			hidden
+		} = this.state;
+
+		return ( <ul>
+				
+				</ul> );
 	}
 }
 

@@ -44,6 +44,8 @@
 
 	@module-documentation:
 		Control Component
+
+			Controls can act as a single button or multiple controls.
 	@end-module-documentation
 
 	@include:
@@ -53,6 +55,11 @@
 	@end-include
 
 	@usage:
+		1. Basic control:
+			<Control
+				icon={ { "set": "material-design", "ligature": "home" } }>
+				Hello World
+			</Control>
 	@end-usage
 */
 
@@ -60,6 +67,7 @@ import clazof from "clazof";
 import falze from "falze";
 import kley from "kley";
 import plough from "plough";
+import protype from "protype";
 import pyck from "pyck";
 import truly from "truly";
 import truu from "truu";
@@ -115,6 +123,10 @@ class Control extends Component {
 			icon = Icon.resolve( icon, name );
 		}
 
+		if( protype( disabled, BOOLEAN ) && disabled && truu( control ) ){
+			control.forEach( ( control ) => { control.disable( true ) } );
+		}
+
 		return ( <div
 					className={ kley( {
 						"set": truu( control ),
@@ -123,6 +135,8 @@ class Control extends Component {
 						status,
 						purpose
 					] ).join( " " ) }
+
+					hidden={ hidden }
 				>
 					{
 						truu( control )?
@@ -144,9 +158,7 @@ class Control extends Component {
 										release={ release }
 										rest={ rest }
 										focus={ focus }
-
-										disabled={ disabled }
-										hidden={ hidden } /> : null,
+									/> : null,
 
 								( truly( label ) || truly( content ) )?
 									<Button
@@ -166,9 +178,7 @@ class Control extends Component {
 										release={ release }
 										rest={ rest }
 										focus={ focus }
-
-										disabled={ disabled }
-										hidden={ hidden }>
+									>
 										{ content }
 									</Button> : null,
 
@@ -192,8 +202,9 @@ class Control extends Component {
 										rest={ action.rest || rest }
 										focus={ action.focus || focus }
 
-										disabled={ action.disabled || disabled }
-										hidden={ action.hidden || hidden } /> : null,
+										disabled={ action.disabled }
+										hidden={ action.hidden }
+									/> : null,
 
 								loading?
 									<Icon
@@ -202,9 +213,7 @@ class Control extends Component {
 										name={ name }
 
 										loading={ true }
-
-										disabled={ disabled }
-										hidden={ hidden }>
+									>
 									</Icon> : null
 							] )
 					}
