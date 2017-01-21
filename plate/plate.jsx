@@ -57,6 +57,7 @@
 
 import clazof from "clazof";
 import kley from "kley";
+import protype from "protype";
 import truly from "truly";
 import truu from "truu";
 
@@ -75,6 +76,7 @@ class Plate extends Component {
 
 			title,
 			label,
+			value,
 			description,
 			notice,
 			target,
@@ -90,17 +92,27 @@ class Plate extends Component {
 			hidden
 		} = this.state;
 
-		label = label || this.content( );
+		label = label || value || this.content( );
 
 		let hasContent = truly( title ) || truly( label ) || truly( description ) || truly( notice );
 
+		icon = Icon.resolve( icon, name );
+
 		return ( <div
-					className={ kley( [
+					className={ kley( {
+						"descriptive": truly( description )
+					},
+					[
 						status,
 						purpose
-					] ) }
+					] ).join( " " ) }
+
 					hidden={ hidden }
 				>
+					{
+						truu( icon )?
+							<Icon { ...icon }></Icon> : null
+					}
 					{
 						hasContent?
 							<div
@@ -108,19 +120,67 @@ class Plate extends Component {
 								{
 									[
 										truly( title )?
-											<Label category="title">{ title }</Label> : null,
-											
+											<Label
+												category="title"
+											>
+												{ title }
+											</Label> : null,
+
 										truly( label )?
-											<Label target={ target }>{ label }</Label> : null,
+											<Label
+												category="value"
+												target={ target }
+											>
+												{ label }
+											</Label> : null,
 
 										truly( description )?
-											<Label category="description">{ description }</Label> : null,
+											<Label
+												category="description"
+											>
+												{ description }
+											</Label> : null,
 
 										truly( notice )?
-											<Label category="notice">{ notice }</Label> : null,
+											<Label
+												category="notice"
+											>
+												{ notice }
+											</Label> : null,
 									]
 								}
 							</div> : null
+					}
+					{
+						( protype( loading, BOOLEAN ) && loading )?
+							<Icon
+								name={ name }
+
+								loading={ true }
+							>
+							</Icon> :
+
+						truu( action )?
+							<Button
+								name={ name }
+
+								icon={ {
+									"set": action.set || "material-design",
+									"ligature": action.ligature || "more_vert"
+								} }
+
+								status={ action.status || status }
+								purpose={ action.purpose || purpose }
+
+								click={ action.click || click }
+								press={ action.press || press }
+								release={ action.release || release }
+								rest={ action.rest || rest }
+								focus={ action.focus || focus }
+
+								disabled={ action.disabled }
+								hidden={ action.hidden }
+							/> : null
 					}
 				</div> );
 	}

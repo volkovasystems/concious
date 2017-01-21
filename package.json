@@ -14,7 +14,8 @@
     "watch": "gulp clean && watch \"npm run test\" ./ ./*/ --filter=./.filter.js --wait=5 --interval=5 --ignoreDotFiles",
     "live": "gulp clean && gulp watch",
     "server": "veon set test \"webpack-dev-server -d --test\"",
-    "browser": "browser-sync start --port 3000 --proxy \"localhost:4000\" --index=\"test-index.html\" --files \"test-index.html\" \"test.deploy.js\""
+	"proxy": "browser-sync start --port 3000 --proxy \"localhost:4000\" --index=\"test-index.html\" --files \"test-index.html\" \"test.deploy.js\"",
+    "browser": "browser-sync start --server --port 3000 --index=\"test-index.html\" --files \"test-index.html\" \"test.deploy.js\""
   },
   "repository": {
     "type": "git",

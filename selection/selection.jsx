@@ -57,11 +57,7 @@ import React from "react";
 import Component from "component";
 
 class Selection extends Component {
-	constructor( property ){
-		super( property );
-
-		this.name = "selection";
-	}
+	constructor( property ){ super( property ); }
 
 	render( ){
 		return ( <div></div> );

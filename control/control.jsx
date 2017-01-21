@@ -206,7 +206,7 @@ class Control extends Component {
 										hidden={ action.hidden }
 									/> : null,
 
-								loading?
+								( protype( loading, BOOLEAN ) && loading )?
 									<Icon
 										key={ `loading-${ Date.now( ) + Math.random( ) }` }
 

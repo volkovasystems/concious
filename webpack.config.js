@@ -29,6 +29,8 @@ module.exports = {
 				"label": resolve( "label" ),
 				"button": resolve( "button" ),
 				"control": resolve( "control" ),
+				"plate": resolve( "plate" ),
+				"header": resolve( "header" ),
 				"item": resolve( "item" ),
 				"list": resolve( "list" )
 			};
@@ -59,11 +61,15 @@ module.exports = {
 		"$": "jquery",
 		"jQuery": "jquery",
 
-		"Button": "button",
 		"Component": "component",
-		"Control": "control",
+		"Icon": "icon",
 		"Label": "label",
-		"Icon": "icon"
+		"Button": "button",
+		"Control": "control",
+		"Plate": "plate",
+		"Header": "header",
+		"Item": "item",
+		"List": "list"
 	},
 
 	"plugins": [
