@@ -26,28 +26,31 @@ div.label.component {
 		overflow: hidden;
 	}
 
-	&.title,
-	&.notice {
-		line-height: 1.5em;
-	}
 	&.title {
-		font-size: .8em;
-
-		text-transform: uppercase;
-
 		padding-top: 5px;
 		padding-bottom: 0;
 
 		justify-content: flex-start;
-	}
-	&.notice {
-		font-size: .8em;
 
+		opacity: 0.8;
+
+		label {
+			font-size: .7em;
+
+			text-transform: uppercase;
+		}
+	}
+
+	&.notice {
 		padding-top: 0;
 		padding-bottom: 5px;
 
 		justify-content: flex-end;
 
 		opacity: 0.7;
+
+		label {
+			font-size: .7em;
+		}
 	}
 }

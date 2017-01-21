@@ -121,6 +121,8 @@ class Plate extends Component {
 									[
 										truly( title )?
 											<Label
+												key={ `title-${ Date.now( ) + Math.random( ) }` }
+
 												category="title"
 											>
 												{ title }
@@ -128,6 +130,8 @@ class Plate extends Component {
 
 										truly( label )?
 											<Label
+												key={ `value-${ Date.now( ) + Math.random( ) }` }
+
 												category="value"
 												target={ target }
 											>
@@ -136,6 +140,8 @@ class Plate extends Component {
 
 										truly( description )?
 											<Label
+												key={ `description-${ Date.now( ) + Math.random( ) }` }
+
 												category="description"
 											>
 												{ description }
@@ -143,6 +149,8 @@ class Plate extends Component {
 
 										truly( notice )?
 											<Label
+												key={ `notice-${ Date.now( ) + Math.random( ) }` }
+
 												category="notice"
 											>
 												{ notice }
