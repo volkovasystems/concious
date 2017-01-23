@@ -4,10 +4,13 @@ export default class TestIcon extends Component {
     render() {
         return (
             <div>
+                <Icon set="fa fa-plane">
+                </Icon>
                 <Icon
                     loading={true} />
                 <Icon
-                    icon="fa fa-map" />
+                    icon="fa fa-map"
+                    layout="fit" />
                 <Icon
                     icon="fa fa-bus"
                     edge="round" />
@@ -18,18 +21,15 @@ export default class TestIcon extends Component {
                 <Icon
                     edge="round"
                     image="https://developers.google.com/web/images/web-fundamentals-icon192x192.png" />
-                <Icon 
-                    edge="soft"
-                    icon="fa fa-tags" />
-                <Icon 
+                <Icon
                     layout="fit"
-                    icon="fa fa-exclamation-triangle" />
-                <Icon 
-                    edge="round"
-                    icon="fa fa-plane" />
-                <Icon 
+                    image="https://developers.google.com/web/images/web-fundamentals-icon192x192.png" />
+                <Icon
+                    edge="soft"
+                    image="https://developers.google.com/web/images/web-fundamentals-icon192x192.png" />
+                <Icon
                     layout="spread"
-                    icon="fa fa-cc-paypal" />
+                    image="https://developers.google.com/web/images/web-fundamentals-icon192x192.png" />
             </div>
         )
     }

@@ -21,9 +21,19 @@ export default class TestApp extends Component {
                             </ul>
                         </li>
                         <li><Link to="test-icon">Icon</Link></li>
-                        <li><a href="#">Menu 4</a></li>
-                        <li><a href="#">Menu 5</a></li>
-                        <li><a href="#">Menu 6</a></li>
+                        <li><a href="#">Header</a>
+                            <ul>
+                                <li><Link to="test-header-status">Status</Link></li>
+                                <li><Link to="test-header-purpose">Purpose</Link></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">Plates</a>
+                            <ul>
+                                <li><Link to="test-plate-status">Status</Link></li>
+                                <li><Link to="test-plate-purpose">Purpose</Link></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">Item</a></li>
                     </ul>
                 </nav>
                 {this.props.children}

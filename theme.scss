@@ -226,7 +226,74 @@ button.button.component.deactivated {
 }
 
 
+div.plate.component.success {
+	background-color: $GREEN;
+}
 
+div.plate.component.failed {
+	background-color: $RED;
+}
+
+div.plate.component.warning {
+	background-color: $YELLOW;
+}
+
+div.plate.component.issue {
+	background-color: $LIGHT_RED;
+}
+
+div.plate.component.fatal {
+	background-color: $DARK_RED;
+}
+
+div.plate.component.unknown {
+	background-color: $DARK_GRAY;
+}
+
+div.plate.component.prompt {
+	background-color: $LIGHT_BLUE;
+}
+
+div.plate.component.alert {
+	background-color: $ORANGE;
+}
+
+div.plate.component.activated {
+	background-color: $LIGHT_BLUE;
+}
+
+div.plate.component.deactivated {
+	background-color: $LIGHT_GRAY;
+}
+
+
+div.plate.component.positive {
+	background-color: $GREEN;
+}
+
+div.plate.component.negative {
+	background-color: $RED;
+}
+
+div.plate.component.immediate {
+	background-color: $ORANGE;
+}
+
+div.plate.component.priority {
+	background-color: $BLUE;
+}
+
+div.plate.component.secondary {
+	background-color: $GRAY;
+}
+
+div.plate.component.normal {
+	background-color: $DARK_GRAY;
+}
+
+div.plate.component.optional {
+	background-color: $LIGHT_GRAY;
+}
 
 
 
