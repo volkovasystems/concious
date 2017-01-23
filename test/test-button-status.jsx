@@ -18,13 +18,31 @@ export default class TestButtonStatus extends Component {
                 <Button 
                         loading={ true }>
                 </Button>
-                <Button status="issue">Issue</Button>
-                <Button status="fatal">Fatal</Button>
-                <Button status="unknown">Unknown</Button>
-                <Button status="prompt">Prompt</Button>
-                <Button status="alert">Alert</Button>
-                <Button status="activated">Activated</Button>
-                <Button status="deactivated">Deactivated</Button>
+                <Button 
+                        status="issue"
+                        title="Issue">Issue
+                 </Button>
+                <Button 
+                        status="fatal"
+                        icon="fa fa-bus"></Button>
+                <Button 
+                        status="unknown"
+                        icon="fa fa-map"></Button>
+                <Button 
+                        status="prompt"
+                        loading={ true }>
+                </Button>
+                <Button 
+                        status="alert"
+                        icon="fa fa-plus-circle"
+                        notice="This is a notice">
+                </Button>
+                <Button 
+                        status="activated"
+                        notice="This is a notice.">Activated</Button>
+                <Button 
+                        status="deactivated"
+                        icon="fa fa-home">Deactivated</Button>
             </div>
         )
     }

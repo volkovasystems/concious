@@ -20,7 +20,7 @@ export default class TestApp extends Component {
                                 <li><Link to="test-control-purpose">Purpose</Link></li>
                             </ul>
                         </li>
-                        <li><a href="#">Menu 3</a></li>
+                        <li><Link to="test-icon">Icon</Link></li>
                         <li><a href="#">Menu 4</a></li>
                         <li><a href="#">Menu 5</a></li>
                         <li><a href="#">Menu 6</a></li>
@@ -28,6 +28,7 @@ export default class TestApp extends Component {
                 </nav>
                 {this.props.children}
             </div>
+
         )
     }
 }

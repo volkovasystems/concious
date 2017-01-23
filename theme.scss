@@ -18,7 +18,7 @@ $LIGHT_RED: 	rgba( 255, 64, 64,1 );
 $BLUE: 			rgba( 38, 140, 255, 1 );
 $LIGHT_BLUE: 	rgba( 38, 140, 255,1 );
 $DARK_BLUE: 	rgba( 0, 0, 139,1 );
-$GREEN: 		rgba( 0, 155, 114, 1 );
+$GREEN: 		rgba( 50, 205, 50, 1 );
 $ORANGE: 		rgba( 255, 117, 24, 1 );
 $YELLOW: 		rgba( 247, 232, 89, 1 );
 $GRAY: 			rgba( 153, 153, 153, 1 );
@@ -41,7 +41,8 @@ $FLAT_RED:		rgba( 196, 82, 56, 1 );
 	position:relative;
 	float:left;
 	margin-bottom:75px;
-	padding:0
+	padding: 0;
+	width: 100%;
 }
 
 #primary_nav_wrap ul a

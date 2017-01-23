@@ -6,7 +6,6 @@ export default class TestButtonPurpose extends Component {
             <div>
                 <Button
                     purpose="positive"
-                    icon="fa fa-bus"
                     notice="This is a notice"
                     title="Purpose">Positive
                 </Button>
