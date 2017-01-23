@@ -1,39 +1,49 @@
 import React, { Component } from 'react'
 
-export default class TestButtonPurpose extends Component {
+export default class TestControlPurpose extends Component {
     render() {
         return (
             <div>
-                <Button
+                <Control
                     purpose="positive"
                     icon="fa fa-bus"
                     notice="This is a notice"
                     title="Purpose">Positive
-                </Button>
-                <Button
+			</Control>
+                <Control
                     purpose="negative"
                     icon="fa fa-home"
                     notice="This is a notice"
                     loading={true}>Negative
-                </Button>
-                <Button
+			</Control>
+                <Control
                     purpose="immediate"
-                    notice="This is a notice">Immediate
-                </Button>
-                <Button
+                    notice="This is a notice"
+                    >Immediate
+			</Control>
+                <Control
                     purpose="priority"
-                    icon="fa fa-map">Priority</Button>
-                <Button
+                    icon="fa fa-map"
+                    >Priority
+			</Control>
+                <Control
                     purpose="secondary"
-                    loading={true}>Secondary</Button>
-                <Button
+                    loading={true}
+                    >Secondary
+			</Control>
+                <Control
                     purpose="normal"
                     icon="fa fa-plus-circle"
-                    notice="This is a notice">Normal</Button>
-                <Button
+                    notice="This is a notice"
+                    >Normal
+			</Control>
+                <Control
                     purpose="optional"
                     icon="fa fa-map"
-                    title="Purpose">Optional</Button>
+                    title="Purpose"
+                    notice="This is a notice"
+                    >Optional
+			</Control>
             </div>
         )
     }

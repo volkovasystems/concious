@@ -8,13 +8,18 @@ export default class TestApp extends Component {
                 <h1>Biyaheroes Test Menu</h1>
                 <nav id="primary_nav_wrap">
                     <ul>
-                        <li class="current-menu-item"><a href="#">Buttons</a>
+                        <li><a href="#">Buttons</a>
                             <ul>
                                 <li><Link to="test-button-status">Status</Link></li>
                                 <li><Link to="test-button-purpose">Purpose</Link></li>
                             </ul>
                         </li>
-                        <li><a href="#">Controls</a></li>
+                        <li><a href="#">Controls</a>
+                            <ul>
+                                <li><Link to="test-control-status">Status</Link></li>
+                                <li><Link to="test-control-purpose">Purpose</Link></li>
+                            </ul>
+                        </li>
                         <li><a href="#">Menu 3</a></li>
                         <li><a href="#">Menu 4</a></li>
                         <li><a href="#">Menu 5</a></li>

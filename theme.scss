@@ -183,6 +183,49 @@ button.button.component.optional {
 
 
 
+button.button.component.success {
+	background-color: $GREEN;
+}
+
+button.button.component.failed {
+	background-color: $RED;
+}
+
+button.button.component.warning {
+	background-color: $YELLOW;
+}
+
+button.button.component.issue {
+	background-color: $LIGHT_RED;
+}
+
+button.button.component.fatal {
+	background-color: $DARK_RED;
+}
+
+button.button.component.unknown {
+	background-color: $DARK_GRAY;
+}
+
+button.button.component.prompt {
+	background-color: $LIGHT_BLUE;
+}
+
+button.button.component.alert {
+	background-color: $ORANGE;
+}
+
+button.button.component.activated {
+	background-color: $LIGHT_BLUE;
+}
+
+
+button.button.component.deactivated {
+	background-color: $LIGHT_GRAY;
+}
+
+
+
 
 
 
