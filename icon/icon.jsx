@@ -95,6 +95,11 @@ import truly from "truly";
 import React from "react";
 import Component from "component";
 
+const LIGATURE = "ligature";
+const ICON = "icon";
+const IMAGE = "image";
+const LOADING = "loading";
+
 harden( "SOFT", "soft" );
 harden( "ROUND", "round" );
 harden( "FIT", "fit" );
@@ -133,6 +138,47 @@ class Icon extends Component {
 		return icon;
 	}
 
+	mode( ){
+		let {
+			icon,
+			ligature,
+
+			image,
+			source,
+
+			loading
+		} = this.state;
+
+		if( protype( loading, BOOLEAN ) && loading ){
+			return LOADING;
+		}
+
+		if( protype( icon, STRING ) && truly( icon ) ){
+			return ICON;
+		}
+
+		if( ( protype( image, STRING ) || protype( source, STRING ) ) &&
+	 		( truly( image ) || truly( source ) ) )
+		{
+			return IMAGE;
+		}
+
+		ligature = ligature || this.extract( );
+		if( protype( ligature, STRING ) && truly( ligature ) ){
+			return LIGATURE;
+		}
+	}
+
+	extract( ){
+		let content = this.content( );
+
+		if( doubt( content, ARRAY ) ){
+			return content[ 0 ];
+		}
+
+		return null;
+	}
+
 	render( ){
 		let {
 			set,
@@ -150,30 +196,35 @@ class Icon extends Component {
 			hidden
 		} = this.state;
 
-		ligature = ligature || this.content( );
+		let mode = this.mode( );
 
-		let imageMode = ( truly( image ) || truly( source ) );
+		ligature = ligature || this.extract( );
 
 		return ( <div
 					className={ kley( {
-						"loading": loading || set,
+						"loading": mode === LOADING || set,
 
-						"icon": icon,
+						"icon": mode === ICON && icon,
 
-						"image": !loading && imageMode,
-						"layout": !loading && imageMode && layout,
+						"image": !loading && mode === IMAGE,
+						"layout": !loading && mode === IMAGE && layout,
 
 						"soft edge": edge === SOFT,
 						"round edge": edge === ROUND,
 					} ).join( " " ) }
 
-					style={ { "backgroundImage": imageMode? `url( ${ image || source } )` : "none" } }
+					style={ { "backgroundImage": ( mode === IMAGE )? `url( ${ image || source } )` : "none" } }
 
 					aria-hidden="true"
 
 					hidden={ hidden }
 				>
-					{ loading? <div className="loader"></div> : ( ligature || null ) }
+					{
+						( mode === LOADING )?
+							<div className="loader"></div> :
+
+						( mode === LIGATURE )? ligature : null
+					}
 				</div> );
 	}
 }
