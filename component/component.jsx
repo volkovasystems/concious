@@ -84,12 +84,14 @@ import shardize from "shardize";
 import snapd from "snapd";
 import truly from "truly";
 import truu from "truu";
+import whyle from "whyle";
 
 import $ from "jquery";
 import React from "react";
 import ReactDOM from "react-dom";
 
 const INSTANCE = Symbol( "instance" );
+const MOUNTED = Symbol( "mounted" );
 
 harden( "COMPONENT", "component" );
 harden( "FOCUS", "focus" );
@@ -281,10 +283,11 @@ class Component extends React.Component {
 		if( protype( property, OBJECT ) && truu( property ) ){
 			this.property = property;
 
-			snapd.bind( this )( function onTimeout( ){
-				if( truu( this.component ) ){
-					this.setState( this.property );
-				}
+			whyle.bind( this )( function condition( callback ){
+				callback( truu( this.component ) && this.mounted( ) );
+
+			} )( function update( ){
+				this.setState( this.property );
 			} );
 		}
 
@@ -296,6 +299,16 @@ class Component extends React.Component {
 
 		}else{
 			return this.state;
+		}
+	}
+	edit( property, value ){
+		if( protype( property, STRING, SYMBOL, NUMBER ) && truly( property ) ){
+			whyle.bind( this )( function condition( callback ){
+				callback( truu( this.component ) && this.mounted( ) );
+
+			} )( function update( ){
+				this.setState( { [ property ]: value } );
+			} );
 		}
 	}
 	refresh( property ){
@@ -445,6 +458,19 @@ class Component extends React.Component {
 
 		return this;
 	}
+	attach( ){
+		this[ MOUNTED ] = true;
+
+		return this;
+	}
+	detach( ){
+		this[ MOUNTED ] = false;
+
+		return this;
+	}
+	mounted( ){
+		return this[ MOUNTED ] || false;
+	}
 	bound( ){
 		this.bindName( );
 
@@ -479,6 +505,8 @@ class Component extends React.Component {
 
 		this.check( );
 
+		this.attach( );
+
 		return this;
 	}
 
@@ -487,8 +515,9 @@ class Component extends React.Component {
 			Do not implement anything on this because this will be overriden.
 		@end-note
 	*/
-	mount( ){ }
-	update( ){ }
+	mount( ){ return this; }
+	unmount( ){ return this; }
+	update( ){ return this; }
 
 	componentWillUpdate( ){
 		this.reset( );
@@ -509,6 +538,11 @@ class Component extends React.Component {
 	}
 	componentDidMount( ){
 		this.initialize( );
+	}
+	componentWillUnmount( ){
+		this.unmount( );
+
+		this.detach( );
 	}
 };
 

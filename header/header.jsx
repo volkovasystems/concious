@@ -53,12 +53,54 @@
 	@end-include
 */
 
+import harden from "harden";
+import kley from "kley";
+import protype from "protype";
+import truu from "truu";
+
 import React from "react";
 import Component from "component";
 import Plate from "plate";
 
+harden( "EXPAND", "expand" );
+harden( "RETRACT", "retract" );
+
 class Header extends Component {
 	constructor( property ){ super( property ); }
+
+	expand( view ){
+		if( view === EXPAND ){
+			this.retract( );
+
+		}else if( view === RETRACT ){
+			this.expand( );
+
+		}else{
+			this.suppress( RETRACT );
+			this.behave( EXPAND );
+
+			this.view = EXPAND;
+
+			this.edit( "view", EXPAND );
+		}
+	}
+
+	retract( view ){
+		if( view === RETRACT ){
+			this.expand( );
+
+		}else if( view === EXPAND ){
+			this.retract( );
+
+		}else{
+			this.suppress( EXPAND );
+			this.behave( RETRACT );
+
+			this.view = RETRACT;
+
+			this.edit( "view", RETRACT );
+		}
+	}
 
 	render( ){
 		let {
@@ -76,12 +118,69 @@ class Header extends Component {
 			status,
 			purpose,
 
+			view,
+			expand,
+			retract,
+
 			hidden
 		} = this.state;
 
+		label = label || this.content( );
+
+		let dynamicView = ( protype( expand, FUNCTION ) && protype( retract, FUNCTION ) );
+		if( dynamicView ){
+			view = this.view || view || EXPAND;
+		}
+
+		console.log( "view", view, this.view );
+
 		return ( <header
+					className={ kley( {
+						"view": dynamicView && view
+					},[
+						status,
+						purpose
+					] ).join( " " ) }
+
 					hidden={ hidden }
 				>
+					<Plate
+						name={ name }
+
+						icon={ icon }
+						loading={ loading }
+
+						label={ label }
+						description={ description }
+						notice={ notice }
+
+						action={ action }
+
+						status={ status }
+						purpose={ purpose }
+					/>
+					{
+						dynamicView?
+							<Button
+								name={ name }
+
+								category={ kley( {
+									"overlay": truu( action )
+								} ) }
+
+								icon={ {
+									"set": "material-icon",
+									"ligature": ( view === EXPAND )? "expand_less" : "expand_more"
+								} }
+
+								click={ ( ) => {
+									return ( view === EXPAND )? this.retract( ) : this.expand( );
+								} }
+
+								status={ status }
+								purpose={ purpose }
+							/> : null
+					}
 				</header> );
 	}
 }
