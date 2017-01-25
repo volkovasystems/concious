@@ -1,3 +1,4 @@
+require( "graceful-fs" ).gracefulify( require( "fs" ) );
 
 const path = require( "path" );
 const webpack = require( "webpack" );

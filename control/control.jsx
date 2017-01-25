@@ -81,8 +81,8 @@ class Control extends Component {
 	constructor( property ){ super( property ); }
 
 	control( ){
-		if( truu( this.state ) ){
-			return pyck( plough( [ this.state.children ] ),
+		if( truu( this.property ) ){
+			return pyck( plough( [ this.property.children ] ),
 				( child ) => { return clazof( child, Button, Control ); } );
 		}
 
@@ -113,11 +113,12 @@ class Control extends Component {
 
 			disabled,
 			hidden
-		} = this.state;
+		} = this.property;
 
 		let control = this.control( );
 
 		let content = this.content( );
+		label = label || content;
 
 		if( falze( control ) ){
 			icon = Icon.resolve( icon, name );
@@ -160,7 +161,7 @@ class Control extends Component {
 										focus={ focus }
 									/> : null,
 
-								( truly( label ) || truly( content ) )?
+								truly( label )?
 									<Button
 										key={ `label-${ Date.now( ) + Math.random( ) }` }
 
@@ -170,6 +171,7 @@ class Control extends Component {
 										notice={ notice }
 
 										label={ label }
+
 										status={ status }
 										purpose={ purpose }
 
@@ -178,9 +180,7 @@ class Control extends Component {
 										release={ release }
 										rest={ rest }
 										focus={ focus }
-									>
-										{ content }
-									</Button> : null,
+									/> : null,
 
 								truu( action )?
 									<Button
@@ -189,7 +189,7 @@ class Control extends Component {
 										name={ name }
 
 										icon={ {
-											"set": action.set || "material-design",
+											"set": action.set || "material-icon",
 											"ligature": action.ligature || "more_vert"
 										} }
 

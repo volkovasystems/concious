@@ -31,9 +31,9 @@
 	@module-configuration:
 		{
 			"package": "concious",
-			"path": "concious/label/label.jsx",
-			"file": "label.jsx",
-			"module": "Button",
+			"path": "concious/range-input/range-input.jsx",
+			"file": "range-input.jsx",
+			"module": "RangeInput",
 			"author": "Richeve S. Bebedor",
 			"eMail": "richeve.bebedor@gmail.com",
 			"repository": "https://github.com/volkovasystems/concious.git",
@@ -43,50 +43,25 @@
 	@end-module-configuration
 
 	@module-documentation:
-		Label Component
+		RangeInput Component
 	@end-module-documentation
 
 	@include:
 		{
-			"React": "react",
-			"Component": "component"
+			"React": "react"
 		}
 	@end-include
-
-	@usage:
-		<Label target="<id of target>">[text]</Label>
-
-		or
-
-		<Label target="<id of target>" text="Hello World"></Label>
-	@end-usage
 */
 
 import React from "react";
 import Component from "component";
 
-class Label extends Component {
+class RangeInput extends Component {
 	constructor( property ){ super( property ); }
 
 	render( ){
-		let {
-			text,
-			target,
-			hidden
-		} = this.property;
-
-		text = text || this.content( );
-
-		return ( <div
-					hidden={ hidden }
-				>
-					<label
-						htmlFor={ target }
-					>
-						{ text }
-					</label>
-				</div> );
+		return ( <div></div> );
 	}
 }
 
-export default Label;
+export default RangeInput;

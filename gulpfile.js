@@ -1,3 +1,4 @@
+require( "graceful-fs" ).gracefulify( require( "fs" ) );
 
 const babel = require( "gulp-babel" );
 const changed = require( "gulp-changed" );

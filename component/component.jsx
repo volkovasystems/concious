@@ -84,12 +84,14 @@ import shardize from "shardize";
 import snapd from "snapd";
 import truly from "truly";
 import truu from "truu";
+import whyle from "whyle";
 
 import $ from "jquery";
 import React from "react";
 import ReactDOM from "react-dom";
 
-const INSTANCE = Symbol( "instance" );
+const INSTANCE = "instance";
+const MOUNTED = Symbol( "mounted" );
 
 harden( "COMPONENT", "component" );
 harden( "FOCUS", "focus" );
@@ -112,7 +114,7 @@ class Component extends React.Component {
 
 		this.behavior = [ ];
 
-		this.set( property );
+		this.property = property;
 	}
 
 	/*;
@@ -249,8 +251,8 @@ class Component extends React.Component {
 	}
 
 	content( ){
-		if( truu( this.state ) ){
-			return pyck( plough( [ this.state.children ] ), STRING );
+		if( truu( this.property ) ){
+			return pyck( plough( [ this.property.children ] ), STRING );
 		}
 
 		return null;
@@ -281,21 +283,38 @@ class Component extends React.Component {
 		if( protype( property, OBJECT ) && truu( property ) ){
 			this.property = property;
 
-			snapd.bind( this )( function onTimeout( ){
-				if( truu( this.component ) ){
+			if( truu( this.component ) && this.mounted( ) ){
+				snapd.bind( this )( function onTimeout( ){
 					this.setState( this.property );
-				}
-			} );
+				} );
+
+			}else{
+				whyle.bind( this )( function condition( callback ){
+					callback( truu( this.component ) && this.mounted( ) );
+
+				} )( function update( ){
+					if( truu( this.component ) && this.mounted( ) ){
+						this.setState( this.property );
+					}
+				} );
+			}
 		}
 
 		return this;
 	}
 	get( name ){
 		if( protype( name, STRING ) && truly( name ) ){
-			return this.state[ name ];
+			return this.property[ name ];
 
 		}else{
-			return this.state;
+			return this.property;
+		}
+	}
+	edit( property, value ){
+		if( protype( property, STRING, SYMBOL, NUMBER ) && truly( property ) &&
+	 		truu( this.component ) && this.mounted( ) )
+		{
+			this.setState( { [ property ]: value } );
 		}
 	}
 	refresh( property ){
@@ -339,7 +358,7 @@ class Component extends React.Component {
 			return this;
 		}
 
-		let children = this.state.children;
+		let children = this.property.children;
 
 		let parent = this;
 
@@ -380,7 +399,7 @@ class Component extends React.Component {
 				return true;
 			}
 
-			return name !== type;
+			return name !== type || false;
 		} );
 
 		this.bindType( );
@@ -432,7 +451,7 @@ class Component extends React.Component {
 
 	reset( ){
 		if( truu( this.component ) ){
-			this.component.removeClass( );
+			this.component.removeClass( plough( this.property && this.property.category, this.behavior ).join( " " ) );
 		}
 
 		return this;
@@ -444,6 +463,19 @@ class Component extends React.Component {
 		this.component.data( INSTANCE, this );
 
 		return this;
+	}
+	attach( ){
+		this[ MOUNTED ] = true;
+
+		return this;
+	}
+	detach( ){
+		this[ MOUNTED ] = false;
+
+		return this;
+	}
+	mounted( ){
+		return this[ MOUNTED ] || false;
 	}
 	bound( ){
 		this.bindName( );
@@ -479,6 +511,8 @@ class Component extends React.Component {
 
 		this.check( );
 
+		this.attach( );
+
 		return this;
 	}
 
@@ -487,14 +521,15 @@ class Component extends React.Component {
 			Do not implement anything on this because this will be overriden.
 		@end-note
 	*/
-	mount( ){ }
-	update( ){ }
+	mount( ){ return this; }
+	unmount( ){ return this; }
+	update( ){ return this; }
 
 	componentWillUpdate( ){
 		this.reset( );
 	}
 	componentWillReceiveProps( property ){
-		this.refresh( property );
+		this.property = property;
 	}
 	componentDidUpdate( ){
 		this.rename( );
@@ -509,6 +544,11 @@ class Component extends React.Component {
 	}
 	componentDidMount( ){
 		this.initialize( );
+	}
+	componentWillUnmount( ){
+		this.unmount( );
+
+		this.detach( );
 	}
 };
 
