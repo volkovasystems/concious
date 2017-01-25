@@ -89,6 +89,12 @@ class Plate extends Component {
 			status,
 			purpose,
 
+			click,
+			press,
+			release,
+			rest,
+			focus,
+
 			hidden
 		} = this.property;
 
