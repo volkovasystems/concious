@@ -147,7 +147,7 @@ class Icon extends Component {
 			source,
 
 			loading
-		} = this.state;
+		} = this.property;
 
 		if( protype( loading, BOOLEAN ) && loading ){
 			return LOADING;
@@ -194,7 +194,7 @@ class Icon extends Component {
 			edge,
 
 			hidden
-		} = this.state;
+		} = this.property;
 
 		let mode = this.mode( );
 

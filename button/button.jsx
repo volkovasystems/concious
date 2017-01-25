@@ -116,7 +116,7 @@ class Button extends Component {
 			purpose,
 
 			hidden
-		} = this.state;
+		} = this.property;
 
 		let content = this.content( );
 

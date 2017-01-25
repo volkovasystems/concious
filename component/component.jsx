@@ -90,7 +90,7 @@ import $ from "jquery";
 import React from "react";
 import ReactDOM from "react-dom";
 
-const INSTANCE = Symbol( "instance" );
+const INSTANCE = "instance";
 const MOUNTED = Symbol( "mounted" );
 
 harden( "COMPONENT", "component" );
@@ -114,7 +114,7 @@ class Component extends React.Component {
 
 		this.behavior = [ ];
 
-		this.set( property );
+		this.property = property;
 	}
 
 	/*;
@@ -251,8 +251,8 @@ class Component extends React.Component {
 	}
 
 	content( ){
-		if( truu( this.state ) ){
-			return pyck( plough( [ this.state.children ] ), STRING );
+		if( truu( this.property ) ){
+			return pyck( plough( [ this.property.children ] ), STRING );
 		}
 
 		return null;
@@ -283,32 +283,38 @@ class Component extends React.Component {
 		if( protype( property, OBJECT ) && truu( property ) ){
 			this.property = property;
 
-			whyle.bind( this )( function condition( callback ){
-				callback( truu( this.component ) && this.mounted( ) );
+			if( truu( this.component ) && this.mounted( ) ){
+				snapd.bind( this )( function onTimeout( ){
+					this.setState( this.property );
+				} );
 
-			} )( function update( ){
-				this.setState( this.property );
-			} );
+			}else{
+				whyle.bind( this )( function condition( callback ){
+					callback( truu( this.component ) && this.mounted( ) );
+
+				} )( function update( ){
+					if( truu( this.component ) && this.mounted( ) ){
+						this.setState( this.property );
+					}
+				} );
+			}
 		}
 
 		return this;
 	}
 	get( name ){
 		if( protype( name, STRING ) && truly( name ) ){
-			return this.state[ name ];
+			return this.property[ name ];
 
 		}else{
-			return this.state;
+			return this.property;
 		}
 	}
 	edit( property, value ){
-		if( protype( property, STRING, SYMBOL, NUMBER ) && truly( property ) ){
-			whyle.bind( this )( function condition( callback ){
-				callback( truu( this.component ) && this.mounted( ) );
-
-			} )( function update( ){
-				this.setState( { [ property ]: value } );
-			} );
+		if( protype( property, STRING, SYMBOL, NUMBER ) && truly( property ) &&
+	 		truu( this.component ) && this.mounted( ) )
+		{
+			this.setState( { [ property ]: value } );
 		}
 	}
 	refresh( property ){
@@ -352,7 +358,7 @@ class Component extends React.Component {
 			return this;
 		}
 
-		let children = this.state.children;
+		let children = this.property.children;
 
 		let parent = this;
 
@@ -393,7 +399,7 @@ class Component extends React.Component {
 				return true;
 			}
 
-			return name !== type;
+			return name !== type || false;
 		} );
 
 		this.bindType( );
@@ -445,7 +451,7 @@ class Component extends React.Component {
 
 	reset( ){
 		if( truu( this.component ) ){
-			this.component.removeClass( );
+			this.component.removeClass( plough( this.property && this.property.category, this.behavior ).join( " " ) );
 		}
 
 		return this;
@@ -523,7 +529,7 @@ class Component extends React.Component {
 		this.reset( );
 	}
 	componentWillReceiveProps( property ){
-		this.refresh( property );
+		this.property = property;
 	}
 	componentDidUpdate( ){
 		this.rename( );
