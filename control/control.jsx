@@ -81,8 +81,8 @@ class Control extends Component {
 	constructor( property ){ super( property ); }
 
 	control( ){
-		if( truu( this.state ) ){
-			return pyck( plough( [ this.state.children ] ),
+		if( truu( this.property ) ){
+			return pyck( plough( [ this.property.children ] ),
 				( child ) => { return clazof( child, Button, Control ); } );
 		}
 
@@ -113,7 +113,7 @@ class Control extends Component {
 
 			disabled,
 			hidden
-		} = this.state;
+		} = this.property;
 
 		let control = this.control( );
 
@@ -189,7 +189,7 @@ class Control extends Component {
 										name={ name }
 
 										icon={ {
-											"set": action.set || "material-design",
+											"set": action.set || "material-icon",
 											"ligature": action.ligature || "more_vert"
 										} }
 

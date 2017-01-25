@@ -123,7 +123,7 @@ class Header extends Component {
 			retract,
 
 			hidden
-		} = this.state;
+		} = this.property;
 
 		label = label || this.content( );
 
@@ -131,8 +131,6 @@ class Header extends Component {
 		if( dynamicView ){
 			view = this.view || view || EXPAND;
 		}
-
-		console.log( "view", view, this.view );
 
 		return ( <header
 					className={ kley( {

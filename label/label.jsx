@@ -73,7 +73,7 @@ class Label extends Component {
 			text,
 			target,
 			hidden
-		} = this.state;
+		} = this.property;
 
 		text = text || this.content( );
 

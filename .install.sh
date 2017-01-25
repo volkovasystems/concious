@@ -32,6 +32,7 @@ babel-preset-latest \
 babel-preset-react \
 css-loader \
 del \
+graceful-fs \
 gulp \
 gulp-babel \
 gulp-changed \

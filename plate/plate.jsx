@@ -90,7 +90,7 @@ class Plate extends Component {
 			purpose,
 
 			hidden
-		} = this.state;
+		} = this.property;
 
 		label = label || value || this.content( );
 
