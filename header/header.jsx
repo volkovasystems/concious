@@ -53,7 +53,6 @@
 	@end-include
 */
 
-import deequal from "deequal";
 import harden from "harden";
 import kley from "kley";
 import protype from "protype";
@@ -62,6 +61,8 @@ import truu from "truu";
 import React from "react";
 import Component from "component";
 import Plate from "plate";
+
+const NONE = "none";
 
 harden( "EXPAND", "expand" );
 harden( "RETRACT", "retract" );
@@ -80,8 +81,6 @@ class Header extends Component {
 			this.suppress( RETRACT );
 			this.behave( EXPAND );
 
-			this.view = EXPAND;
-
 			this.edit( "view", EXPAND );
 		}
 	}
@@ -97,14 +96,8 @@ class Header extends Component {
 			this.suppress( EXPAND );
 			this.behave( RETRACT );
 
-			this.view = RETRACT;
-
 			this.edit( "view", RETRACT );
 		}
-	}
-
-	shouldComponentUpdate( property ){
-		return !deequal( this.property, property ) && this.property.view !== this.state.view;
 	}
 
 	render( ){
@@ -132,14 +125,17 @@ class Header extends Component {
 
 		label = label || this.content( );
 
-		let dynamicView = ( protype( expand, FUNCTION ) && protype( retract, FUNCTION ) );
-		if( dynamicView ){
+		let dynamic = ( protype( expand, FUNCTION ) && protype( retract, FUNCTION ) );
+		if( dynamic ){
 			view = this.state.view || view || EXPAND;
+
+		}else{
+			view = NONE;
 		}
 
 		return ( <header
 					className={ kley( {
-						"view": dynamicView && view
+						"view": dynamic && view
 					},[
 						status,
 						purpose
@@ -163,7 +159,7 @@ class Header extends Component {
 						purpose={ purpose }
 					/>
 					{
-						dynamicView?
+						dynamic?
 							<Button
 								name={ name }
 

@@ -342,7 +342,6 @@ class Component extends React.Component {
 
 		return this;
 	}
-
 	bindCategory( ){
 		if( truu( this.component ) && truu( this.property ) && truu( this.property.category ) ){
 			this.component.addClass( plough( [ this.property.category ] ).join( " " ) );
@@ -350,7 +349,6 @@ class Component extends React.Component {
 
 		return this;
 	}
-
 	bindParent( ){
 		if( falze( this.state ) ){
 			return this;
@@ -541,14 +539,13 @@ class Component extends React.Component {
 	unmount( ){ return this; }
 	update( ){ return this; }
 
-	componentWillUpdate( ){
-		this.reset( );
+	shouldComponentUpdate( property, state ){
+		return !deequal( property, this.property ) || !deequal( state, this.state );
 	}
-	componentWillReceiveProps( property ){
+	componentWillUpdate( property ){
 		this.transfer( property );
-	}
-	shouldComponentUpdate( property ){
-		return !deequal( this.property, property );
+
+		this.reset( );
 	}
 	componentDidUpdate( ){
 		this.rename( );
@@ -563,11 +560,15 @@ class Component extends React.Component {
 	}
 	componentDidMount( ){
 		this.initialize( );
+
+		console.log( this.id, "mounted" );
 	}
 	componentWillUnmount( ){
 		this.unmount( );
 
 		this.detach( );
+
+		console.log( this.id, "unmounted" );
 	}
 };
 
