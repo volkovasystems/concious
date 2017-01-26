@@ -73,6 +73,7 @@
 
 import clazof from "clazof";
 import doubt from "doubt";
+import deequal from "deequal";
 import een from "een";
 import falze from "falze";
 import harden from "harden";
@@ -114,7 +115,7 @@ class Component extends React.Component {
 
 		this.behavior = [ ];
 
-		this.property = property;
+		this.transfer( property );
 	}
 
 	/*;
@@ -274,30 +275,27 @@ class Component extends React.Component {
 	rename( name ){
 		this.name = shardize( name ||
 			( truu( this.property ) && this.property.name ) ||
-			this.name ||
-			this.constructor.name );
+			this.name || this.constructor.name );
 
 		return this;
 	}
-	set( property ){
+	transfer( property ){
 		if( protype( property, OBJECT ) && truu( property ) ){
 			this.property = property;
+		}
 
-			if( truu( this.component ) && this.mounted( ) ){
-				snapd.bind( this )( function onTimeout( ){
-					this.setState( this.property );
-				} );
+		return this;
+	}
+	set( state ){
+		if( protype( state, OBJECT ) && truu( state ) ){
+			whyle.bind( this )( function condition( callback ){
+				callback( truu( this.component ) && this.mounted( ) );
 
-			}else{
-				whyle.bind( this )( function condition( callback ){
-					callback( truu( this.component ) && this.mounted( ) );
-
-				} )( function update( ){
-					if( truu( this.component ) && this.mounted( ) ){
-						this.setState( this.property );
-					}
-				} );
-			}
+			} )( function update( ){
+				if( truu( this.component ) && this.mounted( ) ){
+					this.setState( state );
+				}
+			} );
 		}
 
 		return this;
@@ -310,19 +308,19 @@ class Component extends React.Component {
 			return this.property;
 		}
 	}
-	edit( property, value ){
-		if( protype( property, STRING, SYMBOL, NUMBER ) && truly( property ) &&
+	edit( name, value ){
+		if( protype( name, STRING, SYMBOL, NUMBER ) && truly( name ) &&
 	 		truu( this.component ) && this.mounted( ) )
 		{
-			this.setState( { [ property ]: value } );
+			this.setState( { [ name ]: value } );
 		}
 	}
-	refresh( property ){
-		if( protype( property, OBJECT ) && truu( property ) ){
-			this.set( property );
+	refresh( state ){
+		if( protype( state, OBJECT ) && truu( state ) ){
+			this.set( state );
 
-		}else if( protype( this.property, OBJECT ) && truu( this.property ) ){
-			this.set( this.property );
+		}else if( protype( this.state, OBJECT ) && truu( this.state ) ){
+			this.set( this.state );
 		}
 
 		return this;
@@ -344,7 +342,6 @@ class Component extends React.Component {
 
 		return this;
 	}
-
 	bindCategory( ){
 		if( truu( this.component ) && truu( this.property ) && truu( this.property.category ) ){
 			this.component.addClass( plough( [ this.property.category ] ).join( " " ) );
@@ -352,7 +349,6 @@ class Component extends React.Component {
 
 		return this;
 	}
-
 	bindParent( ){
 		if( falze( this.state ) ){
 			return this;
@@ -449,9 +445,27 @@ class Component extends React.Component {
 		return this;
 	}
 
+	/*;
+		@method-documentation:
+			This will return the aggregated behavior, type and category
+				except "component" and the component name.
+		@end-method-documentation
+	*/
+	classify( ){
+		let name = shardize( this.constructor.name );
+
+		return plough( this.property && this.property.category, this.behavior, this.type )
+			.filter( ( item ) => { return  item !== "component" && item !== name; } );
+	}
+
+	/*;
+		@method-documentation:
+			This will remove dynamic classes.
+		@end-method-documentation
+	*/
 	reset( ){
 		if( truu( this.component ) ){
-			this.component.removeClass( plough( this.property && this.property.category, this.behavior ).join( " " ) );
+			this.component.removeClass( this.classify( ).join( " " ) );
 		}
 
 		return this;
@@ -525,11 +539,13 @@ class Component extends React.Component {
 	unmount( ){ return this; }
 	update( ){ return this; }
 
-	componentWillUpdate( ){
-		this.reset( );
+	shouldComponentUpdate( property, state ){
+		return !deequal( property, this.property ) || !deequal( state, this.state );
 	}
-	componentWillReceiveProps( property ){
-		this.property = property;
+	componentWillUpdate( property ){
+		this.transfer( property );
+
+		this.reset( );
 	}
 	componentDidUpdate( ){
 		this.rename( );
@@ -544,11 +560,15 @@ class Component extends React.Component {
 	}
 	componentDidMount( ){
 		this.initialize( );
+
+		console.log( this.id, "mounted" );
 	}
 	componentWillUnmount( ){
 		this.unmount( );
 
 		this.detach( );
+
+		console.log( this.id, "unmounted" );
 	}
 };
 

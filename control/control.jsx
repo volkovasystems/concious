@@ -82,7 +82,8 @@ class Control extends Component {
 
 	control( ){
 		if( truu( this.property ) ){
-			return pyck( plough( [ this.property.children ] ),
+			return pyck( plough( [ this.property.children ] )
+				.filter( ( child ) => { return protype( child, OBJECT ); } ),
 				( child ) => { return clazof( child, Button, Control ); } );
 		}
 
@@ -145,7 +146,7 @@ class Control extends Component {
 							( [
 								truu( icon )?
 									<Button
-										key={ `icon-${ Date.now( ) + Math.random( ) }` }
+										key="icon"
 
 										name={ name }
 
@@ -163,7 +164,7 @@ class Control extends Component {
 
 								truly( label )?
 									<Button
-										key={ `label-${ Date.now( ) + Math.random( ) }` }
+										key="label"
 
 										name={ name }
 
@@ -184,7 +185,7 @@ class Control extends Component {
 
 								truu( action )?
 									<Button
-										key={ `action-${ Date.now( ) + Math.random( ) }` }
+										key="action"
 
 										name={ name }
 
@@ -208,7 +209,7 @@ class Control extends Component {
 
 								( protype( loading, BOOLEAN ) && loading )?
 									<Icon
-										key={ `loading-${ Date.now( ) + Math.random( ) }` }
+										key="loading"
 
 										name={ name }
 

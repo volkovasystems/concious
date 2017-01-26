@@ -18,11 +18,20 @@ li.item.component {
 	margin-top: 0.5px;
 	margin-bottom: 0.5px;
 
-	.component:nth-child( n + 2 ) {
+	&> .header {
+		display: flex;
+
+		flex-direction: row;
+
+		justify-content: center;
+		align-items: center;
+	}
+
+	&> .body > .component:nth-child( n + 2 ) {
 		margin-top: 0.5px;
 	}
 
-	.component:nth-last-child( n + 2 ) {
+	&> .body > .component:nth-last-child( n + 2 ) {
 		margin-bottom: 0.5px;
 	}
 }

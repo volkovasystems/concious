@@ -89,12 +89,18 @@ class Plate extends Component {
 			status,
 			purpose,
 
+			click,
+			press,
+			release,
+			rest,
+			focus,
+
 			hidden
 		} = this.property;
 
 		label = label || value || this.content( );
 
-		let hasContent = truly( title ) || truly( label ) || truly( description ) || truly( notice );
+		let labeled = truly( title ) || truly( label ) || truly( description ) || truly( notice );
 
 		icon = Icon.resolve( icon, name );
 
@@ -114,14 +120,14 @@ class Plate extends Component {
 							<Icon { ...icon }></Icon> : null
 					}
 					{
-						hasContent?
+						labeled?
 							<div
 								className="content">
 								{
 									[
 										truly( title )?
 											<Label
-												key={ `title-${ Date.now( ) + Math.random( ) }` }
+												key="title"
 
 												category="title"
 											>
@@ -130,7 +136,7 @@ class Plate extends Component {
 
 										truly( label )?
 											<Label
-												key={ `value-${ Date.now( ) + Math.random( ) }` }
+												key="value"
 
 												category="value"
 												target={ target }
@@ -140,7 +146,7 @@ class Plate extends Component {
 
 										truly( description )?
 											<Label
-												key={ `description-${ Date.now( ) + Math.random( ) }` }
+												key="description"
 
 												category="description"
 											>
@@ -149,7 +155,7 @@ class Plate extends Component {
 
 										truly( notice )?
 											<Label
-												key={ `notice-${ Date.now( ) + Math.random( ) }` }
+												key="notice"
 
 												category="notice"
 											>

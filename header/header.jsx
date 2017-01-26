@@ -63,6 +63,7 @@ import Component from "component";
 import Plate from "plate";
 
 harden( "EXPAND", "expand" );
+harden( "NONE", "none" );
 harden( "RETRACT", "retract" );
 
 class Header extends Component {
@@ -79,8 +80,6 @@ class Header extends Component {
 			this.suppress( RETRACT );
 			this.behave( EXPAND );
 
-			this.view = EXPAND;
-
 			this.edit( "view", EXPAND );
 		}
 	}
@@ -95,8 +94,6 @@ class Header extends Component {
 		}else{
 			this.suppress( EXPAND );
 			this.behave( RETRACT );
-
-			this.view = RETRACT;
 
 			this.edit( "view", RETRACT );
 		}
@@ -127,14 +124,17 @@ class Header extends Component {
 
 		label = label || this.content( );
 
-		let dynamicView = ( protype( expand, FUNCTION ) && protype( retract, FUNCTION ) );
-		if( dynamicView ){
-			view = this.view || view || EXPAND;
+		let dynamic = ( protype( expand, FUNCTION ) && protype( retract, FUNCTION ) );
+		if( dynamic ){
+			view = this.state.view || view || EXPAND;
+
+		}else{
+			view = NONE;
 		}
 
 		return ( <header
 					className={ kley( {
-						"view": dynamicView && view
+						"view": dynamic && view
 					},[
 						status,
 						purpose
@@ -158,12 +158,12 @@ class Header extends Component {
 						purpose={ purpose }
 					/>
 					{
-						dynamicView?
+						dynamic?
 							<Button
 								name={ name }
 
 								category={ kley( {
-									"overlay": truu( action )
+									"overlay": truu( action ) || loading
 								} ) }
 
 								icon={ {
