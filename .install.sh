@@ -3,6 +3,7 @@ babel-runtime \
 ceries \
 clazof \
 depher \
+deequal \
 doubt \
 een \
 falze \
@@ -57,6 +58,7 @@ bower install \
 ceries \
 clazof \
 depher \
+deequal \
 doubt \
 een \
 falze \

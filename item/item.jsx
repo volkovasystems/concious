@@ -89,7 +89,7 @@ class Item extends Component {
 			purpose,
 
 			hidden
-		} = this.state;
+		} = this.property;
 
 		let component = this.component( );
 

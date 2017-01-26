@@ -53,6 +53,7 @@
 	@end-include
 */
 
+import deequal from "deequal";
 import harden from "harden";
 import kley from "kley";
 import protype from "protype";
@@ -102,6 +103,10 @@ class Header extends Component {
 		}
 	}
 
+	shouldComponentUpdate( property ){
+		return !deequal( this.property, property ) && this.property.view !== this.state.view;
+	}
+
 	render( ){
 		let {
 			name,
@@ -129,7 +134,7 @@ class Header extends Component {
 
 		let dynamicView = ( protype( expand, FUNCTION ) && protype( retract, FUNCTION ) );
 		if( dynamicView ){
-			view = this.view || view || EXPAND;
+			view = this.state.view || view || EXPAND;
 		}
 
 		return ( <header
