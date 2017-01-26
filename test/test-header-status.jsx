@@ -4,73 +4,63 @@ export default class TestHeaderStatus extends Component {
     render() {
         return (
             <div>
+                <h3>Header Status</h3>
                 <Header
                     status="success"
-                    title="Status"
+				    icon="fa fa-home"
                     notice="This is a notice"
-                    icon={{ "set": "material-icon", "ligature": "home" }}
-                    action={{ "set": "material-icon", "ligature": "more_vert" }}>Success
-                </Header>
+                    title="Success">
+                    Success
+			</Header>
                 <Header
-                    status="success"
-                    title="Status"
+                    status="failed"
+                    icon="fa fa-home"
                     notice="This is a notice"
+                    loading={ true }>
+                    Failed
+			</Header>
+                <Header
+                    status="warning"
+                    notice="This is a notice"
+                    >Warning
+			</Header>
+                <Header
+                    status="issue"
+                    title="Issue">
+                    Issue
+			</Header>
+                <Header
+                    status="fatal"
+                    icon="fa fa-bus">
+                    Fatal
+			</Header>
+                <Header
+                    status="unknown"
                     icon="fa fa-map">
-                </Header>
+                    Unknown
+			</Header>
                 <Header
-                    status="success"
-                    title="Status"
-                    notice="This is a notice"
-                    icon="fa fa-map">
-                </Header>
+                    status="prompt"
+                    loading={ true }>
+                    Prompt
+			</Header>
                 <Header
-                    status="success"
-                    title="Status"
-                    notice="This is a notice"
-                    icon="fa fa-map">
-                </Header>
+                    status="alert"
+                    icon="fa fa-shopping-cart">
+                    Alert
+			</Header>
                 <Header
-                    status="success"
-                    title="Status"
-                    notice="This is a notice"
-                    icon="fa fa-map">
-                </Header>
+                    status="activated"
+                    loading={ true }>
+                    Activated
+			</Header>
                 <Header
-                    status="success"
-                    title="Status"
+                    status="deactivated"
+                    icon="fa fa-plus-circle"
                     notice="This is a notice"
-                    icon="fa fa-map">
-                </Header>
-                <Header
-                    status="success"
-                    title="Status"
-                    notice="This is a notice"
-                    icon="fa fa-map">
-                </Header>
-                <Header
-                    status="success"
-                    title="Status"
-                    notice="This is a notice"
-                    icon="fa fa-map">
-                </Header>
-                <Header
-                    status="success"
-                    title="Status"
-                    notice="This is a notice"
-                    icon="fa fa-map">
-                </Header>
-                <Header
-                    status="success"
-                    title="Status"
-                    notice="This is a notice"
-                    icon="fa fa-map">
-                </Header>
-                <Header
-                    status="success"
-                    title="Status"
-                    notice="This is a notice"
-                    icon="fa fa-map">
-                </Header>
+                    loading={ true }>
+                    Deactivated
+			</Header>
             </div>
         )
     }
