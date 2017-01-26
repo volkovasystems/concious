@@ -105,6 +105,7 @@ class Component extends React.Component {
 		super( property );
 
 		this.state = { };
+		this.property = { };
 
 		this.children = [ ];
 

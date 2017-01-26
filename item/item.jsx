@@ -79,7 +79,10 @@ class Item extends Component {
 		if( truu( this.property ) ){
 			return pyck( plough( [ this.property.children ] )
 				.filter( ( child ) => { return protype( child, OBJECT ); } ),
-				( child ) => { return clazof( child, Component ); } );
+				( child ) => { return clazof( child, Component ); } )
+				.map( ( child, index ) => {
+					return React.cloneElement( child, { "key": `${ child.name }-${ index }` } )
+				} );
 		}
 
 		return null;
@@ -136,7 +139,6 @@ class Item extends Component {
 			retract,
 
 			status,
-			purpose,
 
 			hidden
 		} = this.property;
@@ -159,9 +161,11 @@ class Item extends Component {
 					className={ kley( {
 						"view": dynamic && view
 					},[
-						status,
-						purpose
+						status
 					] ).join( " " ) }
+
+					onMouseEnter={ this.focus.bind( this ) }
+					onMouseLeave={ this.rest.bind( this ) }
 
 					hidden={ hidden }
 				>
@@ -185,7 +189,6 @@ class Item extends Component {
 									action={ action }
 
 									status={ status }
-									purpose={ purpose }
 								/>
 								{
 									dynamic?
@@ -206,7 +209,6 @@ class Item extends Component {
 											} }
 
 											status={ status }
-											purpose={ purpose }
 										/> : null
 								}
 							</div> : null

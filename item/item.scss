@@ -18,6 +18,12 @@ li.item.component {
 	margin-top: 0.5px;
 	margin-bottom: 0.5px;
 
+	background-color: rgba( 153, 153, 153, 0.5 );
+
+	&.focus {
+		filter: brightness( 110% );
+	}
+
 	&> .header {
 		display: flex;
 
@@ -27,11 +33,19 @@ li.item.component {
 		align-items: center;
 	}
 
-	&> .body > .component:nth-child( n + 2 ) {
-		margin-top: 0.5px;
-	}
+	&> .body {
+		flex-direction: column;
 
-	&> .body > .component:nth-last-child( n + 2 ) {
-		margin-bottom: 0.5px;
+		justify-content: space-between;
+
+		align-items: stretch;
+
+		&> .component:nth-child( n + 2 ) {
+			margin-top: 0.5px;
+		}
+
+		&> .component:nth-last-child( n + 2 ) {
+			margin-bottom: 0.5px;
+		}
 	}
 }

@@ -50,35 +50,90 @@
 		{
 			"React": "react",
 			"Component": "component",
+			"Header": "header",
 			"Item": "item"
 		}
 	@end-include
+
+	@usage:
+		List is a list of item.
+
+		You can pass an array of objects compatible with the item structure.
+	@end-usage
 */
+
+import clazof from "clazof";
+import falze from "falze";
+import kley from "kley";
+import plough from "plough";
+import pyck from "pyck";
+import truu from "truu";
 
 import React from "react";
 import Component from "component";
+import Header from "header";
 import Item from "item";
 
 class List extends Component {
 	constructor( property ){ super( property ); }
 
 	item( ){
-		if( truu( this.state ) ){
-			return pyck( plough( [ this.state.children ] ),
-				( child ) => { return clazof( child, Item ); } );
+		if( truu( this.property ) ){
+			return pyck( plough( [ this.property.children ] ),
+				( item ) => { return clazof( item, Item ); } )
+				.map( ( item, index ) => {
+					return React.cloneElement( item, { "key": `item-${ index }` } )
+				} );
 		}
 
 		return null;
 	}
 
+	wrap( list ){
+		return list.map( function onEachItem( item, index ){
+			return <Item key={ `item-${ index }` } { ...item } />
+		} );
+	}
+
 	render( ){
 		let {
-			hidden
-		} = this.state;
+			list,
 
-		return ( <ul>
-				
-				</ul> );
+			header,
+
+			empty,
+
+			hidden
+		} = this.property;
+
+		let item = this.item( );
+		if( falze( item ) && truu( list ) ){
+			item = this.wrap( list );
+		}
+
+		empty = empty || { "label": "Empty" };
+
+		return ( <div
+				className={ kley( ).join( " " ) }
+
+				hidden={ hidden }
+			>
+				{
+					truu( header )?
+						<Header { ...header } /> : null
+				}
+				{
+					truu( item )?
+						<ul>
+							{ item }
+						</ul> :
+
+					truu( empty )?
+						<Plate { ...empty } /> :
+
+					null
+				}
+			</div> );
 	}
 }
 

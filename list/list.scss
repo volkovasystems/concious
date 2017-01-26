@@ -1,3 +1,25 @@
-ul.list.component {
+div.list.component {
 	flex-direction: column;
+
+	justify-content: space-between;
+
+	align-items: stretch;
+
+	height: fit-content;
+	min-height: 0;
+	max-height: inherit;
+
+	&> ul {
+		display: flex;
+
+		flex-direction: column;
+
+		justify-content: space-between;
+
+		align-items: stretch;
+
+		width: inherit;
+		min-width: inherit;
+		max-width: inherit;
+	}
 }

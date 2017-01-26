@@ -84,7 +84,10 @@ class Control extends Component {
 		if( truu( this.property ) ){
 			return pyck( plough( [ this.property.children ] )
 				.filter( ( child ) => { return protype( child, OBJECT ); } ),
-				( child ) => { return clazof( child, Button, Control ); } );
+				( child ) => { return clazof( child, Button, Control ); } )
+				.map( ( child, index ) => {
+					return React.cloneElement( child, { "key": `${ child.name }-${ index }` } )
+				} );
 		}
 
 		return null;
