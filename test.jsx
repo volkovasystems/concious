@@ -7,8 +7,9 @@ import "./concious.js";
 let data = { "view": EXPAND };
 
 ReactDOM.render( ( ( ) => {
-	return ( <Header
+	return ( <Item
 				icon={ { "set": "material-icon", "ligature": "home" } }
+				title="Sample"
 				description="This is a very very long text that we need to test."
 				notice="This can be a very very long notice please read carefully."
 				view={ data.view }
@@ -16,7 +17,7 @@ ReactDOM.render( ( ( ) => {
 				retract={ ( ) => { data.view = RETRACT; } }
 			>
 				Hello World
-			</Header> );
+			</Item> );
 } )( ),
 
 document.getElementById( "root" ) )

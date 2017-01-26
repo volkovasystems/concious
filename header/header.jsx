@@ -62,9 +62,8 @@ import React from "react";
 import Component from "component";
 import Plate from "plate";
 
-const NONE = "none";
-
 harden( "EXPAND", "expand" );
+harden( "NONE", "none" );
 harden( "RETRACT", "retract" );
 
 class Header extends Component {
@@ -164,7 +163,7 @@ class Header extends Component {
 								name={ name }
 
 								category={ kley( {
-									"overlay": truu( action )
+									"overlay": truu( action ) || loading
 								} ) }
 
 								icon={ {

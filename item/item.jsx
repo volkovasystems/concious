@@ -56,34 +56,84 @@
 */
 
 import clazof from "clazof";
+import harden from "harden";
 import kley from "kley";
 import plough from "plough";
+import protype from "protype";
 import pyck from "pyck";
+import truly from "truly";
 import truu from "truu";
 
 import React from "react";
 import Component from "component";
+import Plate from "plate";
+
+harden( "EXPAND", "expand" );
+harden( "NONE", "none" );
+harden( "RETRACT", "retract" );
 
 class Item extends Component {
 	constructor( property ){ super( property ); }
 
 	component( ){
-		if( truu( this.state ) ){
-			return pyck( plough( [ this.state.children ] ),
+		if( truu( this.property ) ){
+			return pyck( plough( [ this.property.children ] )
+				.filter( ( child ) => { return protype( child, OBJECT ); } ),
 				( child ) => { return clazof( child, Component ); } );
 		}
 
 		return null;
 	}
 
+	expand( view ){
+		if( view === EXPAND ){
+			this.retract( );
+
+		}else if( view === RETRACT ){
+			this.expand( );
+
+		}else{
+			this.suppress( RETRACT );
+			this.behave( EXPAND );
+
+			this.edit( "view", EXPAND );
+		}
+	}
+
+	retract( view ){
+		if( view === RETRACT ){
+			this.expand( );
+
+		}else if( view === EXPAND ){
+			this.retract( );
+
+		}else{
+			this.suppress( EXPAND );
+			this.behave( RETRACT );
+
+			this.edit( "view", RETRACT );
+		}
+	}
+
 	render( ){
 		let {
 			name,
 
+			icon,
+			loading,
+
 			title,
 			label,
+			value,
 			description,
 			notice,
+			target,
+
+			action,
+
+			view,
+			expand,
+			retract,
 
 			status,
 			purpose,
@@ -91,16 +141,83 @@ class Item extends Component {
 			hidden
 		} = this.property;
 
+		label = label || this.content( );
+
+		let dynamic = ( protype( expand, FUNCTION ) && protype( retract, FUNCTION ) );
+		if( dynamic ){
+			view = this.state.view || view || EXPAND;
+
+		}else{
+			view = NONE;
+		}
+
+		let labeled = truly( label ) || truly( value );
+
 		let component = this.component( );
 
 		return ( <li
-					className={ kley( [
+					className={ kley( {
+						"view": dynamic && view
+					},[
 						status,
 						purpose
-					] ) }
+					] ).join( " " ) }
+
 					hidden={ hidden }
 				>
-					{ component }
+					{
+						labeled?
+							<div
+								className="header">
+								<Plate
+									name={ name }
+
+									icon={ icon }
+									loading={ loading }
+
+									title={ title }
+									label={ label }
+									value={ value }
+									description={ description }
+									notice={ notice }
+									target={ target }
+
+									action={ action }
+
+									status={ status }
+									purpose={ purpose }
+								/>
+								{
+									dynamic?
+										<Button
+											name={ name }
+
+											category={ kley( {
+												"overlay": truu( action ) || loading
+											} ) }
+
+											icon={ {
+												"set": "material-icon",
+												"ligature": ( view === EXPAND )? "expand_less" : "expand_more"
+											} }
+
+											click={ ( ) => {
+												return ( view === EXPAND )? this.retract( ) : this.expand( );
+											} }
+
+											status={ status }
+											purpose={ purpose }
+										/> : null
+								}
+							</div> : null
+					}
+					{
+						truu( component )?
+							<div
+								className="body">
+								{ component }
+							</div> : null
+					}
 				</li> );
 	}
 }

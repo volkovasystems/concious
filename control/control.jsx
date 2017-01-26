@@ -82,7 +82,8 @@ class Control extends Component {
 
 	control( ){
 		if( truu( this.property ) ){
-			return pyck( plough( [ this.property.children ] ),
+			return pyck( plough( [ this.property.children ] )
+				.filter( ( child ) => { return protype( child, OBJECT ); } ),
 				( child ) => { return clazof( child, Button, Control ); } );
 		}
 
