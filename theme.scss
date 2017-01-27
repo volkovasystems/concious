@@ -296,5 +296,75 @@ div.plate.component.optional {
 }
 
 
+li.item.component.success {
+	background-color: $GREEN;
+}
+
+li.item.component.failed {
+	background-color: $RED;
+}
+
+li.item.component.warning {
+	background-color: $YELLOW;
+}
+
+li.item.component.issue {
+	background-color: $LIGHT_RED;
+}
+
+li.item.component.fatal {
+	background-color: $DARK_RED;
+}
+
+li.item.component.unknown {
+	background-color: $DARK_GRAY;
+}
+
+li.item.component.prompt {
+	background-color: $LIGHT_BLUE;
+}
+
+li.item.component.alert {
+	background-color: $ORANGE;
+}
+
+li.item.component.activated {
+	background-color: $LIGHT_BLUE;
+}
+
+li.item.component.deactivated {
+	background-color: $LIGHT_GRAY;
+}
+
+
+li.item.component.positive {
+	background-color: $GREEN;
+}
+
+li.item.component.negative {
+	background-color: $RED;
+}
+
+li.item.component.immediate {
+	background-color: $ORANGE;
+}
+
+li.item.component.priority {
+	background-color: $BLUE;
+}
+
+li.item.component.secondary {
+	background-color: $GRAY;
+}
+
+li.item.component.normal {
+	background-color: $DARK_GRAY;
+}
+
+li.item.component.optional {
+	background-color: $LIGHT_GRAY;
+}
+
+
 
 

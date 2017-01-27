@@ -16,6 +16,7 @@ import TestHeaderPurpose from './test/test-header-purpose.js';
 import TestPlateStatus from './test/test-plate-status.js';
 import TestPlatePurpose from './test/test-plate-purpose.js';
 import TestIcon from './test/test-icon.js';
+import TestItem from './test/test-item.js';
 
 
 const app = document.getElementById('root');
@@ -32,6 +33,7 @@ ReactDOM.render(
 			<Route path="test-header-purpose" component={TestHeaderPurpose}></Route>
 			<Route path="test-plate-status" component={TestPlateStatus}></Route>
 			<Route path="test-plate-purpose" component={TestPlatePurpose}></Route>
+			<Route path="test-item" component={TestItem}></Route>
 			<Route path="test-icon" component={TestIcon}></Route>
 		</Route>
 	</Router>, app)

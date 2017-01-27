@@ -33,7 +33,7 @@ export default class TestApp extends Component {
                                 <li><Link to="test-plate-purpose">Purpose</Link></li>
                             </ul>
                         </li>
-                        <li><a href="#">Inputs</a></li>
+                        <li><Link to="test-item">Item</Link></li>
                     </ul>
                 </nav>
                 {this.props.children}
