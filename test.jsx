@@ -17,6 +17,10 @@ import TestPlateStatus from './test/test-plate-status.js';
 import TestPlatePurpose from './test/test-plate-purpose.js';
 import TestIcon from './test/test-icon.js';
 import TestItem from './test/test-item.js';
+import TestSelect from './test/test-select.js';
+import TestInput from './test/test-input.js';
+import TestList from './test/test-list.js';
+
 
 
 const app = document.getElementById('root');
@@ -35,5 +39,8 @@ ReactDOM.render(
 			<Route path="test-plate-purpose" component={TestPlatePurpose}></Route>
 			<Route path="test-item" component={TestItem}></Route>
 			<Route path="test-icon" component={TestIcon}></Route>
+			<Route path="test-list" component={TestList}></Route>
+			<Route path="test-select" component={TestSelect}></Route>
+			<Route path="test-input" component={TestInput}></Route>
 		</Route>
 	</Router>, app)
