@@ -55,6 +55,8 @@
 	@end-include
 */
 
+import truly from "truly";
+import truu from "truu";
 
 import React from "react";
 import Component from "component";
@@ -62,7 +64,27 @@ import Component from "component";
 class Input extends Component {
 	constructor( property ){ super( property ); }
 
-	
+	value( ){
+		if( truu( this.state ) && truu( this.state.value ) ){
+			return this.state.value;
+
+		}else if( truu( this.property ) && truu( this.property.value ) ){
+			return this.property.value;
+		}
+
+		return null;
+	}
+
+	push( value ){
+		if( truu( this.property ) && truly( this.property.name ) ){
+			if( truu( value ) ){
+				this.edit( this.property.name, value );
+
+			}else if( truu( this.property.value ) ){
+				this.edit( this.property.name, value );
+			}
+		}
+	}	
 }
 
 export default Input;

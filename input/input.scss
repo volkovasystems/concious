@@ -1,0 +1,17 @@
+.input.component {
+	flex-direction: column;
+
+	justify-content: space-between;
+	align-items: stretch;
+
+	margin-top: $DEFAULT_GAP;
+	margin-bottom: $DEFAULT_GAP;
+
+	&> :nth-child( n + 2 ) {
+		margin-top: $DEFAULT_GAP;
+	}
+
+	&> :nth-last-child( n + 2 ) {
+		margin-bottom: $DEFAULT_GAP;
+	}
+}

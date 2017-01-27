@@ -1,22 +1,17 @@
 li.item.component {
-	/*;
-		@note:
-			All child if items are listed from top to bottom.
-		@end-note
-	*/
 	flex-direction: column;
 
 	justify-content: space-between;
-
-	/*;
-		@note:
-			They will spread horizontally.
-		@end-note
-	*/
 	align-items: stretch;
 
-	margin-top: 0.5px;
-	margin-bottom: 0.5px;
+	margin-top: $DEFAULT_GAP;
+	margin-bottom: $DEFAULT_GAP;
+
+	background-color: $DEFAULT_BACKGROUND_COLOR;
+
+	&.focus {
+		filter: brightness( 110% );
+	}
 
 	&> .header {
 		display: flex;
@@ -27,11 +22,19 @@ li.item.component {
 		align-items: center;
 	}
 
-	&> .body > .component:nth-child( n + 2 ) {
-		margin-top: 0.5px;
-	}
+	&> .body {
+		flex-direction: column;
 
-	&> .body > .component:nth-last-child( n + 2 ) {
-		margin-bottom: 0.5px;
+		justify-content: space-between;
+
+		align-items: stretch;
+
+		&> .component:nth-child( n + 2 ) {
+			margin-top: $DEFAULT_GAP;
+		}
+
+		&> .component:nth-last-child( n + 2 ) {
+			margin-bottom: $DEFAULT_GAP;
+		}
 	}
 }

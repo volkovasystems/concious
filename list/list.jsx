@@ -50,35 +50,113 @@
 		{
 			"React": "react",
 			"Component": "component",
+			"Header": "header",
 			"Item": "item"
 		}
 	@end-include
+
+	@usage:
+		List is a list of item.
+
+		You can pass an array of objects compatible with the item structure.
+	@end-usage
 */
+
+import clazof from "clazof";
+import doubt from "doubt";
+import falze from "falze";
+import kley from "kley";
+import plough from "plough";
+import pyck from "pyck";
+import truu from "truu";
 
 import React from "react";
 import Component from "component";
+import Header from "header";
 import Item from "item";
 
 class List extends Component {
 	constructor( property ){ super( property ); }
 
 	item( ){
-		if( truu( this.state ) ){
-			return pyck( plough( [ this.state.children ] ),
-				( child ) => { return clazof( child, Item ); } );
-		}
+		return this.component( ).map( ( component, index ) => {
+			let key = `item-${ index }`;
 
-		return null;
+			if( clazof( component, Item ) ){
+				return React.cloneElement( component, { "key": key } );
+
+			}else{
+				return <Item key={ key } >{ component }</Item>
+			}
+		} );
+	}
+
+	wrap( list ){
+		return list.map( function onEachItem( item, index ){
+			return <Item key={ `item-${ index }` } { ...item } />
+		} );
 	}
 
 	render( ){
 		let {
-			hidden
-		} = this.state;
+			list,
 
-		return ( <ul>
-				
-				</ul> );
+			header,
+			control,
+
+			empty,
+
+			hidden
+		} = this.property;
+
+		if( !doubt( list, ARRAY ) ){
+			list = [ list ];
+		}
+
+		let item = this.item( );
+		if( falze( item ) && truu( list ) ){
+			item = this.wrap( list );
+		}
+
+		empty = empty || { "label": "Empty" };
+
+		let headed = truu( header );
+		if( headed ){
+			header.name = header.name || name;
+		}
+
+		let controlled = truu( control );
+
+		console.debug( "rendered list", item );
+
+		return ( <div
+				className={ kley( {
+					"headed": headed,
+					"controlled": controlled
+				} ).join( " " ) }
+
+				hidden={ hidden }
+			>
+				{
+					headed?
+						<Header { ...header } /> : null
+				}
+				{
+					truu( item )?
+						<ul>
+							{ item }
+						</ul> :
+
+					truu( empty )?
+						<Plate { ...empty } /> :
+
+					null
+				}
+				{
+					controlled?
+						control : null
+				}
+			</div> );
 	}
 }
 

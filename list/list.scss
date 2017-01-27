@@ -1,3 +1,48 @@
-ul.list.component {
+div.list.component {
 	flex-direction: column;
+
+	justify-content: space-between;
+
+	align-items: stretch;
+
+	height: fit-content;
+	min-height: 0;
+	max-height: inherit;
+
+	&> ul {
+		display: flex;
+
+		flex-direction: column;
+
+		justify-content: space-between;
+
+		align-items: stretch;
+
+		width: 100%;
+		min-width: 0;
+		max-width: 100%;
+
+		height: fit-content;
+		min-height: 0;
+		max-height: fit-content;
+
+		overflow-y: auto;
+
+		list-style: none;
+
+		margin-top: $DEFAULT_GAP;
+
+		&> li:nth-child( n ) {
+			margin-top: 0px;
+			margin-bottom: $DEFAULT_GAP;
+		}
+	}
+
+	&.headed {
+		margin-top: $DEFAULT_GAP;
+	}
+
+	&.controlled {
+		margin-bottom: $DEFAULT_GAP;
+	}
 }
