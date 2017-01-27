@@ -57,14 +57,16 @@ import React from "react";
 import Component from "component";
 
 class TextInput extends Component {
-	constructor( property ){
-		super( property );
-
-		this.name = "text-input";
-	}
+	constructor( property ){ super( property ); }
 
 	render( ){
-		return ( <div></div> );
+		return ( <div
+					className={ kley( {
+
+					} ).join( " " ) }
+				>
+
+				</div> );
 	}
 }
 

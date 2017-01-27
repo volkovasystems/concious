@@ -57,11 +57,7 @@ import React from "react";
 import Component from "component";
 
 class NoteInput extends Component {
-	constructor( property ){
-		super( property );
-
-		this.name = "note-input";
-	}
+	constructor( property ){ super( property ); }
 
 	render( ){
 		return ( <div></div> );

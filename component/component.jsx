@@ -100,7 +100,7 @@ harden( "PRESS", "press" );
 harden( "HIDDEN", "hidden" );
 harden( "DISABLED", "disabled" );
 
-class Component extends React.Component {
+class Component extends React.PureComponent {
 	constructor( property ){
 		super( property );
 
@@ -297,10 +297,7 @@ class Component extends React.Component {
 
 
 	transfer( property ){
-		if( protype( property, OBJECT ) &&
-			truu( property ) &&
-			!deequal( this.property, property ) )
-		{
+		if( protype( property, OBJECT ) && truu( property ) ){
 			this.property = property;
 		}
 
@@ -330,14 +327,16 @@ class Component extends React.Component {
 		}
 	}
 	edit( name, value, done ){
-		if( protype( name, STRING, SYMBOL, NUMBER ) && truly( name ) && this.mounted( ) ){
-			if( protype( done, FUNCTION ) ){
-				this.setState( { [ name ]: value }, done.bind( this ) );
+		snapd.bind( this )( function edit( ){
+			if( protype( name, STRING, SYMBOL, NUMBER ) && truly( name ) && this.mounted( ) ){
+				if( protype( done, FUNCTION ) ){
+					this.setState( { [ name ]: value }, done.bind( this ) );
 
-			}else{
-				this.setState( { [ name ]: value } );
+				}else{
+					this.setState( { [ name ]: value } );
+				}
 			}
-		}
+		} );
 	}
 	refresh( state ){
 		if( protype( state, OBJECT ) && truu( state ) ){
@@ -563,13 +562,6 @@ class Component extends React.Component {
 	unmount( ){ return this; }
 	update( ){ return this; }
 
-	rerender( property, state ){
-		return !deequal( property, this.property ) || !deequal( state, this.state );
-	}
-
-	shouldComponentUpdate( property, state ){
-		return this.rerender( property, state );
-	}
 	componentWillUpdate( property ){
 		this.transfer( property );
 
