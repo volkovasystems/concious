@@ -98,7 +98,7 @@ class Plate extends Component {
 			hidden
 		} = this.property;
 
-		label = label || value || this.content( );
+		label = value || label || this.content( );
 
 		let labeled = truly( title ) || truly( label ) || truly( description ) || truly( notice );
 
@@ -178,9 +178,9 @@ class Plate extends Component {
 							<Button
 								name={ name }
 
-								icon={ {
-									"set": action.set || "material-design",
-									"ligature": action.ligature || "more_vert"
+								icon={ action.icon || {
+									"set": "material-icon",
+									"ligature": "more_vert"
 								} }
 
 								status={ action.status || status }

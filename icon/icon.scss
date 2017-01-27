@@ -1,13 +1,13 @@
 div.icon.component {
 	font-size: 2em;
 
-	width: 70px;
-	max-width: 70px;
-	min-width: 70px;
+	width: $MINIMUM_WIDTH;
+	max-width: $MINIMUM_WIDTH;
+	min-width: $MINIMUM_WIDTH;
 
-	height: 70px;
-	max-height: 70px;
-	min-height: 70px;
+	height: $MINIMUM_HEIGHT;
+	max-height: $MINIMUM_HEIGHT;
+	min-height: $MINIMUM_HEIGHT;
 
 	align-items: center;
 	justify-content: center;
@@ -44,8 +44,8 @@ div.icon.component {
 		align-items: center;
 		justify-content: center;
 
-		width: 70px;
-		height: 70px;
+		width: $MINIMUM_WIDTH;
+		height: $MINIMUM_HEIGHT;
 	}
 
 	&.loading > div.loader {

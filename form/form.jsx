@@ -55,12 +55,67 @@
 
 import React from "react";
 import Component from "component";
+import Input from "input";
 
-class Form extends Component {
+class Form extends Input {
 	constructor( property ){ super( property ); }
 
+	input( data ){
+		return this.component( )
+			.filter( ( component ) => { return clazof( component, Input ) } )
+			.map( ( input, index ) => {
+				return React.cloneElement( input, { "key": `input-${ index }` } );
+			} );
+	}
+
 	render( ){
-		return ( <div></div> );
+		let {
+			name,
+
+			header,
+
+			data,
+
+			control,
+
+			hidden
+		} = this.property;
+
+		let input = this.input( data );
+		this.cache = input;
+
+		let headed = truu( header );
+		if( headed ){
+			header.name = header.name || name;
+		}
+
+		let controlled = truu( control );
+
+		return ( <form
+					className={ kley( {
+						"headed": headed,
+						"controlled": controlled
+					} ).join( " " ) }
+
+					hidden={ hidden }
+				>
+					{
+						headed?
+							<Header { ...header } /> : null
+					}
+					{
+						truu( input )?
+							<List
+								name={ name }
+								>
+								{ input }
+							</List> : null
+					}
+					{
+						controlled?
+							control : null
+					}
+				</form>);
 	}
 }
 

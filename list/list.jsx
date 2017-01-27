@@ -63,6 +63,7 @@
 */
 
 import clazof from "clazof";
+import doubt from "doubt";
 import falze from "falze";
 import kley from "kley";
 import plough from "plough";
@@ -78,15 +79,16 @@ class List extends Component {
 	constructor( property ){ super( property ); }
 
 	item( ){
-		if( truu( this.property ) ){
-			return pyck( plough( [ this.property.children ] ),
-				( item ) => { return clazof( item, Item ); } )
-				.map( ( item, index ) => {
-					return React.cloneElement( item, { "key": `item-${ index }` } )
-				} );
-		}
+		return this.component( ).map( ( component, index ) => {
+			let key = `item-${ index }`;
 
-		return null;
+			if( clazof( component, Item ) ){
+				return React.cloneElement( component, { "key": key } );
+
+			}else{
+				return <Item key={ key } >{ component }</Item>
+			}
+		} );
 	}
 
 	wrap( list ){
@@ -100,11 +102,16 @@ class List extends Component {
 			list,
 
 			header,
+			control,
 
 			empty,
 
 			hidden
 		} = this.property;
+
+		if( !doubt( list, ARRAY ) ){
+			list = [ list ];
+		}
 
 		let item = this.item( );
 		if( falze( item ) && truu( list ) ){
@@ -113,13 +120,25 @@ class List extends Component {
 
 		empty = empty || { "label": "Empty" };
 
+		let headed = truu( header );
+		if( headed ){
+			header.name = header.name || name;
+		}
+
+		let controlled = truu( control );
+
+		console.debug( "rendered list", item );
+
 		return ( <div
-				className={ kley( ).join( " " ) }
+				className={ kley( {
+					"headed": headed,
+					"controlled": controlled
+				} ).join( " " ) }
 
 				hidden={ hidden }
 			>
 				{
-					truu( header )?
+					headed?
 						<Header { ...header } /> : null
 				}
 				{
@@ -132,6 +151,10 @@ class List extends Component {
 						<Plate { ...empty } /> :
 
 					null
+				}
+				{
+					controlled?
+						control : null
 				}
 			</div> );
 	}

@@ -125,9 +125,7 @@ class Component extends React.Component {
 		@end-method-documentation
 	*/
 	focus( event ){
-		if( truu( this.component ) ){
-			this.behave( FOCUS );
-		}
+		this.behave( FOCUS );
 
 		if( truu( this.property ) && protype( this.property.focus, FUNCTION ) ){
 			this.property.focus( this, event );
@@ -136,9 +134,7 @@ class Component extends React.Component {
 		return this;
 	}
 	rest( event ){
-		if( truu( this.component ) ){
-			this.suppress( FOCUS );
-		}
+		this.suppress( FOCUS );
 
 		if( truu( this.property ) && protype( this.property.rest, FUNCTION ) ){
 			this.property.rest( this, event );
@@ -147,9 +143,7 @@ class Component extends React.Component {
 		return this;
 	}
 	press( event ){
-		if( truu( this.component ) ){
-			this.behave( PRESS );
-		}
+		this.behave( PRESS );
 
 		if( truu( this.property ) && protype( this.property.press, FUNCTION ) ){
 			this.property.press( this, event );
@@ -162,9 +156,7 @@ class Component extends React.Component {
 		return this;
 	}
 	release( event ){
-		if( truu( this.component ) ){
-			this.suppress( PRESS );
-		}
+		this.suppress( PRESS );
 
 		if( truu( this.property ) && protype( this.property.release, FUNCTION ) ){
 			this.property.release( this, event );
@@ -186,10 +178,10 @@ class Component extends React.Component {
 		return this;
 	}
 	disable( flag ){
-		if( truly( flag ) && truu( this.component ) && flag ){
+		if( truly( flag ) && flag ){
 			this.behave( DISABLED );
 
-		}else if( truly( flag ) && truu( this.component ) && !flag ){
+		}else if( truly( flag ) && !flag ){
 			this.enable( true );
 
 		}else if( truu( this.property ) &&
@@ -209,20 +201,20 @@ class Component extends React.Component {
 		return this;
 	}
 	enable( flag ){
-		if( truly( flag ) && truu( this.component ) && flag ){
+		if( truly( flag ) && flag ){
 			this.suppress( DISABLED );
 
-		}else if( truly( flag ) && truu( this.component ) && !flag ){
+		}else if( truly( flag ) && !flag ){
 			this.disable( true );
 		}
 
 		return this;
 	}
 	hide( flag ){
-		if( truly( flag ) && truu( this.component ) && flag ){
+		if( truly( flag ) && flag ){
 			this.behave( HIDDEN );
 
-		}else if( truly( flag ) && truu( this.component ) && !flag ){
+		}else if( truly( flag ) && !flag ){
 			this.show( true );
 
 		}else if( truu( this.property ) &&
@@ -242,10 +234,10 @@ class Component extends React.Component {
 		return this;
 	}
 	show( flag ){
-		if( truly( flag ) && truu( this.component ) && flag ){
+		if( truly( flag ) && flag ){
 			this.suppress( HIDDEN );
 
-		}else if( truly( flag ) && truu( this.component ) && !flag ){
+		}else if( truly( flag ) && !flag ){
 			this.hide( true );
 		}
 
@@ -254,11 +246,20 @@ class Component extends React.Component {
 
 	content( ){
 		if( truu( this.property ) ){
-			return pyck( plough( [ this.property.children ] ), STRING );
+			return pyck( plough( [ this.property.children ] ).filter( truly ), STRING );
 		}
 
-		return null;
+		return [ ];
 	}
+	component( ){
+		if( truu( this.property ) ){
+			return pyck( plough( [ this.property.children ] ),
+				( child ) => { return clazof( child, Component ); } );
+		}
+
+		return [ ];
+	}
+
 	register( parent ){
 		this.parent = parent;
 
@@ -267,33 +268,52 @@ class Component extends React.Component {
 		return this;
 	}
 	associate( child ){
-		if( !een( this.children, child, ( item, child ) => { return item.id === child.id; } ) ){
+		if( truu( this.children ) &&
+			doubt( this.children, ARRAY ) &&
+			!een( this.children, child, ( item, child ) => { return item.id === child.id; } ) )
+		{
 			this.children.push( child );
 		}
 
 		return this;
 	}
+
+	/*;
+		@method-documentation:
+			This will try to extract any namespace we can extract.
+		@end-method-documentation
+	*/
 	rename( name ){
 		this.name = shardize( name ||
+
 			( truu( this.property ) && this.property.name ) ||
+
+			( truu( this.name ) && this.state.name ) ||
+
 			this.name || this.constructor.name );
 
 		return this;
 	}
+
+
 	transfer( property ){
-		if( protype( property, OBJECT ) && truu( property ) ){
+		if( protype( property, OBJECT ) &&
+			truu( property ) &&
+			!deequal( this.property, property ) )
+		{
 			this.property = property;
 		}
 
 		return this;
 	}
+
 	set( state ){
 		if( protype( state, OBJECT ) && truu( state ) ){
 			whyle.bind( this )( function condition( callback ){
-				callback( truu( this.component ) && this.mounted( ) );
+				callback( this.mounted( ) );
 
 			} )( function update( ){
-				if( truu( this.component ) && this.mounted( ) ){
+				if( this.mounted( ) ){
 					this.setState( state );
 				}
 			} );
@@ -302,18 +322,21 @@ class Component extends React.Component {
 		return this;
 	}
 	get( name ){
-		if( protype( name, STRING ) && truly( name ) ){
-			return this.property[ name ];
+		if( truu( this.state ) && protype( name, STRING ) && truly( name ) ){
+			return this.state[ name ];
 
 		}else{
-			return this.property;
+			return this.state;
 		}
 	}
-	edit( name, value ){
-		if( protype( name, STRING, SYMBOL, NUMBER ) && truly( name ) &&
-	 		truu( this.component ) && this.mounted( ) )
-		{
-			this.setState( { [ name ]: value } );
+	edit( name, value, done ){
+		if( protype( name, STRING, SYMBOL, NUMBER ) && truly( name ) && this.mounted( ) ){
+			if( protype( done, FUNCTION ) ){
+				this.setState( { [ name ]: value }, done.bind( this ) );
+
+			}else{
+				this.setState( { [ name ]: value } );
+			}
 		}
 	}
 	refresh( state ){
@@ -328,8 +351,8 @@ class Component extends React.Component {
 	}
 
 	bindName( ){
-		if( truu( this.component ) ){
-			this.component.attr( "name", this.name );
+		if( truu( this.node ) ){
+			this.node.attr( "name", this.name );
 		}
 
 		return this;
@@ -337,21 +360,21 @@ class Component extends React.Component {
 	bindID( ){
 		this.id = this.id || `${ this.name }-${ Math.ceil( Date.now( ) * Math.random( ) ) }`;
 
-		if( truu( this.component ) ){
-			this.component.attr( "id", this.id );
+		if( truu( this.node ) ){
+			this.node.attr( "id", this.id );
 		}
 
 		return this;
 	}
 	bindCategory( ){
-		if( truu( this.component ) && truu( this.property ) && truu( this.property.category ) ){
-			this.component.addClass( plough( [ this.property.category ] ).join( " " ) );
+		if( truu( this.node ) && truu( this.property ) && truu( this.property.category ) ){
+			this.node.addClass( plough( [ this.property.category ] ).join( " " ) );
 		}
 
 		return this;
 	}
 	bindParent( ){
-		if( falze( this.state ) ){
+		if( falze( this.property ) ){
 			return this;
 		}
 
@@ -367,8 +390,8 @@ class Component extends React.Component {
 			} );
 		}
 
-		if( truu( this.component ) ){
-			this.component.children( ).map( function onEachChild( ){
+		if( truu( this.node ) ){
+			this.node.children( ).map( function onEachChild( ){
 				let child = $( this ).data( INSTANCE );
 
 				if( clazof( child, Component ) ){
@@ -390,9 +413,9 @@ class Component extends React.Component {
 		return this;
 	}
 	removeType( type ){
-		let component = this.constructor.name;
+		let componentName = this.constructor.name;
 		this.type = this.type.filter( ( name ) => {
-			if( name === component || name === COMPONENT ){
+			if( name === componentName || name === COMPONENT ){
 				return true;
 			}
 
@@ -404,8 +427,8 @@ class Component extends React.Component {
 		return this;
 	}
 	bindType( ){
-		if( truu( this.component ) ){
-			this.component.addClass( this.type.join( " " ) );
+		if( truu( this.node ) ){
+			this.node.addClass( this.type.join( " " ) );
 		}
 
 		return this;
@@ -434,13 +457,13 @@ class Component extends React.Component {
 		return this;
 	}
 	resetBehavior( ){
-		if( truu( this.component ) ){
-			this.component.removeClass( this.behavior.join( " " ) );
+		if( truu( this.node ) ){
+			this.node.removeClass( this.behavior.join( " " ) );
 		}
 	}
 	bindBehavior( ){
-		if( truu( this.component ) ){
-			this.component.addClass( this.behavior.join( " " ) );
+		if( truu( this.node ) ){
+			this.node.addClass( this.behavior.join( " " ) );
 		}
 
 		return this;
@@ -465,17 +488,17 @@ class Component extends React.Component {
 		@end-method-documentation
 	*/
 	reset( ){
-		if( truu( this.component ) ){
-			this.component.removeClass( this.classify( ).join( " " ) );
+		if( truu( this.node ) ){
+			this.node.removeClass( this.classify( ).join( " " ) );
 		}
 
 		return this;
 	}
 
 	build( ){
-		this.component = $( ReactDOM.findDOMNode( this ) );
+		this.node = $( ReactDOM.findDOMNode( this ) );
 
-		this.component.data( INSTANCE, this );
+		this.node.data( INSTANCE, this );
 
 		return this;
 	}
@@ -540,8 +563,12 @@ class Component extends React.Component {
 	unmount( ){ return this; }
 	update( ){ return this; }
 
-	shouldComponentUpdate( property, state ){
+	rerender( property, state ){
 		return !deequal( property, this.property ) || !deequal( state, this.state );
+	}
+
+	shouldComponentUpdate( property, state ){
+		return this.rerender( property, state );
 	}
 	componentWillUpdate( property ){
 		this.transfer( property );

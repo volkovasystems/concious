@@ -81,6 +81,10 @@ class Header extends Component {
 			this.behave( EXPAND );
 
 			this.edit( "view", EXPAND );
+
+			if( truu( this.property ) && protype( this.property.expand, FUNCTION ) ){
+				this.property.expand( );
+			}
 		}
 	}
 
@@ -96,6 +100,10 @@ class Header extends Component {
 			this.behave( RETRACT );
 
 			this.edit( "view", RETRACT );
+
+			if( truu( this.property ) && protype( this.property.expand, FUNCTION ) ){
+				this.property.expand( );
+			}
 		}
 	}
 

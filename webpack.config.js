@@ -33,7 +33,8 @@ module.exports = {
 				"plate": resolve( "plate" ),
 				"header": resolve( "header" ),
 				"item": resolve( "item" ),
-				"list": resolve( "list" )
+				"list": resolve( "list" ),
+				"select": resolve( "select" )
 			};
 
 			return component;
@@ -70,7 +71,8 @@ module.exports = {
 		"Plate": "plate",
 		"Header": "header",
 		"Item": "item",
-		"List": "list"
+		"List": "list",
+		"Select": "select"
 	},
 
 	"plugins": [

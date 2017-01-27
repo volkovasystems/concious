@@ -18,8 +18,31 @@ div.list.component {
 
 		align-items: stretch;
 
-		width: inherit;
-		min-width: inherit;
-		max-width: inherit;
+		width: 100%;
+		min-width: 0;
+		max-width: 100%;
+
+		height: fit-content;
+		min-height: 0;
+		max-height: fit-content;
+
+		overflow-y: auto;
+
+		list-style: none;
+
+		margin-top: $DEFAULT_GAP;
+
+		&> li:nth-child( n ) {
+			margin-top: 0px;
+			margin-bottom: $DEFAULT_GAP;
+		}
+	}
+
+	&.headed {
+		margin-top: $DEFAULT_GAP;
+	}
+
+	&.controlled {
+		margin-bottom: $DEFAULT_GAP;
 	}
 }

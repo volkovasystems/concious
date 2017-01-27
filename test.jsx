@@ -4,20 +4,28 @@ import ReactDOM from "react-dom";
 
 import "./concious.js";
 
-let data = { "view": EXPAND };
 
 ReactDOM.render( ( ( ) => {
-	return ( <List list={ [
-		{
-			"label": "Orange"
-		},
-		{
-			"label": "Orange"
-		},
-		{
-			"label": "Orange"
-		}
-	] }/> );
+	return ( <Select
+				header={ {
+					"icon": "fa fa-home",
+					"label": "List of Oranges"
+				} }
+
+				list={ [
+					{
+						"value": "Orange"
+					},
+					{
+						"value": "Peach"
+					},
+					{
+						"value": "Apple"
+					}
+				] }
+			>
+
+			</Select> );
 } )( ),
 
 document.getElementById( "root" ) )

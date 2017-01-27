@@ -66,6 +66,7 @@ import { default as Plate } from "plate";
 import { default as Header } from "header";
 import { default as Item } from "item";
 import { default as List } from "list";
+import { default as Select } from "select";
 
 harden( "Component", Component );
 harden( "Icon", Icon );
@@ -76,6 +77,7 @@ harden( "Plate", Plate );
 harden( "Header", Header );
 harden( "Item", Item );
 harden( "List", List );
+harden( "Select", Select );
 
 export {
 	Component,
@@ -86,5 +88,6 @@ export {
 	Plate,
 	Header,
 	Item,
-	List
+	List,
+	Select
 };

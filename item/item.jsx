@@ -157,6 +157,8 @@ class Item extends Component {
 
 		let component = this.component( );
 
+		console.debug( "action", action );
+
 		return ( <li
 					className={ kley( {
 						"view": dynamic && view

@@ -1,0 +1,28 @@
+
+$DEFAULT_BACKGROUND_COLOR: 	rgba( 153, 153, 153, 1 );
+$DEFAULT_GAP: 				1px;
+$DEFAULT_TEXT_SHADOW: 		rgba( 0, 0, 0, 0.01 ) 0 0 1px;
+$DEFAULT_DIMENSION:			70px;
+
+$MINIMUM_HEIGHT:			$DEFAULT_DIMENSION;
+$MINIMUM_WIDTH: 			$DEFAULT_DIMENSION;
+$MAXIMUM_Z-INDEX: 			16777271;
+$MINIMUM_Z-INDEX: 			0;
+
+
+@mixin hidden {
+	opacity: 0 !important;
+
+	width: 0 !important;
+	height: 0 !important;
+
+	display: none !important;
+
+	visibility: hidden !important;
+}
+
+@mixin disabled {
+	pointer-events: none !important;
+
+	cursor: not-allowed !important;
+}

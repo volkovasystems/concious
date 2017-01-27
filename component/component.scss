@@ -3,9 +3,9 @@
 
 	display: flex;
 
-	height: 70px;
-	min-height: 70px;
-	max-height: 70px;
+	height: $MINIMUM_HEIGHT;
+	min-height: $MINIMUM_HEIGHT;
+	max-height: $MINIMUM_HEIGHT;
 
 	width: 100%;
 	min-width: 0;
@@ -19,34 +19,27 @@
 	border-radius: 0;
 
 	font-size: 1em;
-	line-height: 1;
+	line-height: 1.5em;
 
 	overflow: hidden;
 
 	background: 0;
 
 	text-rendering: optimizeLegibility;
-	text-shadow: rgba( 0, 0, 0, 0.01 ) 0 0 1px;
+	text-shadow: $DEFAULT_TEXT_SHADOW;
 
 	& * {
+		box-sizing: border-box;
+
 		text-rendering: optimizeLegibility;
-		text-shadow: rgba( 0, 0, 0, 0.01 ) 0 0 1px;
+		text-shadow: $DEFAULT_TEXT_SHADOW;
 	}
 
 	&.hidden {
-		opacity: 0 !important;
-
-		width: 0 !important;
-		height: 0 !important;
-
-		display: none !important;
-
-		visibility: hidden !important;
+		@include hidden;
 	}
 
 	&.disabled {
-		pointer-events: none !important;
-
-		cursor: not-allowed !important;
+		@include disabled;
 	}
 }
