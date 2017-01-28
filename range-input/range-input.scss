@@ -1,0 +1,31 @@
+div.range-input.input.component {
+	&> div.main {
+		&> div.body {
+			&> input[ type="number" ] {
+				font: inherit;
+
+				font-family: monospace;
+				font-size: 1.3em;
+
+				padding-left: 15px;
+				padding-right: 15px;
+
+				border: 0;
+
+				@include adaptive-width;
+				@include fixed-height;
+
+				&:focus {
+					outline: none;
+				}
+			}
+		}
+
+		&> div.control {
+			flex-direction: row;
+
+			@include fitted-width;
+
+		}
+	}
+}

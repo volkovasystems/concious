@@ -53,14 +53,167 @@
 	@end-include
 */
 
-import React from "react";
-import Component from "component";
+import kein from "kein";
+import kley from "kley";
+import protype from "protype";
+import titlelize from "titlelize";
+import truly from "truly";
+import truu from "truu";
 
-class RangeInput extends Component {
+import $ from "jquery";
+import React from "react";
+import Indicator from "indicator";
+import Input from "input";
+
+class RangeInput extends Input {
 	constructor( property ){ super( property ); }
 
+	resolveValue( value ){
+		value = value || 0;
+
+		if( !protype( value, NUMBER ) ){
+			try{
+				if( ( /\./ ).test( value.toString( ) ) ){
+					return parseFloat( value );
+
+				}else{
+					return parseInt( value );
+				}
+
+			}catch( error ){
+				return 0;
+			}
+		}
+
+		return value;
+	}
+
+	increment( ){
+		let value = truu( this.property ) && this.property.value || 0;
+		if( truu( this.state ) && kein( this.state, "value" ) ){
+			value = this.state.value;
+		}
+
+		value = this.resolveValue( value );
+
+		this.edit( "value", ++value );
+	}
+
+	decrement( ){
+		let value = truu( this.property ) && this.property.value || 0;
+		if( truu( this.state ) && kein( this.state, "value" ) ){
+			value = this.state.value;
+		}
+
+		value = this.resolveValue( value );
+
+		--value;
+		if( value < 0 ){
+			value = 0;
+		}
+
+		this.edit( "value", value );
+	}
+
 	render( ){
-		return ( <div></div> );
+		let {
+			name,
+
+			title,
+			value,
+			notice,
+
+			status,
+
+			hidden,
+			disabled
+		} = this.property;
+
+		title = title || titlelize( name );
+
+		let valued = ( truu( this.state ) && truly( this.state.value ) ) || truly( value );
+
+		if( truu( this.state ) && kein( this.state, "value" ) ){
+			value = this.state.value;
+		}
+
+		return ( <div
+					className={ kley( "input", {
+						"valued": valued
+					} ).join( " " ) }
+
+					hidden={ hidden }
+				>
+					<div className="main">
+						<div className="body">
+							{
+								truly( status )?
+									<Indicator status={ status } /> : null
+							}
+							{
+								truly( title )?
+									<Label
+										name={ name }
+										target={ `input-${ this.id }` }
+										category="title"
+									>
+										{ title }
+									</Label> : null
+							}
+							<input
+								ref={ ( component ) => { $( component ).val( value ); } }
+								type="number"
+
+								defaultValue={ value }
+
+								placeholder={ value || title }
+
+								disabled={ disabled }
+
+								onChange={ this.change.bind( this ) }
+								onFocus={ this.focus.bind( this ) }
+								onBlur={ this.rest.bind( this ) }
+
+								min="0"
+							/>
+							{
+								truly( notice )?
+									<Label
+										name={ name }
+										category="notice"
+									>
+										{ notice }
+									</Label> : null
+							}
+						</div>
+						<div className="control">
+							<Button
+								name={ name }
+
+								icon={ {
+									"set": "material-icon",
+									"ligature": "add"
+								} }
+
+								click={ this.increment.bind( this ) }
+							/>
+							<Button
+								name={ name }
+
+								icon={ {
+									"set": "material-icon",
+									"ligature": "remove"
+								} }
+
+								click={ this.decrement.bind( this ) }
+							/>
+						</div>
+					</div>
+				</div> );
+	}
+
+	mount( ){
+		this.edit( "value", 0 );
 	}
 }
 

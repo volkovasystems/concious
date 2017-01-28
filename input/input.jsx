@@ -87,8 +87,7 @@ class Input extends Component {
 	}
 
 	change( event ){
-		event.stopPropagation( );
-		event.preventDefault( );
+		this.stopEvent( event );
 
 		this.edit( "value", event.target.value,
 	 		function done( ){

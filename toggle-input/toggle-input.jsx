@@ -61,6 +61,7 @@ import truly from "truly";
 import truu from "truu";
 
 import React from "react";
+import Indicator from "indicator";
 import Input from "input";
 
 class ToggleInput extends Input {

@@ -27,6 +27,8 @@
 	}
 
 	&> div.main {
+		position: relative;
+
 		display: flex;
 
 		flex-direction: row;
@@ -40,6 +42,8 @@
 		@include adaptive-height;
 
 		&> div.body {
+			position: relative;
+
 			display: flex;
 
 			flex-direction: column;
@@ -72,6 +76,8 @@
 		}
 
 		&> div.control {
+			position: relative;
+			
 			display: flex;
 
 			flex-direction: column;

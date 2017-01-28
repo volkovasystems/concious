@@ -72,6 +72,7 @@ import { default as Input } from "input";
 import { default as TextInput } from "text-input";
 import { default as NoteInput } from "note-input";
 import { default as ToggleInput } from "toggle-input";
+import { default as RangeInput } from "range-input";
 
 harden( "Component", Component );
 harden( "Icon", Icon );
@@ -88,6 +89,7 @@ harden( "Input", Input );
 harden( "TextInput", TextInput );
 harden( "NoteInput", NoteInput );
 harden( "ToggleInput", ToggleInput );
+harden( "RangeInput", RangeInput );
 
 export {
 	Component,
@@ -104,5 +106,6 @@ export {
 	Input,
 	TextInput,
 	NoteInput,
-	ToggleInput
+	ToggleInput,
+	RangeInput
 };

@@ -59,7 +59,7 @@ import truly from "truly";
 import truu from "truu";
 
 import React from "react";
-import Component from "component";
+import Indicator from "indicator";
 import Input from "input"
 
 class NoteInput extends Input {

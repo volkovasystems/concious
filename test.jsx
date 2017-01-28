@@ -6,8 +6,8 @@ import "./concious.js";
 
 
 ReactDOM.render( ( ( ) => {
-	return ( <ToggleInput
-				name="fuck"
+	return ( <RangeInput
+				name="Number"
 				change={ ( name, value ) => { console.log( name, value ) } }
 				notice="Input your first name."
 				status="test"
