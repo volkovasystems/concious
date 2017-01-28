@@ -89,13 +89,13 @@ class TextInput extends Input {
 					className={ kley( "input", {
 						"valued": valued
 					} ).join( " " ) }
-					
+
 					hidden={ hidden }
 				>
 					<div className="main">
 						<div className="body">
 							{
-								( status )?
+								truly( status )?
 									<Indicator status={ status } /> : null
 							}
 							{
@@ -117,9 +117,9 @@ class TextInput extends Input {
 
 								disabled={ disabled }
 
-								onChange={ ( event ) => { this.change( event.target.value ) } }
-								onFocus={ ( ) => { this.focus( ) } }
-								onBlur={ ( ) => { this.rest( ) } }
+								onChange={ this.change.bind( this ) }
+								onFocus={ this.focus.bind( this ) }
+								onBlur={ this.rest.bind( this ) }
 							/>
 							{
 								truly( notice )?

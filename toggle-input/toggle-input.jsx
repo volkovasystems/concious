@@ -53,18 +53,94 @@
 	@end-include
 */
 
+import kein from "kein";
+import kley from "kley";
+import protype from "protype";
+import titlelize from "titlelize";
+import truly from "truly";
+import truu from "truu";
+
 import React from "react";
-import Component from "component";
+import Input from "input";
 
-class ToggleInput extends Component {
-	constructor( property ){
-		super( property );
+class ToggleInput extends Input {
+	constructor( property ){ super( property ); }
 
-		this.name = "toggle-input";
+	toggle( ){
+		let value = truu( this.property ) && this.property.value;
+		if( truu( this.state ) && kein( this.state, "value" ) ){
+			value = this.state.value;
+		}
+
+		value = !value;
+
+		this.edit( "value", value,
+	 		function done( ){
+				if( truu( this.property ) && protype( this.property.change, FUNCTION ) ){
+					this.property.change( this.property.name, value );
+				}
+			} );
 	}
 
 	render( ){
-		return ( <div></div> );
+		let  {
+			name,
+
+			title,
+			value,
+			notice,
+
+			positive,
+			negative,
+
+			status,
+
+			hidden
+		} = this.property;
+
+		title = title || titlelize( name );
+
+		positive = titlelize( positive || "enabled" );
+		negative = titlelize( negative || "disabled" );
+
+		if( kein( this.state, "value" ) ){
+			value = this.state.value;
+		}
+
+		return ( <div
+					className={ kley( "input" ).join( " " ) }
+					hidden={ hidden }
+				>
+					<div className="main">
+						<div className="body">
+							{
+								truly( status )?
+									<Indicator status={ status } /> : null
+							}
+							<Button
+								name={ name }
+
+								title={ title }
+								label={ value? positive : negative }
+								notice={ notice }
+
+								click={ this.toggle.bind( this ) }
+							/>
+						</div>
+						<div className="control">
+							<Button
+								name={ name }
+
+								icon={ {
+									"set": "material-icon",
+									"ligature": value? "check_circle" : "radio_button_unchecked"
+								} }
+
+								click={ this.toggle.bind( this ) }
+							/>
+						</div>
+					</div>
+				</div> );
 	}
 }
 

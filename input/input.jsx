@@ -86,8 +86,11 @@ class Input extends Component {
 		}
 	}
 
-	change( value ){
-		this.edit( "value", value,
+	change( event ){
+		event.stopPropagation( );
+		event.preventDefault( );
+
+		this.edit( "value", event.target.value,
 	 		function done( ){
 				if( truu( this.property ) && protype( this.property.change, FUNCTION ) ){
 					this.property.change( this.property.name, value );

@@ -118,12 +118,21 @@ class Component extends React.PureComponent {
 		this.transfer( property );
 	}
 
+	stopEvent( event ){
+		if( truu( event ) ){
+			event.stopPropagation( );
+			event.preventDefault( );
+		}
+	}
+
 	/*;
 		@method-documentation:
 			This will act as hover and focus handler.
 		@end-method-documentation
 	*/
 	focus( event ){
+		this.stopEvent( event );
+
 		this.behave( FOCUS );
 
 		if( truu( this.property ) && protype( this.property.focus, FUNCTION ) ){
@@ -133,6 +142,8 @@ class Component extends React.PureComponent {
 		return this;
 	}
 	rest( event ){
+		this.stopEvent( event );
+
 		this.suppress( FOCUS );
 
 		if( truu( this.property ) && protype( this.property.rest, FUNCTION ) ){
@@ -142,6 +153,8 @@ class Component extends React.PureComponent {
 		return this;
 	}
 	press( event ){
+		this.stopEvent( event );
+
 		this.behave( PRESS );
 
 		if( truu( this.property ) && protype( this.property.press, FUNCTION ) ){
@@ -155,6 +168,8 @@ class Component extends React.PureComponent {
 		return this;
 	}
 	release( event ){
+		this.stopEvent( event );
+
 		this.suppress( PRESS );
 
 		if( truu( this.property ) && protype( this.property.release, FUNCTION ) ){
@@ -164,7 +179,9 @@ class Component extends React.PureComponent {
 		return this;
 	}
 	click( event ){
-		this.press( );
+		this.stopEvent( event );
+
+		this.press( event );
 
 		snapd.bind( this )( function onTimeout( ){
 			this.release( );
@@ -176,6 +193,7 @@ class Component extends React.PureComponent {
 
 		return this;
 	}
+
 	disable( flag ){
 		if( truly( flag ) && flag ){
 			this.behave( DISABLED );

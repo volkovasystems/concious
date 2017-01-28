@@ -38,7 +38,8 @@ module.exports = {
 				"select": resolve( "select" ),
 				"input": resolve( "input" ),
 				"text-input": resolve( "text-input" ),
-				"note-input": resolve( "note-input" )
+				"note-input": resolve( "note-input" ),
+				"toggle-input": resolve( "toggle-input" )
 			};
 
 			return component;
@@ -80,7 +81,8 @@ module.exports = {
 		"Select": "select",
 		"Input": "input",
 		"TextInput": "text-input",
-		"NoteInput": "note-input"
+		"NoteInput": "note-input",
+		"ToggleInput": "toggle-input"
 	},
 
 	"plugins": [
