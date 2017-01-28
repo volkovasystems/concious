@@ -53,11 +53,16 @@
 	@end-include
 */
 
+import kley from "kley";
+import titlelize from "titlelize";
+import truly from "truly";
+import truu from "truu";
+
 import React from "react";
 import Component from "component";
 import Input from "input"
 
-class NoteInput extends Component {
+class NoteInput extends Input {
 	constructor( property ){ super( property ); }
 
 	render( ){
@@ -76,48 +81,50 @@ class NoteInput extends Component {
 
 		title = title || titlelize( name );
 
+		let valued = ( truu( this.state ) && truly( this.state.value ) ) || truly( value );
+
 		return ( <div
+					className={ kley( "input", {
+						"valued": valued
+					} ).join( " " ) }
+
 					hidden={ hidden }
 				>
-					<div
-						className="body">
-						{
-							( status )?
-								<Indicator status={ status } /> : null
-						}
-						{
-							truly( title )?
-								<Label
-									name={ name }
-									target={ `input-${ this.id }` }
-									category="title"
-								>
-									{ title }
-								</Label> : null
-						}
-						<textarea
-							value={ value }
+					<div className="main">
+						<div className="body">
+							{
+								( status )?
+									<Indicator status={ status } /> : null
+							}
+							{
+								truly( title )?
+									<Label
+										name={ name }
+										target={ `input-${ this.id }` }
+										category="title"
+									>
+										{ title }
+									</Label> : null
+							}
+							<textarea
+								value={ value }
 
-							disabled={ disabled }
+								disabled={ disabled }
 
-							onChange={ ( event ) => { this.change( event.target.value ) } }
-							onFocus={ ( ) => { this.focus( ) } }
-							onBlur={ ( ) => { this.rest( ) } }
-						>
-						</textarea>
-						{
-							truly( notice )?
-								<Label
-									name={ name }
-									category="notice"
-								>
-									{ notice }
-								</Label> : null
-						}
-					</div>
-					<div
-						className="control">
-
+								onChange={ ( event ) => { this.change( event.target.value ) } }
+								onFocus={ ( ) => { this.focus( ) } }
+								onBlur={ ( ) => { this.rest( ) } }
+							></textarea>
+							{
+								truly( notice )?
+									<Label
+										name={ name }
+										category="notice"
+									>
+										{ notice }
+									</Label> : null
+							}
+						</div>
 					</div>
 				</div> );
 	}

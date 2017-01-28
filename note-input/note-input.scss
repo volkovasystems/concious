@@ -1,39 +1,47 @@
-div.note-input.component {
-	flex-direction: row;
+div.note-input.input.component {
+	@include adaptive-height;
 
-	justify-content: space-between;
+	&> div.main {
+		&> div.body {
+			&> .indicator.component {
+				z-index: 1;
+			}
 
-	&> div.body {
-		display: flex;
+			&> .title.label.component {
+				background-color: $DEFAULT_OPAQUE_COLOR;
 
-		flex-direction: column;
+				visibility: visible !important;
 
-		&> textarea {
-			width: 100%;
-			min-width: 0;
-			max-width: 100%;
+				z-index: 0;
+			}
 
-			height: 70px;
-			min-height: 70px;
-			max-height: 70px;
-		}
+			&> .notice.label.component {
+				background-color: $DEFAULT_OPAQUE_COLOR;
+			}
 
-		&> .title.label.component {
-			position: absolute;
+			&> textarea {
+				font: inherit;
 
-			top: 0px;
-			left: 0px;
-			right: 0px;
+				resize: none;
 
-			visibility: hidden;
-		}
+				margin-top: 20px;
+				margin-bottom: 20px;
 
-		&> .notice.label.component {
-			position: absolute;
+				padding-left: 15px;
+				padding-right: 15px;
 
-			bottom: 0px;
-			left: 0px;
-			right: 0px;
+				border: 0;
+
+				@include adaptive-width;
+
+				height: ( ( 70px + $DEFAULT_GAP ) * 2 ) - 40px;
+				min-height: 0px;
+				max-height: ( ( 70px + $DEFAULT_GAP ) * 2 ) - 40px;
+
+				&:focus {
+					outline: none;
+				}
+			}
 		}
 	}
 }

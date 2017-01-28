@@ -10,4 +10,8 @@ div.indicator.component {
 	height: 70px;
 	min-height: 70px;
 	max-height: 70px;
+
+	&.test {
+		background-color: $DEFAULT_BACKGROUND_COLOR;
+	}
 }

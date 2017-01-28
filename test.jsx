@@ -6,10 +6,11 @@ import "./concious.js";
 
 
 ReactDOM.render( ( ( ) => {
-	return ( <TextInput
-				name="firstName"
+	return ( <NoteInput
+				name="description"
 				change={ ( name, value ) => { console.log( name, value ) } }
 				notice="Input your first name."
+				status="test"
 			/> );
 } )( ),
 

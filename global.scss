@@ -1,5 +1,6 @@
 
 $DEFAULT_BACKGROUND_COLOR: rgba( 153, 153, 153, 1 );
+$DEFAULT_OPAQUE_COLOR: rgba( 255, 255, 255, 1 );
 $DEFAULT_DIMENSION:	70px;
 $DEFAULT_GAP: 1px;
 $DEFAULT_OUTLINE_REST_COLOR: rgba( 153, 153, 153, 0.7 );
@@ -27,4 +28,28 @@ $MINIMUM_Z-INDEX: 0;
 	pointer-events: none !important;
 
 	cursor: not-allowed !important;
+}
+
+@mixin adaptive-width {
+	width: 100%;
+	min-width: 0;
+	max-width: 100%;
+}
+
+@mixin adaptive-height {
+	height: fit-content;
+	min-height: 0;
+	max-height: fit-content;
+}
+
+@mixin fixed-width {
+	width: $MINIMUM_WIDTH;
+	min-width: $MINIMUM_WIDTH;
+	max-width: $MINIMUM_WIDTH;
+}
+
+@mixin fixed-height {
+	height: $MINIMUM_HEIGHT;
+	min-height: $MINIMUM_HEIGHT;
+	max-height: $MINIMUM_HEIGHT;
 }

@@ -3,13 +3,8 @@
 
 	display: flex;
 
-	height: $MINIMUM_HEIGHT;
-	min-height: $MINIMUM_HEIGHT;
-	max-height: $MINIMUM_HEIGHT;
-
-	width: 100%;
-	min-width: 0;
-	max-width: 100%;
+	@include adaptive-width;
+	@include fixed-height;
 
 	box-sizing: border-box;
 
@@ -31,7 +26,7 @@
 	& * {
 		font-size: 1em;
 		line-height: 1.5em;
-		
+
 		box-sizing: border-box;
 
 		text-rendering: optimizeLegibility;

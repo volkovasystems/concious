@@ -55,8 +55,10 @@
 	@end-include
 */
 
+import kley from "kley";
 import titlelize from "titlelize";
 import truly from "truly";
+import truu from "truu";
 
 import React from "react";
 import Indicator from "indicator";
@@ -81,47 +83,54 @@ class TextInput extends Input {
 
 		title = title || titlelize( name );
 
+		let valued = ( truu( this.state ) && truly( this.state.value ) ) || truly( value );
+
 		return ( <div
+					className={ kley( "input", {
+						"valued": valued
+					} ).join( " " ) }
+					
 					hidden={ hidden }
 				>
-					<div
-						className="body">
-						{
-							( status )?
-								<Indicator status={ status } /> : null
-						}
-						{
-							truly( title )?
-								<Label
-									name={ name }
-									target={ `input-${ this.id }` }
-									category="title"
-								>
-									{ title }
-								</Label> : null
-						}
-						<input
-							type="text"
+					<div className="main">
+						<div className="body">
+							{
+								( status )?
+									<Indicator status={ status } /> : null
+							}
+							{
+								truly( title )?
+									<Label
+										name={ name }
+										target={ `input-${ this.id }` }
+										category="title"
+									>
+										{ title }
+									</Label> : null
+							}
+							<input
+								type="text"
 
-							value={ value }
+								value={ value }
 
-							placeholder={ value || title }
+								placeholder={ value || title }
 
-							disabled={ disabled }
+								disabled={ disabled }
 
-							onChange={ ( event ) => { this.change( event.target.value ) } }
-							onFocus={ ( ) => { this.focus( ) } }
-							onBlur={ ( ) => { this.rest( ) } }
-						/>
-						{
-							truly( notice )?
-								<Label
-									name={ name }
-									category="notice"
-								>
-									{ notice }
-								</Label> : null
-						}
+								onChange={ ( event ) => { this.change( event.target.value ) } }
+								onFocus={ ( ) => { this.focus( ) } }
+								onBlur={ ( ) => { this.rest( ) } }
+							/>
+							{
+								truly( notice )?
+									<Label
+										name={ name }
+										category="notice"
+									>
+										{ notice }
+									</Label> : null
+							}
+						</div>
 					</div>
 				</div> );
 	}
