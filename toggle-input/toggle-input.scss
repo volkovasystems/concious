@@ -1,7 +1,13 @@
 div.toggle-input.input.component {
 	&> div.main {
 		&> div.body {
-			
+			&> .indicator.component {
+				z-index: 1;
+			}
+
+			&> .button.component {
+				z-index: 0;
+			}
 		}
 	}
 }

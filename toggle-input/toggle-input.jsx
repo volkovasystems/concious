@@ -109,6 +109,7 @@ class ToggleInput extends Input {
 
 		return ( <div
 					className={ kley( "input" ).join( " " ) }
+
 					hidden={ hidden }
 				>
 					<div className="main">
