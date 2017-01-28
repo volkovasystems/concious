@@ -55,12 +55,71 @@
 
 import React from "react";
 import Component from "component";
+import Input from "input"
 
 class NoteInput extends Component {
 	constructor( property ){ super( property ); }
 
 	render( ){
-		return ( <div></div> );
+		let {
+			name,
+
+			title,
+			value,
+			notice,
+
+			status,
+
+			hidden,
+			disabled
+		} = this.property;
+
+		title = title || titlelize( name );
+
+		return ( <div
+					hidden={ hidden }
+				>
+					<div
+						className="body">
+						{
+							( status )?
+								<Indicator status={ status } /> : null
+						}
+						{
+							truly( title )?
+								<Label
+									name={ name }
+									target={ `input-${ this.id }` }
+									category="title"
+								>
+									{ title }
+								</Label> : null
+						}
+						<textarea
+							value={ value }
+
+							disabled={ disabled }
+
+							onChange={ ( event ) => { this.change( event.target.value ) } }
+							onFocus={ ( ) => { this.focus( ) } }
+							onBlur={ ( ) => { this.rest( ) } }
+						>
+						</textarea>
+						{
+							truly( notice )?
+								<Label
+									name={ name }
+									category="notice"
+								>
+									{ notice }
+								</Label> : null
+						}
+					</div>
+					<div
+						className="control">
+
+					</div>
+				</div> );
 	}
 }
 

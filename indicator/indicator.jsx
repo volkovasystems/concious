@@ -31,9 +31,9 @@
 	@module-configuration:
 		{
 			"package": "concious",
-			"path": "concious/text-input/text-input.jsx",
-			"file": "text-input.jsx",
-			"module": "TextInput",
+			"path": "concious/indicator/indicator.jsx",
+			"file": "indicator.jsx",
+			"module": "Indicator",
 			"author": "Richeve S. Bebedor",
 			"eMail": "richeve.bebedor@gmail.com",
 			"repository": "https://github.com/volkovasystems/concious.git",
@@ -43,88 +43,26 @@
 	@end-module-configuration
 
 	@module-documentation:
-		TextInput Component
+		Indicator Component
 	@end-module-documentation
 
 	@include:
 		{
 			"React": "react",
-			"Indicator": "indicator",
-			"Input": "input"
+			"Component": "component"
 		}
 	@end-include
 */
 
-import titlelize from "titlelize";
-import truly from "truly";
-
 import React from "react";
-import Indicator from "indicator";
-import Input from "input";
+import Component from "component";
 
-class TextInput extends Input {
+class Indicator extends Component {
 	constructor( property ){ super( property ); }
 
 	render( ){
-		let {
-			name,
-
-			title,
-			value,
-			notice,
-
-			status,
-
-			hidden,
-			disabled
-		} = this.property;
-
-		title = title || titlelize( name );
-
-		return ( <div
-					hidden={ hidden }
-				>
-					<div
-						className="body">
-						{
-							( status )?
-								<Indicator status={ status } /> : null
-						}
-						{
-							truly( title )?
-								<Label
-									name={ name }
-									target={ `input-${ this.id }` }
-									category="title"
-								>
-									{ title }
-								</Label> : null
-						}
-						<input
-							type="text"
-
-							value={ value }
-
-							placeholder={ value || title }
-
-							disabled={ disabled }
-
-							onChange={ ( event ) => { this.change( event.target.value ) } }
-							onFocus={ ( ) => { this.focus( ) } }
-							onBlur={ ( ) => { this.rest( ) } }
-						/>
-						{
-							truly( notice )?
-								<Label
-									name={ name }
-									category="notice"
-								>
-									{ notice }
-								</Label> : null
-						}
-					</div>
-				</div> );
+		return ( <div className={ this.property.status }></div> );
 	}
 }
 
-export default TextInput;
+export default Indicator;

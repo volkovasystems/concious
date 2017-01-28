@@ -29,6 +29,9 @@
 	text-shadow: $DEFAULT_TEXT_SHADOW;
 
 	& * {
+		font-size: 1em;
+		line-height: 1.5em;
+		
 		box-sizing: border-box;
 
 		text-rendering: optimizeLegibility;

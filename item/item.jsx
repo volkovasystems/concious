@@ -161,10 +161,10 @@ class Item extends Component {
 
 		return ( <li
 					className={ kley( {
-						"view": dynamic && view
-					},[
-						status
-					] ).join( " " ) }
+							"view": dynamic && view
+						},[
+							status
+						] ).join( " " ) }
 
 					onMouseEnter={ this.focus.bind( this ) }
 					onMouseLeave={ this.rest.bind( this ) }

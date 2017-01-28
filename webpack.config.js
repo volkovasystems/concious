@@ -28,13 +28,17 @@ module.exports = {
 				"component": resolve( "component" ),
 				"icon": resolve( "icon" ),
 				"label": resolve( "label" ),
+				"indicator": resolve( "indicator" ),
 				"button": resolve( "button" ),
 				"control": resolve( "control" ),
 				"plate": resolve( "plate" ),
 				"header": resolve( "header" ),
 				"item": resolve( "item" ),
 				"list": resolve( "list" ),
-				"select": resolve( "select" )
+				"select": resolve( "select" ),
+				"input": resolve( "input" ),
+				"text-input": resolve( "text-input" ),
+				"note-input": resolve( "note-input" )
 			};
 
 			return component;
@@ -66,13 +70,17 @@ module.exports = {
 		"Component": "component",
 		"Icon": "icon",
 		"Label": "label",
+		"Indicator": "indicator",
 		"Button": "button",
 		"Control": "control",
 		"Plate": "plate",
 		"Header": "header",
 		"Item": "item",
 		"List": "list",
-		"Select": "select"
+		"Select": "select",
+		"Input": "input",
+		"TextInput": "text-input",
+		"NoteInput": "note-input"
 	},
 
 	"plugins": [

@@ -73,7 +73,6 @@
 
 import clazof from "clazof";
 import doubt from "doubt";
-import deequal from "deequal";
 import een from "een";
 import falze from "falze";
 import harden from "harden";

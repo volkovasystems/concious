@@ -6,26 +6,11 @@ import "./concious.js";
 
 
 ReactDOM.render( ( ( ) => {
-	return ( <Select
-				header={ {
-					"icon": "fa fa-home",
-					"label": "List of Oranges"
-				} }
-
-				list={ [
-					{
-						"value": "Orange"
-					},
-					{
-						"value": "Peach"
-					},
-					{
-						"value": "Apple"
-					}
-				] }
-			>
-
-			</Select> );
+	return ( <TextInput
+				name="firstName"
+				change={ ( name, value ) => { console.log( name, value ) } }
+				notice="Input your first name."
+			/> );
 } )( ),
 
 document.getElementById( "root" ) )

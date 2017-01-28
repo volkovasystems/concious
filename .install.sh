@@ -3,7 +3,6 @@ babel-runtime \
 ceries \
 clazof \
 depher \
-deequal \
 doubt \
 een \
 falze \
@@ -21,6 +20,7 @@ react \
 react-dom \
 shardize \
 snapd \
+titlelize \
 transpher \
 truly \
 truu \
@@ -59,7 +59,6 @@ bower install \
 ceries \
 clazof \
 depher \
-deequal \
 doubt \
 een \
 falze \
@@ -77,6 +76,7 @@ raze \
 react \
 shardize \
 snapd \
+titlelize \
 transpher \
 truly \
 truu \
