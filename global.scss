@@ -12,6 +12,10 @@ $MINIMUM_WIDTH: $DEFAULT_DIMENSION;
 $MAXIMUM_Z-INDEX: 16777271;
 $MINIMUM_Z-INDEX: 0;
 
+$PHONE: "(min-device-width: 320px) and (max-device-width: 480px)";
+$TABLET: "(min-width: 768px) and (max-width: 1023px)";
+$DESKTOP: "(min-width: 1024px)";
+
 
 @mixin hidden {
 	opacity: 0 !important;

@@ -140,6 +140,8 @@ asea@^0.6.0:
     babel-runtime "^6.20.0"
     harden "^0.12.0"
 
+<<<<<<< HEAD
+=======
 asea@^0.7.0:
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/asea/-/asea-0.7.0.tgz#23843c90ee716c777b38dc54b347f37a610b3141"
@@ -154,6 +156,7 @@ asea@^0.8.0:
     babel-runtime "^6.22.0"
     harden "^0.14.0"
 
+>>>>>>> develop
 asn1@~0.2.3:
   version "0.2.3"
   resolved "https://registry.yarnpkg.com/asn1/-/asn1-0.2.3.tgz#dac8787713c9966849fc8180777ebe9c1ddf3b86"
@@ -213,15 +216,6 @@ ate@^0.5.0:
     falzy "^0.7.0"
     protype "^0.8.0"
     zelf "^0.4.0"
-
-ate@^0.6.0:
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/ate/-/ate-0.6.0.tgz#0fe5a429a0678880d7bed456d29e538d8fdac0ef"
-  dependencies:
-    babel-runtime "^6.22.0"
-    falzy "^0.8.0"
-    protype "^0.9.0"
-    zelf "^0.5.0"
 
 atob@~1.1.0:
   version "1.1.3"
@@ -2003,6 +1997,8 @@ filled@^0.3.0:
     raze "^0.6.0"
     truly "^0.5.0"
 
+<<<<<<< HEAD
+=======
 filled@^0.6.0:
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/filled/-/filled-0.6.0.tgz#ff45868b171359a0cc16233294914cb9cc041fce"
@@ -2550,9 +2546,22 @@ hawk@~3.1.3:
     hoek "2.x.x"
     sntp "1.x.x"
 
+history@^3.0.0:
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/history/-/history-3.2.1.tgz#71c7497f4e6090363d19a6713bb52a1bfcdd99aa"
+  dependencies:
+    invariant "^2.2.1"
+    loose-envify "^1.2.0"
+    query-string "^4.2.2"
+    warning "^3.0.0"
+
 hoek@2.x.x:
   version "2.16.3"
   resolved "https://registry.yarnpkg.com/hoek/-/hoek-2.16.3.tgz#20bb7403d3cea398e91dc4710a8ff1b8274a25ed"
+
+hoist-non-react-statics@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-1.2.0.tgz#aa448cf0986d55cc40773b17174b7dd066cb7cfb"
 
 home-or-tmp@^2.0.0:
   version "2.0.0"
@@ -2702,7 +2711,7 @@ interpret@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/interpret/-/interpret-1.0.1.tgz#d579fb7f693b858004947af39fa0db49f795602c"
 
-invariant@^2.2.0:
+invariant@^2.2.0, invariant@^2.2.1:
   version "2.2.2"
   resolved "https://registry.yarnpkg.com/invariant/-/invariant-2.2.2.tgz#9e1f56ac0acdb6bf303306f338be3b204ae60360"
   dependencies:
@@ -3372,7 +3381,7 @@ longest@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/longest/-/longest-1.0.1.tgz#30a0b2da38f73770e8294a0d22e6625ed77d0097"
 
-loose-envify@^1.0.0, loose-envify@^1.1.0:
+loose-envify@^1.0.0, loose-envify@^1.1.0, loose-envify@^1.2.0:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/loose-envify/-/loose-envify-1.3.1.tgz#d1a8ad33fa9ce0e713d65fdd0ac8b748d478c848"
   dependencies:
@@ -3528,17 +3537,13 @@ minimatch@~0.2.11:
     lru-cache "2"
     sigmund "~1.0.0"
 
-minimist@0.0.8:
+minimist@0.0.8, minimist@~0.0.1:
   version "0.0.8"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-0.0.8.tgz#857fcabfc3397d2625b8228262e86aa7a011b05d"
 
 minimist@^1.1.0, minimist@^1.1.3, minimist@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.0.tgz#a35008b20f41383eec1fb914f4cd5df79a264284"
-
-minimist@~0.0.1:
-  version "0.0.10"
-  resolved "https://registry.yarnpkg.com/minimist/-/minimist-0.0.10.tgz#de3f98543dbf96082be48ad1a0c7cda836301dcf"
 
 "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.0, mkdirp@~0.5.1:
   version "0.5.1"
@@ -4399,7 +4404,7 @@ qs@~6.3.0:
   version "6.3.0"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.3.0.tgz#f403b264f23bc01228c74131b407f18d5ea5d442"
 
-query-string@^4.1.0:
+query-string@^4.1.0, query-string@^4.2.2:
   version "4.3.1"
   resolved "https://registry.yarnpkg.com/query-string/-/query-string-4.3.1.tgz#54baada6713eafc92be75c47a731f2ebd09cd11d"
   dependencies:
@@ -4469,6 +4474,16 @@ react-dom@^15.4.2:
     fbjs "^0.8.1"
     loose-envify "^1.1.0"
     object-assign "^4.1.0"
+
+react-router@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/react-router/-/react-router-3.0.2.tgz#5a19156678810e01d81901f9c0fef63284b8a514"
+  dependencies:
+    history "^3.0.0"
+    hoist-non-react-statics "^1.2.0"
+    invariant "^2.2.1"
+    loose-envify "^1.2.0"
+    warning "^3.0.0"
 
 react@^15.4.2:
   version "15.4.2"
@@ -5110,6 +5125,8 @@ stuffed@^0.2.0:
     protype "^0.7.0"
     truly "^0.5.0"
 
+<<<<<<< HEAD
+=======
 stuffed@^0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/stuffed/-/stuffed-0.4.0.tgz#016d8add13f3b9acfe0047912101fd9c23c2c6d2"
@@ -5120,6 +5137,7 @@ stuffed@^0.4.0:
     protype "^0.11.0"
     truly "^0.9.0"
 
+>>>>>>> develop
 style-loader@^0.13.1:
   version "0.13.1"
   resolved "https://registry.yarnpkg.com/style-loader/-/style-loader-0.13.1.tgz#468280efbc0473023cd3a6cd56e33b5a1d7fc3a9"
@@ -5257,13 +5275,13 @@ transpher@^0.1.0:
     babel-runtime "^6.20.0"
     falzy "^0.7.0"
 
-transpher@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/transpher/-/transpher-0.3.0.tgz#9fb83463c6e50af72b0e132d181db9de2eb70398"
+transpher@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/transpher/-/transpher-0.2.0.tgz#2353a77262ac1729ddae974f0206800281ff70e5"
   dependencies:
-    ate "^0.6.0"
-    babel-runtime "^6.22.0"
-    falzy "^0.8.0"
+    ate "^0.5.0"
+    babel-runtime "^6.20.0"
+    falzy "^0.7.0"
 
 trim-newlines@^1.0.0:
   version "1.0.0"
@@ -5316,6 +5334,8 @@ truu@^0.4.0:
     stuffed "^0.2.0"
     truly "^0.5.0"
 
+<<<<<<< HEAD
+=======
 truu@^0.7.0:
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/truu/-/truu-0.7.0.tgz#c0b580fea3bb9f8883a6bd2a0101bd7eb074a969"
@@ -5327,6 +5347,7 @@ truu@^0.7.0:
     stuffed "^0.4.0"
     truly "^0.9.0"
 
+>>>>>>> develop
 tty-browserify@0.0.0:
   version "0.0.0"
   resolved "https://registry.yarnpkg.com/tty-browserify/-/tty-browserify-0.0.0.tgz#a157ba402da24e9bf957f9aa69d524eed42901a6"
@@ -5573,6 +5594,12 @@ vound@^0.6.0:
     truly "^0.5.0"
     zelf "^0.4.0"
 
+warning@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/warning/-/warning-3.0.0.tgz#32e5377cb572de4ab04753bdf8821c01ed605b7c"
+  dependencies:
+    loose-envify "^1.0.0"
+
 watch@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/watch/-/watch-1.0.1.tgz#37b7fc4b7bccafa9f6398dca56a2a45455db4aa2"
@@ -5803,6 +5830,8 @@ zelf@^0.4.0:
   dependencies:
     asea "^0.6.0"
     babel-runtime "^6.20.0"
+<<<<<<< HEAD
+=======
 
 zelf@^0.5.0:
   version "0.5.0"
@@ -5817,3 +5846,4 @@ zelf@^0.6.0:
   dependencies:
     asea "^0.8.0"
     babel-runtime "^6.22.0"
+>>>>>>> develop
