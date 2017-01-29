@@ -5,6 +5,7 @@ node_modules
 */*.css
 *.js
 *.css
+*.log
 !.*.js
 !gulpfile.js
 !webpack.config.js
