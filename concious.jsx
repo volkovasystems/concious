@@ -60,6 +60,7 @@ import harden from "harden";
 import { default as Component } from "component";
 import { default as Icon } from "icon";
 import { default as Label } from "label";
+import { default as Indicator } from "indicator";
 import { default as Button } from "button";
 import { default as Control } from "control";
 import { default as Plate } from "plate";
@@ -67,10 +68,16 @@ import { default as Header } from "header";
 import { default as Item } from "item";
 import { default as List } from "list";
 import { default as Select } from "select";
+import { default as Input } from "input";
+import { default as TextInput } from "text-input";
+import { default as NoteInput } from "note-input";
+import { default as ToggleInput } from "toggle-input";
+import { default as RangeInput } from "range-input";
 
 harden( "Component", Component );
 harden( "Icon", Icon );
 harden( "Label", Label );
+harden( "Indicator", Indicator );
 harden( "Button", Button );
 harden( "Control", Control );
 harden( "Plate", Plate );
@@ -78,16 +85,27 @@ harden( "Header", Header );
 harden( "Item", Item );
 harden( "List", List );
 harden( "Select", Select );
+harden( "Input", Input );
+harden( "TextInput", TextInput );
+harden( "NoteInput", NoteInput );
+harden( "ToggleInput", ToggleInput );
+harden( "RangeInput", RangeInput );
 
 export {
 	Component,
 	Icon,
 	Label,
+	Indicator,
 	Button,
 	Control,
 	Plate,
 	Header,
 	Item,
 	List,
-	Select
+	Select,
+	Input,
+	TextInput,
+	NoteInput,
+	ToggleInput,
+	RangeInput
 };

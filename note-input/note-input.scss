@@ -1,0 +1,47 @@
+div.note-input.input.component {
+	@include adaptive-height;
+
+	&> div.main {
+		&> div.body {
+			&> .indicator.component {
+				z-index: 1;
+			}
+
+			&> .title.label.component {
+				background-color: $DEFAULT_OPAQUE_COLOR;
+
+				visibility: visible !important;
+
+				z-index: 0;
+			}
+
+			&> .notice.label.component {
+				background-color: $DEFAULT_OPAQUE_COLOR;
+			}
+
+			&> textarea {
+				font: inherit;
+
+				resize: none;
+
+				margin-top: 20px;
+				margin-bottom: 20px;
+
+				padding-left: 15px;
+				padding-right: 15px;
+
+				border: 0;
+
+				@include adaptive-width;
+
+				height: ( ( 70px + $DEFAULT_GAP ) * 2 ) - 40px;
+				min-height: 0px;
+				max-height: ( ( 70px + $DEFAULT_GAP ) * 2 ) - 40px;
+
+				&:focus {
+					outline: none;
+				}
+			}
+		}
+	}
+}

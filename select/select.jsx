@@ -107,8 +107,16 @@ class Select extends Component {
 		return selected.some( ( element ) => { return item.value === element.value; } );
 	}
 
+	multiple( ){
+		return truu( this.property ) && protype( this.property.multiple, BOOLEAN ) && multiple;
+	}
+
 	select( item ){
 		let selected = plough( this.state.selected, item ).filter( truly );
+
+		if( !this.multiple( ) ){
+			selected = [ selected.reverse( )[ 0 ] ];
+		}
 
 		this.edit( "selected", selected,
 	 		function done( ){
@@ -226,6 +234,8 @@ class Select extends Component {
 				"click": ( ) => { this.close( ); }
 			};
 		}
+
+		console.log( "rerender", list );
 
 		return ( <div
 					className={ kley( {

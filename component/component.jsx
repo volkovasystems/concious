@@ -73,7 +73,6 @@
 
 import clazof from "clazof";
 import doubt from "doubt";
-import deequal from "deequal";
 import een from "een";
 import falze from "falze";
 import harden from "harden";
@@ -100,7 +99,7 @@ harden( "PRESS", "press" );
 harden( "HIDDEN", "hidden" );
 harden( "DISABLED", "disabled" );
 
-class Component extends React.Component {
+class Component extends React.PureComponent {
 	constructor( property ){
 		super( property );
 
@@ -119,12 +118,21 @@ class Component extends React.Component {
 		this.transfer( property );
 	}
 
+	stopEvent( event ){
+		if( truu( event ) ){
+			event.stopPropagation( );
+			event.preventDefault( );
+		}
+	}
+
 	/*;
 		@method-documentation:
 			This will act as hover and focus handler.
 		@end-method-documentation
 	*/
 	focus( event ){
+		this.stopEvent( event );
+
 		this.behave( FOCUS );
 
 		if( truu( this.property ) && protype( this.property.focus, FUNCTION ) ){
@@ -134,6 +142,8 @@ class Component extends React.Component {
 		return this;
 	}
 	rest( event ){
+		this.stopEvent( event );
+
 		this.suppress( FOCUS );
 
 		if( truu( this.property ) && protype( this.property.rest, FUNCTION ) ){
@@ -143,6 +153,8 @@ class Component extends React.Component {
 		return this;
 	}
 	press( event ){
+		this.stopEvent( event );
+
 		this.behave( PRESS );
 
 		if( truu( this.property ) && protype( this.property.press, FUNCTION ) ){
@@ -156,6 +168,8 @@ class Component extends React.Component {
 		return this;
 	}
 	release( event ){
+		this.stopEvent( event );
+
 		this.suppress( PRESS );
 
 		if( truu( this.property ) && protype( this.property.release, FUNCTION ) ){
@@ -165,7 +179,9 @@ class Component extends React.Component {
 		return this;
 	}
 	click( event ){
-		this.press( );
+		this.stopEvent( event );
+
+		this.press( event );
 
 		snapd.bind( this )( function onTimeout( ){
 			this.release( );
@@ -177,6 +193,7 @@ class Component extends React.Component {
 
 		return this;
 	}
+
 	disable( flag ){
 		if( truly( flag ) && flag ){
 			this.behave( DISABLED );
@@ -297,10 +314,7 @@ class Component extends React.Component {
 
 
 	transfer( property ){
-		if( protype( property, OBJECT ) &&
-			truu( property ) &&
-			!deequal( this.property, property ) )
-		{
+		if( protype( property, OBJECT ) && truu( property ) ){
 			this.property = property;
 		}
 
@@ -330,14 +344,16 @@ class Component extends React.Component {
 		}
 	}
 	edit( name, value, done ){
-		if( protype( name, STRING, SYMBOL, NUMBER ) && truly( name ) && this.mounted( ) ){
-			if( protype( done, FUNCTION ) ){
-				this.setState( { [ name ]: value }, done.bind( this ) );
+		snapd.bind( this )( function edit( ){
+			if( protype( name, STRING, SYMBOL, NUMBER ) && truly( name ) && this.mounted( ) ){
+				if( protype( done, FUNCTION ) ){
+					this.setState( { [ name ]: value }, done.bind( this ) );
 
-			}else{
-				this.setState( { [ name ]: value } );
+				}else{
+					this.setState( { [ name ]: value } );
+				}
 			}
-		}
+		} );
 	}
 	refresh( state ){
 		if( protype( state, OBJECT ) && truu( state ) ){
@@ -563,13 +579,6 @@ class Component extends React.Component {
 	unmount( ){ return this; }
 	update( ){ return this; }
 
-	rerender( property, state ){
-		return !deequal( property, this.property ) || !deequal( state, this.state );
-	}
-
-	shouldComponentUpdate( property, state ){
-		return this.rerender( property, state );
-	}
 	componentWillUpdate( property ){
 		this.transfer( property );
 

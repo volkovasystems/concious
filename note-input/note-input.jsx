@@ -53,18 +53,80 @@
 	@end-include
 */
 
+import kley from "kley";
+import titlelize from "titlelize";
+import truly from "truly";
+import truu from "truu";
+
 import React from "react";
-import Component from "component";
+import Indicator from "indicator";
+import Input from "input"
 
-class NoteInput extends Component {
-	constructor( property ){
-		super( property );
-
-		this.name = "note-input";
-	}
+class NoteInput extends Input {
+	constructor( property ){ super( property ); }
 
 	render( ){
-		return ( <div></div> );
+		let {
+			name,
+
+			title,
+			value,
+			notice,
+
+			status,
+
+			hidden,
+			disabled
+		} = this.property;
+
+		title = title || titlelize( name );
+
+		let valued = ( truu( this.state ) && truly( this.state.value ) ) || truly( value );
+
+		return ( <div
+					className={ kley( "input", {
+						"valued": valued
+					} ).join( " " ) }
+
+					hidden={ hidden }
+				>
+					<div className="main">
+						<div className="body">
+							{
+								truly( status )?
+									<Indicator status={ status } /> : null
+							}
+							{
+								truly( title )?
+									<Label
+										name={ name }
+										target={ `input-${ this.id }` }
+										category="title"
+									>
+										{ title }
+									</Label> : null
+							}
+							<textarea
+								value={ value }
+
+								disabled={ disabled }
+
+								onChange={ this.change.bind( this ) }
+								onFocus={ this.focus.bind( this ) }
+								onBlur={ this.rest.bind( this ) }
+							></textarea>
+							{
+								truly( notice )?
+									<Label
+										name={ name }
+										category="notice"
+									>
+										{ notice }
+									</Label> : null
+							}
+						</div>
+					</div>
+				</div> );
 	}
 }
 

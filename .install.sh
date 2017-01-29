@@ -3,7 +3,6 @@ babel-runtime \
 ceries \
 clazof \
 depher \
-deequal \
 doubt \
 een \
 falze \
@@ -12,6 +11,7 @@ harden \
 kein \
 kley \
 optfor \
+outre \
 plough \
 protype \
 pyck \
@@ -20,6 +20,7 @@ react \
 react-dom \
 shardize \
 snapd \
+titlelize \
 transpher \
 truly \
 truu \
@@ -58,7 +59,6 @@ bower install \
 ceries \
 clazof \
 depher \
-deequal \
 doubt \
 een \
 falze \
@@ -68,6 +68,7 @@ jquery \
 kein \
 kley \
 optfor \
+outre \
 plough \
 protype \
 pyck \
@@ -75,6 +76,7 @@ raze \
 react \
 shardize \
 snapd \
+titlelize \
 transpher \
 truly \
 truu \

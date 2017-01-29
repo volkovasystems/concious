@@ -7,11 +7,98 @@
 	margin-top: $DEFAULT_GAP;
 	margin-bottom: $DEFAULT_GAP;
 
-	&> :nth-child( n + 2 ) {
-		margin-top: $DEFAULT_GAP;
+	border-width: 1px;
+	border-style: solid;
+	border-color: $DEFAULT_OUTLINE_REST_COLOR;
+
+	&.focus {
+		border-color: $DEFAULT_OUTLINE_FOCUS_COLOR;
 	}
 
-	&> :nth-last-child( n + 2 ) {
+	&.valued,
+	&.focus.valued {
+		&> div.main {
+			&> div.body {
+				&> .title.label.component {
+					visibility: visible;
+				}
+			}
+		}
+	}
+
+	&> div.main {
+		position: relative;
+
+		display: flex;
+
+		flex-direction: row;
+
+		justify-content: space-between;
+		align-items: center;
+
+		flex: 1 0 auto;
+
+		@include adaptive-width;
+		@include adaptive-height;
+
+		&> div.body {
+			position: relative;
+
+			display: flex;
+
+			flex-direction: column;
+
+			justify-content: space-between;
+			align-items: stretch;
+
+			flex: 1 1 auto;
+
+			@include adaptive-width;
+			@include adaptive-height;
+
+			&> .title.label.component {
+				position: absolute;
+
+				top: 0px;
+				left: 0px;
+				right: 0px;
+
+				visibility: hidden;
+			}
+
+			&> .notice.label.component {
+				position: absolute;
+
+				bottom: 0px;
+				left: 0px;
+				right: 0px;
+			}
+		}
+
+		&> div.control {
+			position: relative;
+			
+			display: flex;
+
+			flex-direction: column;
+
+			justify-content: space-between;
+			align-items: center;
+
+			flex: 0 0 auto;
+
+			@include fixed-width;
+			@include adaptive-height;
+		}
+	}
+
+	&> :nth-child( n + 2 ) {
+		margin-top: 0px;
 		margin-bottom: $DEFAULT_GAP;
+	}
+
+	&> :last-child {
+		margin-top: 0px;
+		margin-bottom: 0px;
 	}
 }

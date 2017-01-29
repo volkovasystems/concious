@@ -84,7 +84,18 @@ class Input extends Component {
 				this.edit( this.property.name, value );
 			}
 		}
-	}	
+	}
+
+	change( event ){
+		this.stopEvent( event );
+
+		this.edit( "value", event.target.value,
+	 		function done( ){
+				if( truu( this.property ) && protype( this.property.change, FUNCTION ) ){
+					this.property.change( this.property.name, value );
+				}
+			} );
+	}
 }
 
 export default Input;
