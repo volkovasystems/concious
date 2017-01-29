@@ -36,8 +36,16 @@ export default class TestApp extends Component {
                         <li><Link to="test-item">Item</Link></li>
                         <li><Link to="test-list">List</Link></li>
                         <li><Link to="test-select">Select</Link></li>
-                        <li><Link to="test-input">Inputs</Link></li>
+                        <li><Link to="test-input">Inputs</Link>
+                            <ul>
+                                <li><Link to="test-note-input">Note Input</Link></li>
+                                <li><Link to="test-range-input">Range Input</Link></li>
+                                <li><Link to="test-toggle-input">Toggle Input</Link></li>
+                                <li><Link to="test-text-input">Text Input</Link></li>
+                            </ul>
+                        </li>
                     </ul>
+
                 </nav>
                 {this.props.children}
             </div>

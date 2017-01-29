@@ -20,6 +20,10 @@ import TestItem from './test/test-item.js';
 import TestSelect from './test/test-select.js';
 import TestInput from './test/test-input.js';
 import TestList from './test/test-list.js';
+import TestRangeInput from './test/test-range-input.js';
+import TestTextInput from './test/test-text-input.js';
+import TestNoteInput from './test/test-note-input.js';
+import TestToggleInput from './test/test-toggle-input.js';
 
 
 
@@ -42,5 +46,9 @@ ReactDOM.render(
 			<Route path="test-list" component={TestList}></Route>
 			<Route path="test-select" component={TestSelect}></Route>
 			<Route path="test-input" component={TestInput}></Route>
+			<Route path="test-range-input" component={TestRangeInput}></Route>
+			<Route path="test-note-input" component={TestNoteInput}></Route>
+			<Route path="test-text-input" component={TestTextInput}></Route>
+			<Route path="test-toggle-input" component={TestToggleInput}></Route>
 		</Route>
 	</Router>, app)
