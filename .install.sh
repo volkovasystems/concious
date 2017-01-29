@@ -22,6 +22,7 @@ pyck \
 raze \
 react \
 react-dom \
+react-router \
 shardize \
 snapd \
 titlelize \
