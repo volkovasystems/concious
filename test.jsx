@@ -24,7 +24,7 @@ import TestRangeInput from './test/test-range-input.js';
 import TestTextInput from './test/test-text-input.js';
 import TestNoteInput from './test/test-note-input.js';
 import TestToggleInput from './test/test-toggle-input.js';
-
+import TestIndicator from './test/test-indicator.js';
 
 
 const app = document.getElementById('root');
@@ -49,6 +49,6 @@ ReactDOM.render(
 			<Route path="test-range-input" component={TestRangeInput}></Route>
 			<Route path="test-note-input" component={TestNoteInput}></Route>
 			<Route path="test-text-input" component={TestTextInput}></Route>
-			<Route path="test-toggle-input" component={TestToggleInput}></Route>
+			<Route path="test-indicator" component={TestIndicator}></Route>
 		</Route>
 	</Router>, app)

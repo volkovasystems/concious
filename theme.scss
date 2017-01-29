@@ -365,7 +365,6 @@ li.item.component.optional {
 }
 
 
-
 div.indicator.component.success {
 	background-color: $GREEN;
 }
@@ -403,4 +402,10 @@ div.indicator.component.activated {
 }
 div.indicator.component.deactivated {
 	background-color: $LIGHT_GRAY;
+}
+
+
+.relative {
+	position: relative;
+	background-color: lightgrey;
 }

@@ -44,6 +44,7 @@ export default class TestApp extends Component {
                                 <li><Link to="test-text-input">Text Input</Link></li>
                             </ul>
                         </li>
+                        <li><Link to="test-indicator">Indicator</Link></li>
                     </ul>
 
                 </nav>
