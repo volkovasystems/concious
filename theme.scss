@@ -18,9 +18,302 @@ $LIGHT_RED: 	rgba( 255, 64, 64,1 );
 $BLUE: 			rgba( 38, 140, 255, 1 );
 $LIGHT_BLUE: 	rgba( 38, 140, 255,1 );
 $DARK_BLUE: 	rgba( 0, 0, 139,1 );
-$GREEN: 		rgba( 0, 155, 114, 1 );
+$GREEN: 		rgba( 50, 205, 50, 1 );
 $ORANGE: 		rgba( 255, 117, 24, 1 );
 $YELLOW: 		rgba( 247, 232, 89, 1 );
 $GRAY: 			rgba( 153, 153, 153, 1 );
 $DARK_GRAY: 	rgba( 105, 105, 105, 1 );
 $LIGHT_GRAY: 	rgba( 190, 190, 190, 1 );
+
+
+button.button.component.success {
+	background-color: $GREEN;
+}
+
+button.button.component.failed {
+	background-color: $RED;
+}
+
+button.button.component.warning {
+	background-color: $YELLOW;
+}
+
+button.button.component.issue {
+	background-color: $LIGHT_RED;
+}
+
+button.button.component.fatal {
+	background-color: $DARK_RED;
+}
+
+button.button.component.unknown {
+	background-color: $DARK_GRAY;
+}
+
+button.button.component.prompt {
+	background-color: $LIGHT_BLUE;
+}
+
+button.button.component.alert {
+	background-color: $ORANGE;
+}
+
+button.button.component.activated {
+	background-color: $LIGHT_BLUE;
+}
+
+
+button.button.component.deactivated {
+	background-color: $LIGHT_GRAY;
+}
+
+button.button.component.positive {
+	background-color: $GREEN;
+}
+
+button.button.component.negative {
+	background-color: $RED;
+}
+
+button.button.component.immediate {
+	background-color: $ORANGE;
+}
+
+button.button.component.priority {
+	background-color: $BLUE;
+}
+
+button.button.component.secondary {
+	background-color: $GRAY;
+}
+
+button.button.component.normal {
+	background-color: $DARK_GRAY;
+}
+
+button.button.component.optional {
+	background-color: $LIGHT_GRAY;
+}
+
+
+
+button.button.component.success {
+	background-color: $GREEN;
+}
+
+button.button.component.failed {
+	background-color: $RED;
+}
+
+button.button.component.warning {
+	background-color: $YELLOW;
+}
+
+button.button.component.issue {
+	background-color: $LIGHT_RED;
+}
+
+button.button.component.fatal {
+	background-color: $DARK_RED;
+}
+
+button.button.component.unknown {
+	background-color: $DARK_GRAY;
+}
+
+button.button.component.prompt {
+	background-color: $LIGHT_BLUE;
+}
+
+button.button.component.alert {
+	background-color: $ORANGE;
+}
+
+button.button.component.activated {
+	background-color: $LIGHT_BLUE;
+}
+
+
+button.button.component.deactivated {
+	background-color: $LIGHT_GRAY;
+}
+
+
+div.plate.component.success {
+	background-color: $GREEN;
+}
+
+div.plate.component.failed {
+	background-color: $RED;
+}
+
+div.plate.component.warning {
+	background-color: $YELLOW;
+}
+
+div.plate.component.issue {
+	background-color: $LIGHT_RED;
+}
+
+div.plate.component.fatal {
+	background-color: $DARK_RED;
+}
+
+div.plate.component.unknown {
+	background-color: $DARK_GRAY;
+}
+
+div.plate.component.prompt {
+	background-color: $LIGHT_BLUE;
+}
+
+div.plate.component.alert {
+	background-color: $ORANGE;
+}
+
+div.plate.component.activated {
+	background-color: $LIGHT_BLUE;
+}
+
+div.plate.component.deactivated {
+	background-color: $LIGHT_GRAY;
+}
+
+
+div.plate.component.positive {
+	background-color: $GREEN;
+}
+
+div.plate.component.negative {
+	background-color: $RED;
+}
+
+div.plate.component.immediate {
+	background-color: $ORANGE;
+}
+
+div.plate.component.priority {
+	background-color: $BLUE;
+}
+
+div.plate.component.secondary {
+	background-color: $GRAY;
+}
+
+div.plate.component.normal {
+	background-color: $DARK_GRAY;
+}
+
+div.plate.component.optional {
+	background-color: $LIGHT_GRAY;
+}
+
+
+li.item.component.success {
+	background-color: $GREEN;
+}
+
+li.item.component.failed {
+	background-color: $RED;
+}
+
+li.item.component.warning {
+	background-color: $YELLOW;
+}
+
+li.item.component.issue {
+	background-color: $LIGHT_RED;
+}
+
+li.item.component.fatal {
+	background-color: $DARK_RED;
+}
+
+li.item.component.unknown {
+	background-color: $DARK_GRAY;
+}
+
+li.item.component.prompt {
+	background-color: $LIGHT_BLUE;
+}
+
+li.item.component.alert {
+	background-color: $ORANGE;
+}
+
+li.item.component.activated {
+	background-color: $LIGHT_BLUE;
+}
+
+li.item.component.deactivated {
+	background-color: $LIGHT_GRAY;
+}
+
+
+li.item.component.positive {
+	background-color: $GREEN;
+}
+
+li.item.component.negative {
+	background-color: $RED;
+}
+
+li.item.component.immediate {
+	background-color: $ORANGE;
+}
+
+li.item.component.priority {
+	background-color: $BLUE;
+}
+
+li.item.component.secondary {
+	background-color: $GRAY;
+}
+
+li.item.component.normal {
+	background-color: $DARK_GRAY;
+}
+
+li.item.component.optional {
+	background-color: $LIGHT_GRAY;
+}
+
+
+div.indicator.component.success {
+	background-color: $GREEN;
+}
+
+div.indicator.component.failed {
+	background-color: $RED;
+}
+
+div.indicator.component.warning {
+	background-color: $YELLOW;
+}
+
+div.indicator.component.issue {
+	background-color: $LIGHT_RED;
+}
+
+div.indicator.component.fatal {
+	background-color: $DARK_RED;
+}
+
+div.indicator.component.unknown {
+	background-color: $DARK_GRAY;
+}
+
+div.indicator.component.prompt {
+	background-color: $LIGHT_BLUE;
+}
+
+div.indicator.component.alert {
+	background-color: $ORANGE;
+}
+
+div.indicator.component.activated {
+	background-color: $LIGHT_BLUE;
+}
+div.indicator.component.deactivated {
+	background-color: $LIGHT_GRAY;
+}
