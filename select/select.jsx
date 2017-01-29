@@ -235,8 +235,6 @@ class Select extends Component {
 			};
 		}
 
-		console.log( "rerender", list );
-
 		return ( <div
 					className={ kley( {
 						"view": view

@@ -53,14 +53,200 @@
 	@end-include
 */
 
-import React from "react";
-import Component from "component";
+import clazof from "clazof";
+import doubt from "doubt";
+import een from "een";
+import falze from "falze";
+import filled from "filled";
+import harden from "harden";
+import kein from "kein";
+import protype from "protype";
+import snapd from "snapd";
+import titlelize from "titlelize";
+import truly from "truly";
+import truu from "truu";
 
-class ListInput extends Component {
+import React from "react";
+import Input from "input";
+import List from "list";
+import TextInput from "text-input";
+import RangeInput from "range-input";
+
+harden( "TEXT", "text" );
+harden( "NUMBER", "number" );
+
+class ListInput extends Input {
 	constructor( property ){ super( property ); }
 
+	add( ){
+		let list = [ ];
+		if( truu( this.state ) &&
+			doubt( this.state.value, ARRAY ) &&
+			filled( this.state.value ) )
+		{
+			list = [ ].concat( this.state.value );
+
+		}else if( truu( this.property ) &&
+			doubt( this.property.value, ARRAY ) &&
+			filled( this.property.value ) )
+		{
+			list = [ ].concat( this.property.value );
+		}
+
+		let entry = this.state.entry;
+		if( !een( list, entry ) && truly( entry ) ){
+			list.push( entry );
+
+			this.set( { "value": list, "entry": "" }, this.change );
+
+			snapd.bind( this )( function clear( ){
+				let entry = this.pointer( "entry" );
+				if( clazof( entry, Input ) ){
+					entry.clear( );
+				}
+			} );
+		}
+
+		return this;
+	}
+
+	remove( value ){
+		let list = [ ];
+
+		if( truu( this.state ) &&
+			doubt( this.state.value, ARRAY ) &&
+			filled( this.state.value ) )
+		{
+			list = [ ].concat( this.state.value );
+
+		}else if( truu( this.property ) &&
+			doubt( this.property.value, ARRAY ) &&
+			filled( this.property.value ) )
+		{
+			list = [ ].concat( this.property.value );
+		}
+
+		if( filled( list ) && een( list, value ) ){
+			list = list.filter( ( item ) => { return item !== value; } );
+
+			this.edit( "value", list, this.change );
+		}
+
+		return this;
+	}
+
+	resolve( list ){
+		if( falze( list ) ){
+			return [ ];
+		}
+
+		if( !doubt( list, ARRAY ) ){
+			list = [ list ];
+		}
+
+		return list.map( ( item ) => {
+			if( !protype( item, OBJECT ) ){
+				item = { "value": item };
+			}
+
+			item.action = {
+				"icon": {
+					"set": "material-icon",
+					"ligature": "close"
+				},
+				"click": ( ) => {
+					this.remove( item.value );
+				}
+			};
+
+			return item;
+		} );
+	}
+
 	render( ){
-		return ( <div></div> );
+		let {
+			name,
+
+			notice,
+			status,
+
+			header,
+
+			mode,
+
+			value,
+
+			hidden
+		} = this.property;
+
+		if( mode !== TEXT || mode !== NUMBER ){
+			mode = TEXT;
+		}
+
+		if( truu( this.state ) && kein( this.state, "value" ) ){
+			value = this.state.value;
+		}
+		let list = this.resolve( value );
+
+		return ( <div
+					hidden={ hidden }
+				>
+					<div className="main">
+						<div className="body">
+							{
+								mode === TEXT?
+									<TextInput
+										pointer="entry"
+										name={ name }
+
+										title={ this.title }
+										notice={ notice }
+
+										change={ ( name, value ) => { this.edit( "entry", value ); } }
+
+										status={ status }
+									/> :
+								mode === NUMBER?
+									<RangeInput
+										pointer="entry"
+										name={ name }
+
+										title={ this.title }
+										notice={ notice }
+
+										change={ ( name, value ) => { this.edit( "entry", value ); } }
+
+										status={ status }
+									/> : null
+							}
+							{
+								filled( list )?
+									<List
+										key={ Math.random( ) }
+										name={ name }
+
+										list={ list }
+									/> : null
+							}
+						</div>
+						<div className="control">
+							<Button
+								name={ name }
+
+								icon={ {
+									"set": "material-icon",
+									"ligature": "add"
+								} }
+
+								click={ this.add.bind( this ) }
+							/>
+						</div>
+					</div>
+				</div> );
+	}
+
+	clear( ){
+		this.edit( "value", [ ] );
 	}
 }
 

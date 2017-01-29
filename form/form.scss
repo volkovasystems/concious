@@ -1,14 +1,7 @@
-form.form.component {
-	flex-direction: column;
-
-	justify-content: space-between;
-	align-items: stretch;
-
-	&.headed {
-		margin-top: $DEFAULT_GAP;
-	}
-
-	&.controlled {
-		margin-bottom: $DEFAULT_GAP;
+form.form.input.component {
+	&> div.main {
+		&> div.body {
+			
+		}
 	}
 }

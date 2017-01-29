@@ -127,8 +127,6 @@ class List extends Component {
 
 		let controlled = truu( control );
 
-		console.debug( "rendered list", item );
-
 		return ( <div
 				className={ kley( {
 					"headed": headed,

@@ -143,7 +143,7 @@ class Item extends Component {
 			hidden
 		} = this.property;
 
-		label = label || this.content( );
+		label = label || this.content( ).join( " " );
 
 		let dynamic = ( protype( expand, FUNCTION ) && protype( retract, FUNCTION ) );
 		if( dynamic ){
@@ -156,8 +156,6 @@ class Item extends Component {
 		let labeled = truly( label ) || truly( value );
 
 		let component = this.component( );
-
-		console.debug( "action", action );
 
 		return ( <li
 					className={ kley( {

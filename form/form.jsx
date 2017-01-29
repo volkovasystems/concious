@@ -61,10 +61,18 @@ class Form extends Input {
 	constructor( property ){ super( property ); }
 
 	input( data ){
+		data = data || { };
+
 		return this.component( )
 			.filter( ( component ) => { return clazof( component, Input ) } )
 			.map( ( input, index ) => {
-				return React.cloneElement( input, { "key": `input-${ index }` } );
+
+				let name = input.props.name;
+
+				return React.cloneElement( input, {
+					"key": `input-${ index }`,
+					"value": data[ name ]
+				} );
 			} );
 	}
 
@@ -74,28 +82,13 @@ class Form extends Input {
 
 			header,
 
-			data,
-
 			control,
 
 			hidden
 		} = this.property;
 
-		let input = this.input( data );
-		this.cache = input;
-
-		let headed = truu( header );
-		if( headed ){
-			header.name = header.name || name;
-		}
-
-		let controlled = truu( control );
-
 		return ( <form
-					className={ kley( {
-						"headed": headed,
-						"controlled": controlled
-					} ).join( " " ) }
+					className={ kley( "input" ).join( " " ) }
 
 					hidden={ hidden }
 				>
@@ -103,19 +96,29 @@ class Form extends Input {
 						headed?
 							<Header { ...header } /> : null
 					}
-					{
-						truu( input )?
-							<List
-								name={ name }
-								>
-								{ input }
-							</List> : null
-					}
+					<div className="main">
+						<div className="body">
+							{
+								truu( this.state ) && truu( this.state.input )?
+									<List
+										name={ name }
+										>
+										{ this.state.input }
+									</List> : null
+							}
+						</div>
+					</div>
 					{
 						controlled?
 							control : null
 					}
 				</form>);
+	}
+
+	mount( ){
+		if( truu( this.property ) ){
+			this.edit( "input", this.input( this.property.data ) );
+		}
 	}
 }
 

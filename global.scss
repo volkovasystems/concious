@@ -42,16 +42,22 @@ $MINIMUM_Z-INDEX: 0;
 	max-width: 100%;
 }
 
-@mixin adaptive-height {
-	height: fit-content;
-	min-height: 0;
-	max-height: fit-content;
-}
-
 @mixin fixed-width {
 	width: $MINIMUM_WIDTH;
 	min-width: $MINIMUM_WIDTH;
 	max-width: $MINIMUM_WIDTH;
+}
+
+@mixin adaptive-height {
+	height: 100%;
+	min-height: 0;
+	max-height: 100%;
+}
+
+@mixin fitted-height {
+	height: fit-content;
+	min-height: 0;
+	max-height: 100%;
 }
 
 @mixin fixed-height {

@@ -48,13 +48,16 @@
 			There are many ways to add class to a component dom.
 				1. type
 					This determines the type of the component.
-					The component type as well as the component namespace will not be removed.
+					This will not be removed.
 
 				2. category
 					This determines how the component is associated.
+					This is external.
 
 				3. name
 					This is a single value for component names.
+					This can be the type of component or the property name of the component.
+					This will not be removed.
 
 				4. behavior
 					This determines how the component will behave. This is internal.
@@ -71,12 +74,16 @@
 	@end-include
 */
 
+import called from "called";
 import clazof from "clazof";
 import doubt from "doubt";
 import een from "een";
 import falze from "falze";
+import falzy from "falzy";
+import filled from "filled";
 import harden from "harden";
 import kein from "kein";
+import outre from "outre";
 import plough from "plough";
 import pyck from "pyck";
 import protype from "protype";
@@ -103,19 +110,23 @@ class Component extends React.PureComponent {
 	constructor( property ){
 		super( property );
 
+		this.initialize( property );
+	}
+
+	initialize( property ){
 		this.state = { };
 		this.property = { };
-
 		this.children = [ ];
+		this.behavior = [ ];
 
 		let name = shardize( this.constructor.name );
 		this.type = [ name, COMPONENT ];
 
 		this.name = shardize( property.name || this.name ) || name;
 
-		this.behavior = [ ];
-
 		this.transfer( property );
+
+		this.configure( );
 	}
 
 	stopEvent( event ){
@@ -161,7 +172,7 @@ class Component extends React.PureComponent {
 			this.property.press( this, event );
 		}
 
-		snapd.bind( this )( function onTimeout( ){
+		snapd.bind( this )( function later( ){
 			this.release( );
 		}, 1000 );
 
@@ -183,7 +194,7 @@ class Component extends React.PureComponent {
 
 		this.press( event );
 
-		snapd.bind( this )( function onTimeout( ){
+		snapd.bind( this )( function later( ){
 			this.release( );
 		} );
 
@@ -195,10 +206,10 @@ class Component extends React.PureComponent {
 	}
 
 	disable( flag ){
-		if( truly( flag ) && flag ){
+		if( truly( flag ) && protype( flag, BOOLEAN ) && flag ){
 			this.behave( DISABLED );
 
-		}else if( truly( flag ) && !flag ){
+		}else if( truly( flag ) && protype( flag, BOOLEAN ) && !flag ){
 			this.enable( true );
 
 		}else if( truu( this.property ) &&
@@ -218,20 +229,20 @@ class Component extends React.PureComponent {
 		return this;
 	}
 	enable( flag ){
-		if( truly( flag ) && flag ){
+		if( truly( flag ) && protype( flag, BOOLEAN ) && flag ){
 			this.suppress( DISABLED );
 
-		}else if( truly( flag ) && !flag ){
+		}else if( truly( flag ) && protype( flag, BOOLEAN ) && !flag ){
 			this.disable( true );
 		}
 
 		return this;
 	}
 	hide( flag ){
-		if( truly( flag ) && flag ){
+		if( truly( flag ) && protype( flag, BOOLEAN ) && flag ){
 			this.behave( HIDDEN );
 
-		}else if( truly( flag ) && !flag ){
+		}else if( truly( flag ) && protype( flag, BOOLEAN ) && !flag ){
 			this.show( true );
 
 		}else if( truu( this.property ) &&
@@ -251,14 +262,63 @@ class Component extends React.PureComponent {
 		return this;
 	}
 	show( flag ){
-		if( truly( flag ) && flag ){
+		if( truly( flag ) && protype( flag, BOOLEAN ) && flag ){
 			this.suppress( HIDDEN );
 
-		}else if( truly( flag ) && !flag ){
+		}else if( truly( flag ) && protype( flag, BOOLEAN ) && !flag ){
 			this.hide( true );
 		}
 
 		return this;
+	}
+
+	retype( type ){
+		if( !een( this.type, type ) ){
+			this.type.push( type );
+		}
+
+		return this;
+	}
+	behave( behavior ){
+		if( falzy( behavior ) || !protype( behavior, STRING ) ){
+			return this;
+		}
+
+		this.resetBehavior( );
+
+		if( !een( this.behavior, behavior ) ){
+			this.behavior.push( behavior );
+		}
+
+		this.bindBehavior( );
+
+		return this;
+	}
+	suppress( behavior ){
+		if( falzy( behavior ) || !protype( behavior, STRING ) ){
+			return this;
+		}
+
+		this.resetBehavior( );
+
+		this.behavior = this.behavior.filter( ( name ) => {
+			return name !== behavior;
+		} );
+
+		this.bindBehavior( );
+
+		return this;
+	}
+	resetBehavior( ){
+		if( truu( this.node ) && filled( this.behavior ) ){
+			this.node.removeClass( this.behavior.join( " " ) );
+		}
+	}
+	resetCategory( ){
+		let category = ( truu( this.property ) && this.property.category );
+		if( truu( this.node ) && truu( category ) ){
+			this.node.removeClass( plough( category ).filter( truly ).join( " " ) );
+		}
 	}
 
 	content( ){
@@ -278,21 +338,41 @@ class Component extends React.PureComponent {
 	}
 
 	register( parent ){
-		this.parent = parent;
+		this.parent = this.parent || parent;
 
 		parent.associate( this );
 
 		return this;
 	}
 	associate( child ){
-		if( truu( this.children ) &&
-			doubt( this.children, ARRAY ) &&
+		if( doubt( this.children, ARRAY ) &&
 			!een( this.children, child, ( item, child ) => { return item.id === child.id; } ) )
 		{
 			this.children.push( child );
 		}
 
 		return this;
+	}
+	disconnect( ){
+		if( truu( this.parent ) && truu( this.parent.children ) ){
+			this.parent.children = this.parent.children.filter( ( child ) => {
+				return child.id !== this.id;
+			} );
+		}
+
+		return this;
+	}
+	pointer( name ){
+		if( truu( this.children ) ){
+			for( let index = 0; index < this.children.length; index++ ){
+				let child = this.children[ index ];
+				if( truu( child.property ) && child.property.pointer === name ){
+					return this.children[ index ];
+				}
+			}
+		}
+
+		return null;
 	}
 
 	/*;
@@ -305,7 +385,7 @@ class Component extends React.PureComponent {
 
 			( truu( this.property ) && this.property.name ) ||
 
-			( truu( this.name ) && this.state.name ) ||
+			( truu( this.state ) && this.state.name ) ||
 
 			this.name || this.constructor.name );
 
@@ -321,14 +401,16 @@ class Component extends React.PureComponent {
 		return this;
 	}
 
-	set( state ){
+	set( state, done ){
 		if( protype( state, OBJECT ) && truu( state ) ){
+			done = called.bind( this )( done );
+
 			whyle.bind( this )( function condition( callback ){
 				callback( this.mounted( ) );
 
 			} )( function update( ){
 				if( this.mounted( ) ){
-					this.setState( state );
+					this.setState( state, done );
 				}
 			} );
 		}
@@ -344,23 +426,20 @@ class Component extends React.PureComponent {
 		}
 	}
 	edit( name, value, done ){
-		snapd.bind( this )( function edit( ){
-			if( protype( name, STRING, SYMBOL, NUMBER ) && truly( name ) && this.mounted( ) ){
-				if( protype( done, FUNCTION ) ){
-					this.setState( { [ name ]: value }, done.bind( this ) );
+		done = called.bind( this )( done );
 
-				}else{
-					this.setState( { [ name ]: value } );
-				}
+		snapd.bind( this )( function later( ){
+			if( protype( name, STRING, SYMBOL, NUMBER ) && truly( name ) && this.mounted( ) ){
+				this.setState( { [ name ]: value }, done );
 			}
 		} );
 	}
-	refresh( state ){
+	refresh( state, done ){
 		if( protype( state, OBJECT ) && truu( state ) ){
-			this.set( state );
+			this.set( state, done );
 
 		}else if( protype( this.state, OBJECT ) && truu( this.state ) ){
-			this.set( this.state );
+			this.set( this.state, done );
 		}
 
 		return this;
@@ -374,7 +453,8 @@ class Component extends React.PureComponent {
 		return this;
 	}
 	bindID( ){
-		this.id = this.id || `${ this.name }-${ Math.ceil( Date.now( ) * Math.random( ) ) }`;
+		let namespace = outre( [ this.name ].concat( this.type ) ).join( "-" );
+		this.id = this.id || `${ namespace }-${ Math.ceil( Date.now( ) * Math.random( ) ) }`;
 
 		if( truu( this.node ) ){
 			this.node.attr( "id", this.id );
@@ -382,9 +462,23 @@ class Component extends React.PureComponent {
 
 		return this;
 	}
+	bindType( ){
+		if( truu( this.node ) ){
+			this.node.addClass( this.type.join( " " ) );
+		}
+
+		return this;
+	}
 	bindCategory( ){
 		if( truu( this.node ) && truu( this.property ) && truu( this.property.category ) ){
 			this.node.addClass( plough( [ this.property.category ] ).join( " " ) );
+		}
+
+		return this;
+	}
+	bindBehavior( ){
+		if( truu( this.node ) ){
+			this.node.addClass( this.behavior.join( " " ) );
 		}
 
 		return this;
@@ -401,101 +495,26 @@ class Component extends React.PureComponent {
 		if( doubt( children, ARRAY ) ){
 			children.forEach( ( child ) => {
 				if( clazof( child, Component ) ){
-					child.register( parent );
+					if( child.parent !== parent ){
+						child.register( parent );
+					}
 				}
 			} );
 		}
 
 		if( truu( this.node ) ){
-			this.node.children( ).map( function onEachChild( ){
-				let child = $( this ).data( INSTANCE );
+			this.node.find( ".component" ).each( function onEachChild( index, child ){
+				child = $( child ).data( INSTANCE );
 
 				if( clazof( child, Component ) ){
-					child.register( parent );
+					if( falze( child.parent ) && child.parent !== parent ){
+						child.register( parent );
+					}
 				}
 			} );
 		}
 
 		return this;
-	}
-
-	addType( type ){
-		if( !een( this.type, type ) ){
-			this.type.push( type );
-		}
-
-		this.bindType( );
-
-		return this;
-	}
-	removeType( type ){
-		let componentName = this.constructor.name;
-		this.type = this.type.filter( ( name ) => {
-			if( name === componentName || name === COMPONENT ){
-				return true;
-			}
-
-			return name !== type || false;
-		} );
-
-		this.bindType( );
-
-		return this;
-	}
-	bindType( ){
-		if( truu( this.node ) ){
-			this.node.addClass( this.type.join( " " ) );
-		}
-
-		return this;
-	}
-
-	behave( behavior ){
-		this.resetBehavior( );
-
-		if( !een( this.behavior, behavior ) ){
-			this.behavior.push( behavior );
-		}
-
-		this.bindBehavior( );
-
-		return this;
-	}
-	suppress( behavior ){
-		this.resetBehavior( );
-
-		this.behavior = this.behavior.filter( ( name ) => {
-			return name !== behavior;
-		} );
-
-		this.bindBehavior( );
-
-		return this;
-	}
-	resetBehavior( ){
-		if( truu( this.node ) ){
-			this.node.removeClass( this.behavior.join( " " ) );
-		}
-	}
-	bindBehavior( ){
-		if( truu( this.node ) ){
-			this.node.addClass( this.behavior.join( " " ) );
-		}
-
-		return this;
-	}
-
-	/*;
-		@method-documentation:
-			This will return the aggregated behavior, type and category
-				except "component" and the component name.
-		@end-method-documentation
-	*/
-	classify( ){
-		let name = shardize( this.constructor.name );
-
-		return plough( this.property && this.property.category, this.behavior, this.type )
-			.filter( ( item ) => { return  item !== "component" && item !== name; } );
 	}
 
 	/*;
@@ -504,9 +523,9 @@ class Component extends React.PureComponent {
 		@end-method-documentation
 	*/
 	reset( ){
-		if( truu( this.node ) ){
-			this.node.removeClass( this.classify( ).join( " " ) );
-		}
+		this.resetCategory( );
+
+		this.resetBehavior( );
 
 		return this;
 	}
@@ -518,6 +537,7 @@ class Component extends React.PureComponent {
 
 		return this;
 	}
+
 	attach( ){
 		this[ MOUNTED ] = true;
 
@@ -531,6 +551,7 @@ class Component extends React.PureComponent {
 	mounted( ){
 		return this[ MOUNTED ] || false;
 	}
+
 	bound( ){
 		this.bindName( );
 
@@ -546,26 +567,11 @@ class Component extends React.PureComponent {
 
 		return this;
 	}
+
 	check( ){
 		this.disable( );
 
 		this.hide( );
-
-		return this;
-	}
-
-	initialize( ){
-		this.rename( );
-
-		this.build( );
-
-		this.mount( );
-
-		this.bound( );
-
-		this.check( );
-
-		this.attach( );
 
 		return this;
 	}
@@ -575,14 +581,21 @@ class Component extends React.PureComponent {
 			Do not implement anything on this because this will be overriden.
 		@end-note
 	*/
+	configure( ){ return this; }
+	prepare( ){ return this; }
 	mount( ){ return this; }
-	unmount( ){ return this; }
 	update( ){ return this; }
+	unmount( ){ return this; }
 
 	componentWillUpdate( property ){
 		this.transfer( property );
 
 		this.reset( );
+
+		this.prepare( );
+	}
+	componentWillMount( ){
+		this.prepare( );
 	}
 	componentDidUpdate( ){
 		this.rename( );
@@ -596,16 +609,24 @@ class Component extends React.PureComponent {
 		this.check( );
 	}
 	componentDidMount( ){
-		this.initialize( );
+		this.rename( );
 
-		console.log( this.id, "mounted" );
+		this.build( );
+
+		this.mount( );
+
+		this.bound( );
+
+		this.check( );
+
+		this.attach( );
 	}
 	componentWillUnmount( ){
 		this.unmount( );
 
-		this.detach( );
+		this.disconnect( );
 
-		console.log( this.id, "unmounted" );
+		this.detach( );
 	}
 };
 

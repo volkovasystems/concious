@@ -75,19 +75,13 @@ class ToggleInput extends Input {
 
 		value = !value;
 
-		this.edit( "value", value,
-	 		function done( ){
-				if( truu( this.property ) && protype( this.property.change, FUNCTION ) ){
-					this.property.change( this.property.name, value );
-				}
-			} );
+		this.edit( "value", value, this.change );
 	}
 
 	render( ){
 		let  {
 			name,
 
-			title,
 			value,
 			notice,
 
@@ -98,8 +92,6 @@ class ToggleInput extends Input {
 
 			hidden
 		} = this.property;
-
-		title = title || titlelize( name );
 
 		positive = titlelize( positive || "enabled" );
 		negative = titlelize( negative || "disabled" );
@@ -122,7 +114,7 @@ class ToggleInput extends Input {
 							<Button
 								name={ name }
 
-								title={ title }
+								title={ this.title }
 								label={ value? positive : negative }
 								notice={ notice }
 
@@ -143,6 +135,10 @@ class ToggleInput extends Input {
 						</div>
 					</div>
 				</div> );
+	}
+
+	clear( ){
+		this.edit( "value", false );
 	}
 }
 

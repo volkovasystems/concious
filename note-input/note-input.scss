@@ -1,5 +1,5 @@
 div.note-input.input.component {
-	@include adaptive-height;
+	@include fitted-height;
 
 	&> div.main {
 		&> div.body {

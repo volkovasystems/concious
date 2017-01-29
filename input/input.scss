@@ -34,9 +34,11 @@
 		flex-direction: row;
 
 		justify-content: space-between;
-		align-items: center;
+		align-items: flex-start;
 
 		flex: 1 0 auto;
+
+		top: 0px;
 
 		@include adaptive-width;
 		@include adaptive-height;
@@ -73,11 +75,20 @@
 				left: 0px;
 				right: 0px;
 			}
+
+			.input.component {
+				margin: 0;
+				border: 0;
+
+				div.main {
+					top: 0px;
+				}
+			}
 		}
 
 		&> div.control {
 			position: relative;
-			
+
 			display: flex;
 
 			flex-direction: column;

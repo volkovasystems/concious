@@ -55,6 +55,8 @@
 	@end-include
 */
 
+import protype from "protype";
+import titlelize from "titlelize";
 import truly from "truly";
 import truu from "truu";
 
@@ -63,6 +65,16 @@ import Component from "component";
 
 class Input extends Component {
 	constructor( property ){ super( property ); }
+
+	configure( ){
+		this.retype( "input" );
+	}
+
+	prepare( ){
+		if( truu( this.property ) ){
+			this.title = titlelize( this.property.title || this.property.name );
+		}
+	}
 
 	value( ){
 		if( truu( this.state ) && truu( this.state.value ) ){
@@ -86,16 +98,15 @@ class Input extends Component {
 		}
 	}
 
-	change( event ){
-		this.stopEvent( event );
-
-		this.edit( "value", event.target.value,
-	 		function done( ){
-				if( truu( this.property ) && protype( this.property.change, FUNCTION ) ){
-					this.property.change( this.property.name, value );
-				}
-			} );
+	change( ){
+		if( truu( this.property ) && protype( this.property.change, FUNCTION ) ){
+			this.property.change( this.property.name, this.retrieve( ) );
+		}
 	}
+
+	validate( ){ return true; }
+	retrieve( ){ return this.state.value; }
+	clear( ){ this.edit( "value", null ); }
 }
 
 export default Input;

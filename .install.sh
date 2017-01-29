@@ -1,13 +1,17 @@
 yarn add \
 babel-runtime \
+called \
 ceries \
 clazof \
 depher \
 doubt \
 een \
+ethernity \
 falze \
 falzy \
+filled \
 harden \
+infiniti \
 kein \
 kley \
 optfor \
@@ -56,14 +60,18 @@ webpack-dev-server \
 yargs \
 --dev && \
 bower install \
+called \
 ceries \
 clazof \
 depher \
 doubt \
 een \
+ethernity \
 falze \
 falzy \
+filled \
 harden \
+infiniti \
 jquery \
 kein \
 kley \

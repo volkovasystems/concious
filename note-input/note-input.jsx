@@ -65,11 +65,20 @@ import Input from "input"
 class NoteInput extends Input {
 	constructor( property ){ super( property ); }
 
+	revise( event ){
+		this.stopEvent( event );
+
+		this.edit( "value", event.target.value, this.change );
+	}
+
+	retrieve( ){
+		return $( "textarea", this.node ).val( );
+	}
+
 	render( ){
 		let {
 			name,
 
-			title,
 			value,
 			notice,
 
@@ -79,12 +88,10 @@ class NoteInput extends Input {
 			disabled
 		} = this.property;
 
-		title = title || titlelize( name );
-
 		let valued = ( truu( this.state ) && truly( this.state.value ) ) || truly( value );
 
 		return ( <div
-					className={ kley( "input", {
+					className={ kley( {
 						"valued": valued
 					} ).join( " " ) }
 
@@ -97,13 +104,13 @@ class NoteInput extends Input {
 									<Indicator status={ status } /> : null
 							}
 							{
-								truly( title )?
+								truly( this.title )?
 									<Label
 										name={ name }
 										target={ `input-${ this.id }` }
 										category="title"
 									>
-										{ title }
+										{ this.title }
 									</Label> : null
 							}
 							<textarea
@@ -111,7 +118,7 @@ class NoteInput extends Input {
 
 								disabled={ disabled }
 
-								onChange={ this.change.bind( this ) }
+								onChange={ this.revise.bind( this ) }
 								onFocus={ this.focus.bind( this ) }
 								onBlur={ this.rest.bind( this ) }
 							></textarea>
@@ -127,6 +134,14 @@ class NoteInput extends Input {
 						</div>
 					</div>
 				</div> );
+	}
+
+	clear( ){
+		this.edit( "value", "", function done( ){
+			if( truu( this.node ) ){
+				$( "textarea", this.node ).val( "" );
+			}
+		} );
 	}
 }
 

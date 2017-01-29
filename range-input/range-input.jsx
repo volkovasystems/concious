@@ -96,7 +96,7 @@ class RangeInput extends Input {
 
 		value = this.resolveValue( value );
 
-		this.edit( "value", ++value );
+		this.edit( "value", ++value, this.change );
 	}
 
 	decrement( ){
@@ -112,14 +112,13 @@ class RangeInput extends Input {
 			value = 0;
 		}
 
-		this.edit( "value", value );
+		this.edit( "value", value, this.change );
 	}
 
 	render( ){
 		let {
 			name,
 
-			title,
 			value,
 			notice,
 
@@ -128,8 +127,6 @@ class RangeInput extends Input {
 			hidden,
 			disabled
 		} = this.property;
-
-		title = title || titlelize( name );
 
 		let valued = ( truu( this.state ) && truly( this.state.value ) ) || truly( value );
 
@@ -151,13 +148,13 @@ class RangeInput extends Input {
 									<Indicator status={ status } /> : null
 							}
 							{
-								truly( title )?
+								truly( this.title )?
 									<Label
 										name={ name }
 										target={ `input-${ this.id }` }
 										category="title"
 									>
-										{ title }
+										{ this.title }
 									</Label> : null
 							}
 							<input
@@ -166,7 +163,7 @@ class RangeInput extends Input {
 
 								defaultValue={ value }
 
-								placeholder={ value || title }
+								placeholder={ value || this.title }
 
 								disabled={ disabled }
 
@@ -213,6 +210,10 @@ class RangeInput extends Input {
 	}
 
 	mount( ){
+		this.clear( );
+	}
+
+	clear( ){
 		this.edit( "value", 0 );
 	}
 }

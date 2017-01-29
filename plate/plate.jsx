@@ -98,7 +98,7 @@ class Plate extends Component {
 			hidden
 		} = this.property;
 
-		label = value || label || this.content( );
+		label = value || label || this.content( ).join( " " );
 
 		let labeled = truly( title ) || truly( label ) || truly( description ) || truly( notice );
 

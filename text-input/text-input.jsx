@@ -56,10 +56,10 @@
 */
 
 import kley from "kley";
-import titlelize from "titlelize";
 import truly from "truly";
 import truu from "truu";
 
+import $ from "jquery";
 import React from "react";
 import Indicator from "indicator";
 import Input from "input";
@@ -67,11 +67,20 @@ import Input from "input";
 class TextInput extends Input {
 	constructor( property ){ super( property ); }
 
+	revise( event ){
+		this.stopEvent( event );
+
+		this.edit( "value", event.target.value, this.change );
+	}
+
+	retrieve( ){
+		return $( "input", this.node ).val( );
+	}
+
 	render( ){
 		let {
 			name,
 
-			title,
 			value,
 			notice,
 
@@ -81,12 +90,10 @@ class TextInput extends Input {
 			disabled
 		} = this.property;
 
-		title = title || titlelize( name );
-
 		let valued = ( truu( this.state ) && truly( this.state.value ) ) || truly( value );
 
 		return ( <div
-					className={ kley( "input", {
+					className={ kley( {
 						"valued": valued
 					} ).join( " " ) }
 
@@ -99,25 +106,25 @@ class TextInput extends Input {
 									<Indicator status={ status } /> : null
 							}
 							{
-								truly( title )?
+								truly( this.title )?
 									<Label
 										name={ name }
 										target={ `input-${ this.id }` }
 										category="title"
 									>
-										{ title }
+										{ this.title }
 									</Label> : null
 							}
 							<input
 								type="text"
 
-								value={ value }
+								defaultValue={ value }
 
-								placeholder={ value || title }
+								placeholder={ this.state.value || this.title }
 
 								disabled={ disabled }
 
-								onChange={ this.change.bind( this ) }
+								onChange={ this.revise.bind( this ) }
 								onFocus={ this.focus.bind( this ) }
 								onBlur={ this.rest.bind( this ) }
 							/>
@@ -133,6 +140,14 @@ class TextInput extends Input {
 						</div>
 					</div>
 				</div> );
+	}
+
+	clear( ){
+		this.edit( "value", "", function done( ){
+			if( truu( this.node ) ){
+				$( "input", this.node ).val( "" );
+			}
+		} );
 	}
 }
 

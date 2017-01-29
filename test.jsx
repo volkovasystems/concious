@@ -6,10 +6,10 @@ import "./concious.js";
 
 
 ReactDOM.render( ( ( ) => {
-	return ( <RangeInput
-				name="Number"
+	return ( <ListInput
+				name="fruit"
 				change={ ( name, value ) => { console.log( name, value ) } }
-				notice="Input your first name."
+				notice="Input list of fruits."
 				status="test"
 			/> );
 } )( ),
