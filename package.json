@@ -87,13 +87,13 @@
     "raze": "^0.12.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
+    "react-router": "^3.0.2",
     "shardize": "^0.7.0",
     "snapd": "^0.13.0",
-    "transpher": "^0.3.0",
     "titlelize": "^0.7.0",
+    "transpher": "^0.3.0",
     "truly": "^0.9.0",
     "truu": "^0.7.0",
-    "react-router": "^3.0.2",
     "whyle": "^0.2.0"
   }
 }
