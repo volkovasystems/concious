@@ -42,6 +42,7 @@ export default class TestApp extends Component {
                                 <li><Link to="test-range-input">Range Input</Link></li>
                                 <li><Link to="test-toggle-input">Toggle Input</Link></li>
                                 <li><Link to="test-text-input">Text Input</Link></li>
+                                <li><Link to="test-list-input">List Input</Link></li>
                             </ul>
                         </li>
                         <li><Link to="test-indicator">Indicator</Link></li>

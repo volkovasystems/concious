@@ -20,16 +20,16 @@ export default class TestIcon extends Component {
                 </Icon>
                 <Icon
                     edge="round"
-                    image="https://developers.google.com/web/images/web-fundamentals-icon192x192.png" />
+                    image="http://www.iconsfind.com/wp-content/uploads/2015/08/20150831_55e46ad551392.png" />
                 <Icon
                     layout="fit"
-                    image="https://developers.google.com/web/images/web-fundamentals-icon192x192.png" />
+                    image="http://www.iconsfind.com/wp-content/uploads/2015/08/20150831_55e46ad551392.png" />
                 <Icon
                     edge="soft"
-                    image="https://developers.google.com/web/images/web-fundamentals-icon192x192.png" />
+                    image="http://www.iconsfind.com/wp-content/uploads/2015/08/20150831_55e46ad551392.png" />
                 <Icon
                     layout="spread"
-                    image="https://developers.google.com/web/images/web-fundamentals-icon192x192.png" />
+                    image="http://www.iconsfind.com/wp-content/uploads/2015/08/20150831_55e46ad551392.png" />
             </div>
         )
     }
