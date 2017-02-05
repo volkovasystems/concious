@@ -5,7 +5,7 @@ export default class TestApp extends Component {
     render() {
         return (
             <div className="menu-wrapper">
-                <h1>Biyaheroes Test Menu</h1>
+                <h1><Link to="/">Biyaheroes Test Menu</Link></h1>
                 <nav id="primary_nav_wrap">
                     <ul>
                         <li><a href="#">Buttons</a>

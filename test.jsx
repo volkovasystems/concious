@@ -33,7 +33,7 @@ const app = document.getElementById('root');
 ReactDOM.render(
 	<Router history={hashHistory}>
 		<Route path='/' component={TestApp}>
-			<IndexRoute></IndexRoute>
+			<IndexRoute component={TestApp}></IndexRoute>
 			<Route path="test-button-status" component={TestButtonStatus}></Route>
 			<Route path="test-button-purpose" component={TestButtonPurpose}></Route>
 			<Route path="test-control-status" component={TestControlStatus}></Route>
