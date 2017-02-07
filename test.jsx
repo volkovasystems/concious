@@ -24,6 +24,7 @@ import TestRangeInput from './test/test-range-input.js';
 import TestTextInput from './test/test-text-input.js';
 import TestNoteInput from './test/test-note-input.js';
 import TestToggleInput from './test/test-toggle-input.js';
+import TestListInput from './test/test-list-input.js';
 import TestIndicator from './test/test-indicator.js';
 
 
@@ -32,7 +33,7 @@ const app = document.getElementById('root');
 ReactDOM.render(
 	<Router history={hashHistory}>
 		<Route path='/' component={TestApp}>
-			<IndexRoute></IndexRoute>
+			<IndexRoute component={TestApp}></IndexRoute>
 			<Route path="test-button-status" component={TestButtonStatus}></Route>
 			<Route path="test-button-purpose" component={TestButtonPurpose}></Route>
 			<Route path="test-control-status" component={TestControlStatus}></Route>
@@ -49,6 +50,8 @@ ReactDOM.render(
 			<Route path="test-range-input" component={TestRangeInput}></Route>
 			<Route path="test-note-input" component={TestNoteInput}></Route>
 			<Route path="test-text-input" component={TestTextInput}></Route>
+			<Route path="test-list-input" component={TestTextInput}></Route>
+			<Route path="test-toggle-input" component={TestToggleInput}></Route>
 			<Route path="test-indicator" component={TestIndicator}></Route>
 		</Route>
 	</Router>, app)
