@@ -65,6 +65,8 @@ import Plate from "plate";
 harden( "EXPAND", "expand" );
 harden( "NONE", "none" );
 harden( "RETRACT", "retract" );
+harden( "FOCUS", "focus" );
+harden( "REST", "rest" );
 
 class Header extends Component {
 	constructor( property ){ super( property ); }
@@ -101,8 +103,8 @@ class Header extends Component {
 
 			this.edit( "view", RETRACT );
 
-			if( truu( this.property ) && protype( this.property.expand, FUNCTION ) ){
-				this.property.expand( );
+			if( truu( this.property ) && protype( this.property.retract, FUNCTION ) ){
+				this.property.retract( );
 			}
 		}
 	}
@@ -140,15 +142,21 @@ class Header extends Component {
 			view = NONE;
 		}
 
+		let overlay = this.state.overlay ||
+			( ( dynamic && truu( action ) && truu( icon ) )? REST : NONE );
+
 		return ( <header
 					className={ kley( {
-						"view": dynamic && view
+						"view": dynamic && view,
+						"overlay": dynamic && truu( action ) && truu( icon ) && overlay === FOCUS
 					},[
 						status,
 						purpose
 					] ).join( " " ) }
 
 					hidden={ hidden }
+
+					onMouseLeave={ ( ) => { this.edit( "overlay", REST ); } }
 				>
 					<div
 						className="emphasis">
@@ -167,6 +175,8 @@ class Header extends Component {
 
 						status={ status }
 						purpose={ purpose }
+
+						focus={ ( ) => { this.edit( "overlay", FOCUS ); } }
 					/>
 					{
 						dynamic?
@@ -179,15 +189,17 @@ class Header extends Component {
 
 								icon={ {
 									"set": "material-icon",
-									"ligature": ( view === EXPAND )? "expand_less" : "expand_more"
+									"ligature": ( view !== RETRACT )? "expand_less" : "expand_more"
 								} }
 
 								click={ ( ) => {
-									return ( view === EXPAND )? this.retract( ) : this.expand( );
+									return ( view !== RETRACT )? this.retract( ) : this.expand( );
 								} }
 
 								status={ status }
 								purpose={ purpose }
+
+								hidden={ dynamic && truu( action ) && overlay === REST }
 							/> : null
 					}
 				</header> );

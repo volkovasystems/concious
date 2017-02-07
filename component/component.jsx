@@ -142,8 +142,6 @@ class Component extends React.PureComponent {
 		@end-method-documentation
 	*/
 	focus( event ){
-		this.stopEvent( event );
-
 		this.behave( FOCUS );
 
 		if( truu( this.property ) && protype( this.property.focus, FUNCTION ) ){
@@ -153,8 +151,6 @@ class Component extends React.PureComponent {
 		return this;
 	}
 	rest( event ){
-		this.stopEvent( event );
-
 		this.suppress( FOCUS );
 
 		if( truu( this.property ) && protype( this.property.rest, FUNCTION ) ){
@@ -164,8 +160,6 @@ class Component extends React.PureComponent {
 		return this;
 	}
 	press( event ){
-		this.stopEvent( event );
-
 		this.behave( PRESS );
 
 		if( truu( this.property ) && protype( this.property.press, FUNCTION ) ){
@@ -179,8 +173,6 @@ class Component extends React.PureComponent {
 		return this;
 	}
 	release( event ){
-		this.stopEvent( event );
-
 		this.suppress( PRESS );
 
 		if( truu( this.property ) && protype( this.property.release, FUNCTION ) ){
@@ -190,8 +182,6 @@ class Component extends React.PureComponent {
 		return this;
 	}
 	click( event ){
-		this.stopEvent( event );
-
 		this.press( event );
 
 		snapd.bind( this )( function later( ){
@@ -381,6 +371,8 @@ class Component extends React.PureComponent {
 		@end-method-documentation
 	*/
 	rename( name ){
+		console.log( name, this.name, this.property, this.state );
+
 		this.name = shardize( name ||
 
 			( truu( this.property ) && this.property.name ) ||

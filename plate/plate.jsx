@@ -113,6 +113,9 @@ class Plate extends Component {
 						purpose
 					] ).join( " " ) }
 
+					onMouseEnter={ this.focus.bind( this ) }
+					onMouseLeave={ this.rest.bind( this ) }
+
 					hidden={ hidden }
 				>
 					{

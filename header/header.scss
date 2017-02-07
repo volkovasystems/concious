@@ -28,4 +28,10 @@ header.header.component {
 	& * {
 		text-shadow: rgba( 0, 0, 0, 0.5 ) 0 0 0.1px;
 	}
+
+	&.overlay > .button.component.overlay {
+		position: absolute;
+		top: 0px;
+		left: 0px;
+	}
 }

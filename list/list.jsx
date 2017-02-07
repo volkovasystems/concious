@@ -65,6 +65,7 @@
 import clazof from "clazof";
 import doubt from "doubt";
 import falze from "falze";
+import harden from "harden";
 import kley from "kley";
 import plough from "plough";
 import pyck from "pyck";
@@ -74,6 +75,10 @@ import React from "react";
 import Component from "component";
 import Header from "header";
 import Item from "item";
+
+harden( "EXPAND", "expand" );
+harden( "NONE", "none" );
+harden( "RETRACT", "retract" );
 
 class List extends Component {
 	constructor( property ){ super( property ); }
@@ -97,8 +102,18 @@ class List extends Component {
 		} );
 	}
 
+	expand( ){
+		this.edit( "view", EXPAND );
+	}
+
+	retract( ){
+		this.edit( "view", RETRACT );
+	}
+
 	render( ){
 		let {
+			name,
+			
 			list,
 
 			header,
@@ -123,38 +138,45 @@ class List extends Component {
 		let headed = truu( header );
 		if( headed ){
 			header.name = header.name || name;
+
+			header.view = this.state.view || NONE;
+			header.expand = this.expand.bind( this );
+			header.retract = this.retract.bind( this );
 		}
 
 		let controlled = truu( control );
 
+		let view = this.state.view || NONE;
+
 		return ( <div
-				className={ kley( {
-					"headed": headed,
-					"controlled": controlled
-				} ).join( " " ) }
+					className={ kley( {
+						"headed": headed,
+						"controlled": controlled,
+						"view": ( view !== NONE )? view : false
+					} ).join( " " ) }
 
-				hidden={ hidden }
-			>
-				{
-					headed?
-						<Header { ...header } /> : null
-				}
-				{
-					truu( item )?
-						<ul>
-							{ item }
-						</ul> :
+					hidden={ hidden }
+				>
+					{
+						headed?
+							<Header { ...header } /> : null
+					}
+					{
+						( truu( item ) && view !== RETRACT )?
+							<ul>
+								{ item }
+							</ul> :
 
-					truu( empty )?
-						<Plate { ...empty } /> :
+						( truu( empty ) && view !== RETRACT )?
+							<Plate { ...empty } /> :
 
-					null
-				}
-				{
-					controlled?
-						control : null
-				}
-			</div> );
+						null
+					}
+					{
+						( controlled && view !== RETRACT )?
+							control : null
+					}
+				</div> );
 	}
 }
 

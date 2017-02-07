@@ -1,28 +1,28 @@
 div.select.component {
 	position: fixed;
 
+	top: 0px;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 
 	z-index: $MAXIMUM_Z-INDEX;
 
-	height: fit-content;
-	min-height: 0;
-	max-height: inherit;
+	@include adaptive-width;
+	@include adaptive-height;
 
 	&.close {
-
+		@include hidden;
 	}
 
 	&> .list.component {
-		width: fit-content;
-		min-width: 0;
-		max-width: inherit;
+		@include fitted-width;
 
-		height: fit-content;
-		min-height: 0;
-		max-height: inherit;
+		@include fitted-height;
 	}
 
 	&> div.cover {

@@ -9,6 +9,9 @@ div.list.component {
 	min-height: 0;
 	max-height: inherit;
 
+	margin-top: $DEFAULT_GAP;
+	margin-bottom: $DEFAULT_GAP;
+
 	&> ul {
 		display: flex;
 
@@ -30,19 +33,21 @@ div.list.component {
 
 		list-style: none;
 
-		margin-top: $DEFAULT_GAP;
+		&> li:first-child {
+			margin-top: $DEFAULT_GAP;
+		}
 
 		&> li:nth-child( n ) {
 			margin-top: 0px;
 			margin-bottom: $DEFAULT_GAP;
 		}
-	}
 
-	&.headed {
-		margin-top: $DEFAULT_GAP;
-	}
+		&> li:nth-child( n + 1 ) {
+			margin-top: 0px;
+		}
 
-	&.controlled {
-		margin-bottom: $DEFAULT_GAP;
+		&> li:last-child {
+			margin-bottom: 0px;
+		}
 	}
 }

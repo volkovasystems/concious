@@ -112,10 +112,15 @@ class Select extends Component {
 	}
 
 	select( item ){
-		let selected = plough( this.state.selected, item ).filter( truly );
+		let selected = null;
 
 		if( !this.multiple( ) ){
+			selected = plough( this.state.selected, item ).filter( truly );
+
 			selected = [ selected.reverse( )[ 0 ] ];
+
+		}else if( this.state.selected.value !== item.value ){
+			selected = plough( this.state.selected, item ).filter( truly );
 		}
 
 		this.edit( "selected", selected,
@@ -186,7 +191,7 @@ class Select extends Component {
 			item.action = {
 				"icon": {
 					"set": "material-icon",
-					"ligature": this.icon( test( item, selected ) )
+					"ligature": this.icon( this.test( item, selected ) )
 				},
 
 				"click": ( ) => { this.select( item ); }
@@ -240,7 +245,7 @@ class Select extends Component {
 						"view": view
 					} ).join( " " ) }
 
-					hidden={ hidden }
+					hidden={ hidden || view === CLOSE }
 				>
 					<List
 						name={ name }
@@ -252,7 +257,9 @@ class Select extends Component {
 						list={ list }
 					/>
 					<div
-						className="cover">
+						className="cover"
+
+						onClick={ this.close.bind( this ) }>
 					</div>
 				</div> );
 	}
