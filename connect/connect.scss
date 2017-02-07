@@ -1,3 +1,4 @@
+div.connect.component,
 a.connect.component {
 	flex-direction: row;
 
@@ -8,4 +9,16 @@ a.connect.component {
 
 	@include adaptive-width;
 	@include fixed-height;
+
+	text-decoration: none;
+}
+
+a.connect.component {
+	&:active {
+		color: inherit;
+	}
+
+	&:visited {
+		color: inherit;
+	}
 }

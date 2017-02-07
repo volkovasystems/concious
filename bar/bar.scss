@@ -1,0 +1,39 @@
+.bar.pane.component {
+	position: absolute;
+
+	flex-direction: column;
+
+	&.left {
+		left: 0px;
+		top: 0px;
+
+		@include fitted-width;
+		@include adaptive-height;
+	}
+
+	&.right {
+		right: 0px;
+		top: 0px;
+
+		@include fitted-width;
+		@include adaptive-height;
+	}
+
+	&.top {
+		left: 0px;
+		right: 0px;
+		top: 0px;
+
+		@include adaptive-width;
+		@include fitted-height;
+	}
+
+	&.bottom {
+		left: 0px;
+		right: 0px;
+		bottom: 0px;
+
+		@include adaptive-width;
+		@include fitted-height;
+	}
+}

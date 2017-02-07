@@ -31,9 +31,9 @@
 	@module-configuration:
 		{
 			"package": "concious",
-			"path": "concious/connect/connect.jsx",
-			"file": "connect.jsx",
-			"module": "Connect",
+			"path": "concious/pane/pane.jsx",
+			"file": "pane.jsx",
+			"module": "Pane",
 			"author": "Richeve S. Bebedor",
 			"eMail": "richeve.bebedor@gmail.com",
 			"repository": "https://github.com/volkovasystems/concious.git",
@@ -43,115 +43,36 @@
 	@end-module-configuration
 
 	@module-documentation:
-		Connect Component
+		Pane Component
 	@end-module-documentation
 
 	@include:
 		{
-			"React": "react"
+			"React": "react",
+			"Component": "component"
 		}
 	@end-include
 */
 
+import clazof from "clazof";
+import protype from "protype";
+import titlelize from "titlelize";
 import truly from "truly";
+import truu from "truu";
 
 import React from "react";
 import Component from "component";
-import Plate from "plate";
-import Link from "react-router";
-import Icon from "icon";
 
-class Connect extends Component {
+class Pane extends Component {
 	constructor( property ){ super( property ); }
 
-	render( ){
-		let {
-			name,
+	configure( ){
+		this.retype( "pane" );
+	}
 
-			title,
-			label,
-			description,
-			notice,
-
-			url,
-			path,
-
-			icon,
-			loading,
-
-			action,
-
-			status,
-
-			hidden
-		} = this.property;
-
-		label = label || this.content( );
-
-		if( truly( path ) ){
-			return ( <div
-						hidden={ hidden }
-					>
-						<Link
-							to={ path }
-						>
-							<Plate
-								name={ name }
-
-								title={ title }
-								label={ label }
-								description={ description }
-								notice={ notice }
-
-								icon={ icon }
-								loading={ loading }
-
-								action={ action }
-
-								status={ status }
-							>
-							</Plate>
-						</Link>
-						<Icon
-							category="mode"
-							set="material-icon"
-							edge={ ROUND }
-						>
-							chevron_right
-						</Icon>
-					</div> );
-		}
-
-		return ( <a
-					href={ url }
-
-					hidden={ hidden }
-				>
-					<Plate
-						name={ name }
-
-						title={ title }
-						label={ label }
-						description={ description }
-						notice={ notice }
-
-						icon={ icon }
-						loading={ loading }
-
-						action={ action }
-
-						status={ status }
-					>
-					</Plate>
-					<Icon
-						category="mode"
-						set="material-icon"
-						edge={ ROUND }
-					>
-						link
-					</Icon>
-				</a> );
+	pane( ){
+		return this.component( ).filter( ( component ) => { return clazof( component, Pane ); } );
 	}
 }
 
-export default Connect;
+export default Pane;

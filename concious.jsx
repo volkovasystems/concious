@@ -74,6 +74,7 @@ import { default as NoteInput } from "note-input";
 import { default as ToggleInput } from "toggle-input";
 import { default as RangeInput } from "range-input";
 import { default as ListInput } from "list-input";
+import { default as Connect } from "connect";
 
 harden( "Component", Component );
 harden( "Icon", Icon );
@@ -92,6 +93,7 @@ harden( "NoteInput", NoteInput );
 harden( "ToggleInput", ToggleInput );
 harden( "RangeInput", RangeInput );
 harden( "ListInput", ListInput );
+harden( "Connect", Connect );
 
 export {
 	Component,
@@ -110,5 +112,6 @@ export {
 	NoteInput,
 	ToggleInput,
 	RangeInput,
-	ListInput
+	ListInput,
+	Connect
 };

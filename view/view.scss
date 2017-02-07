@@ -1,0 +1,9 @@
+section.view.pane.component {
+	flex-direction: row;
+
+	justify-content: space-between;
+	align-items: stretch;
+
+	@include adaptive-width;
+	@include adaptive-height;
+}

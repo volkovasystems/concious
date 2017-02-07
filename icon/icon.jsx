@@ -131,6 +131,10 @@ class Icon extends Component {
 			icon.name = icon.name || name;
 		}
 
+		if( falzy( icon.set ) && falzy( icon.loading ) ){
+			return null;
+		}
+
 		return icon;
 	}
 

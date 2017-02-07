@@ -55,11 +55,10 @@
 
 import React from "react";
 import { Router, Route, IndexRoute, Link, hashHistory } from "react-router";
-import Component from "component";
 import Connect from "connect";
 import List from "List";
 
-class Dashbar extends Component {
+class Dashbar extends Bar {
 	constructor( property ){ super( property ); }
 
 	render( ){
@@ -96,7 +95,7 @@ class Dashbar extends Component {
 													description={ link.description }
 													notice={ link.notice }
 
-													link={ link.path }
+													path={ link.path }
 
 													icon={ link.icon }
 													loading={ link.loading }

@@ -51,7 +51,8 @@ module.exports = function build( parameter ){
 					"note-input": resolve( "note-input" ),
 					"toggle-input": resolve( "toggle-input" ),
 					"range-input": resolve( "range-input" ),
-					"list-input": resolve( "list-input" )
+					"list-input": resolve( "list-input" ),
+					"connect": resolve( "connect" )
 				};
 
 				return component;
@@ -94,7 +95,8 @@ module.exports = function build( parameter ){
 			"NoteInput": "note-input",
 			"ToggleInput": "toggle-input",
 			"RangeInput": "range-input",
-			"ListInput": "list-input"
+			"ListInput": "list-input",
+			"Connect": "connect"
 		},
 
 		"plugins": [

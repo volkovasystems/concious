@@ -31,9 +31,9 @@
 	@module-configuration:
 		{
 			"package": "concious",
-			"path": "concious/connect/connect.jsx",
-			"file": "connect.jsx",
-			"module": "Connect",
+			"path": "concious/page/page.jsx",
+			"file": "page.jsx",
+			"module": "Page",
 			"author": "Richeve S. Bebedor",
 			"eMail": "richeve.bebedor@gmail.com",
 			"repository": "https://github.com/volkovasystems/concious.git",
@@ -43,7 +43,7 @@
 	@end-module-configuration
 
 	@module-documentation:
-		Connect Component
+		Page Component
 	@end-module-documentation
 
 	@include:
@@ -53,105 +53,32 @@
 	@end-include
 */
 
-import truly from "truly";
-
 import React from "react";
 import Component from "component";
-import Plate from "plate";
-import Link from "react-router";
-import Icon from "icon";
+import Input from "input";
 
-class Connect extends Component {
+class Page extends Component {
 	constructor( property ){ super( property ); }
 
 	render( ){
 		let {
 			name,
 
-			title,
-			label,
-			description,
-			notice,
+			header,
 
-			url,
-			path,
-
-			icon,
-			loading,
-
-			action,
-
-			status,
+			control,
 
 			hidden
 		} = this.property;
 
-		label = label || this.content( );
-
-		if( truly( path ) ){
-			return ( <div
-						hidden={ hidden }
-					>
-						<Link
-							to={ path }
-						>
-							<Plate
-								name={ name }
-
-								title={ title }
-								label={ label }
-								description={ description }
-								notice={ notice }
-
-								icon={ icon }
-								loading={ loading }
-
-								action={ action }
-
-								status={ status }
-							>
-							</Plate>
-						</Link>
-						<Icon
-							category="mode"
-							set="material-icon"
-							edge={ ROUND }
-						>
-							chevron_right
-						</Icon>
-					</div> );
-		}
-
-		return ( <a
-					href={ url }
+		return ( <div
+					className={ kley( "input" ).join( " " ) }
 
 					hidden={ hidden }
 				>
-					<Plate
-						name={ name }
 
-						title={ title }
-						label={ label }
-						description={ description }
-						notice={ notice }
-
-						icon={ icon }
-						loading={ loading }
-
-						action={ action }
-
-						status={ status }
-					>
-					</Plate>
-					<Icon
-						category="mode"
-						set="material-icon"
-						edge={ ROUND }
-					>
-						link
-					</Icon>
-				</a> );
+				</div>);
 	}
 }
 
-export default Connect;
+export default Page;

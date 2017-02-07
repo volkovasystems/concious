@@ -99,8 +99,32 @@ import Component from "component";
 import Icon from "icon";
 import Label from "label";
 
+const ICON = "icon";
+const LABEL = "label";
+
 class Button extends Component {
 	constructor( property ){ super( property ); }
+
+	mode( ){
+		let {
+			name,
+
+			icon,
+			loading,
+
+			label
+		} = this.property;
+
+		icon = Icon.resolve( icon, loading, name );
+
+		if( truu( icon ) ){
+			return ICON;
+		}
+
+		if( truly( label ) || truu( this.content( ) ) ){
+			return LABEL;
+		}
+	}
 
 	render( ){
 		let {
@@ -125,12 +149,14 @@ class Button extends Component {
 
 		icon = Icon.resolve( icon, loading, name );
 
+		let mode = this.mode( );
+
 		return ( <button
 					type="button"
 
 					className={ kley( {
-						"icon": truu( icon ) || loading,
-						"label": falze( icon ) && truu( label ),
+						"icon": mode === ICON,
+						"label": mode === LABEL,
 						"loading": loading
 					}, [
 						status,
@@ -146,7 +172,7 @@ class Button extends Component {
 					hidden={ hidden }
 				>
 					{
-						truly( title ) && ( falze( icon ) && !loading )?
+						( truly( title ) && mode === LABEL )?
 							<Label
 								name={ name }
 								category="title">
@@ -154,10 +180,10 @@ class Button extends Component {
 							</Label> : null
 					}
 					{
-						( truu( icon ) || loading )?
+						( mode === ICON )?
 							<Icon { ...icon }>{ content }</Icon> :
 
-						truly( label )?
+						( truly( label ) && mode === LABEL )?
 							<Label
 								name={ name }
 								target={ this.id }>
@@ -165,7 +191,7 @@ class Button extends Component {
 							</Label> : null
 					}
 					{
-						truly( notice ) && ( falze( icon ) && !loading )?
+						( truly( notice ) && mode === LABEL )?
 							<Label
 								name={ name }
 								category="notice">
