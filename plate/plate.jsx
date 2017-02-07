@@ -189,8 +189,8 @@ class Plate extends Component {
 								click={ action.click || click }
 								press={ action.press || press }
 								release={ action.release || release }
-								rest={ action.rest || rest }
 								focus={ action.focus || focus }
+								rest={ action.rest || rest }
 
 								disabled={ action.disabled }
 								hidden={ action.hidden }

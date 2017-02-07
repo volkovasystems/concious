@@ -64,19 +64,29 @@ div.icon.component {
 
 		border-radius: 50%;
 
-		width: 20px;
-		height: 20px;
-
-		transform: translateZ( 0 );
+		width: 30px;
+		height: 30px;
 
 		animation: loader 1.1s infinite linear;
 
 		&:after {
 			border-radius: 50%;
 
-			width: 20px;
-			height: 20px;
+			width: 30px;
+			height: 30px;
 		}
+	}
+
+	&.loading,
+	&.loading > div.loader {
+		//: Prevent flicker.
+		transform: translateZ( 0 );
+		backface-visibility: hidden;
+		transform-style: preserve-3d;
+
+		-webkit-transform: translateZ( 0 );
+		-webkit-backface-visibility: hidden;
+		-webkit-transform-style: preserve-3d;
 	}
 }
 

@@ -150,6 +150,9 @@ class Header extends Component {
 
 					hidden={ hidden }
 				>
+					<div
+						className="emphasis">
+					</div>
 					<Plate
 						name={ name }
 

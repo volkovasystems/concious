@@ -1,0 +1,11 @@
+a.connect.component {
+	flex-direction: row;
+
+	justify-content: center;
+	align-items: center;
+
+	flex: 1 1 auto;
+
+	@include adaptive-width;
+	@include fixed-height;
+}

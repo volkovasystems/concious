@@ -8,5 +8,24 @@ header.header.component {
 
 	background-color: $DEFAULT_BACKGROUND_COLOR;
 
-	filter: contrast( 120% ) brightness( 70% );
+	filter: contrast( 130% ) brightness( 90% );
+
+	& > div.emphasis {
+		position: absolute;
+
+		top: 0px;
+		left: 0px;
+
+		@include adaptive-width;
+
+		@include front;
+
+		height: 5px;
+
+		background-color: rgba( 120, 120, 120, 0.5 );
+	}
+
+	& * {
+		text-shadow: rgba( 0, 0, 0, 0.5 ) 0 0 0.1px;
+	}
 }

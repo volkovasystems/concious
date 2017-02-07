@@ -31,9 +31,9 @@
 	@module-configuration:
 		{
 			"package": "concious",
-			"path": "concious/link/link.jsx",
-			"file": "link.jsx",
-			"module": "Link",
+			"path": "concious/connect/connect.jsx",
+			"file": "connect.jsx",
+			"module": "Connect",
 			"author": "Richeve S. Bebedor",
 			"eMail": "richeve.bebedor@gmail.com",
 			"repository": "https://github.com/volkovasystems/concious.git",
@@ -43,7 +43,7 @@
 	@end-module-configuration
 
 	@module-documentation:
-		Link Component
+		Connect Component
 	@end-module-documentation
 
 	@include:
@@ -55,15 +55,84 @@
 
 import React from "react";
 import Component from "component";
+import Plate from "plate";
+import Link from "react-router";
 
-class Link extends Component {
+class Connect extends Component {
 	constructor( property ){ super( property ); }
 
 	render( ){
-		return ( <a href={ this.state.url }>
+		let {
+			name,
 
+			title,
+			label,
+			description,
+			notice,
+
+			url,
+			link,
+
+			icon,
+			loading,
+
+			action,
+
+			status,
+
+			hidden
+		} = this.property;
+
+		if( truly( link ) ){
+			return ( <div
+						hidden={ hidden }
+					>
+						<Link
+							to={ link }
+						>
+							<Plate
+								name={ name }
+
+								title={ title }
+								label={ label }
+								description={ description }
+								notice={ notice }
+
+								icon={ icon }
+								loading={ loading }
+
+								action={ action }
+
+								status={ status }
+							>
+							</Plate>
+						</Link>
+					</div> );
+		}
+
+		return ( <a
+					href={ url }
+
+					hidden={ hidden }
+				>
+					<Plate
+						name={ name }
+
+						title={ title }
+						label={ label }
+						description={ description }
+						notice={ notice }
+
+						icon={ icon }
+						loading={ loading }
+
+						action={ action }
+
+						status={ status }
+					>
+					</Plate>
 				</a> );
 	}
 }
 
-export default Link;
+export default Connect;

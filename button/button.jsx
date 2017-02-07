@@ -89,6 +89,7 @@
 */
 
 import doubt from "doubt";
+import falze from "falze";
 import kley from "kley";
 import truly from "truly";
 import truu from "truu";
@@ -129,7 +130,7 @@ class Button extends Component {
 
 					className={ kley( {
 						"icon": truu( icon ) || loading,
-						"label": !truu( icon ) && truly( label ),
+						"label": falze( icon ) && truu( label ),
 						"loading": loading
 					}, [
 						status,
@@ -145,7 +146,7 @@ class Button extends Component {
 					hidden={ hidden }
 				>
 					{
-						truly( title )?
+						truly( title ) && ( falze( icon ) && !loading )?
 							<Label
 								name={ name }
 								category="title">
@@ -164,7 +165,7 @@ class Button extends Component {
 							</Label> : null
 					}
 					{
-						truly( notice )?
+						truly( notice ) && ( falze( icon ) && !loading )?
 							<Label
 								name={ name }
 								category="notice">

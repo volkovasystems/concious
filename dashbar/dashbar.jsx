@@ -54,13 +54,108 @@
 */
 
 import React from "react";
+import { Router, Route, IndexRoute, Link, hashHistory } from "react-router";
 import Component from "component";
+import Connect from "connect";
+import List from "List";
 
 class Dashbar extends Component {
 	constructor( property ){ super( property ); }
 
 	render( ){
-		return ( <div></div> );
+		let {
+			name,
+
+			header,
+
+			path,
+			view,
+			index,
+			link,
+
+			hidden
+		} = this.property;
+
+		return ( <div
+					hidden={ hidden }
+				>
+					<List
+						name={ name }
+
+						header={ header }
+					>
+						{
+							doubt( link, ARRAY ) && truu( link )?
+								link.map( ( link ) => {
+									if( ( new RegExp( path ) ).test( link.path ) ){
+										return ( <Connect
+													name={ name }
+
+													title={ link.title }
+													label={ link.label }
+													description={ link.description }
+													notice={ link.notice }
+
+													link={ link.path }
+
+													icon={ link.icon }
+													loading={ link.loading }
+
+													action={ link.action }
+
+													status={ link.status }
+												>
+												</Connect> );
+
+									}else{
+										return ( <Connect
+													name={ name }
+
+													title={ link.title }
+													label={ link.label }
+													description={ link.description }
+													notice={ link.notice }
+
+													url={ link.path }
+
+													icon={ link.icon }
+													loading={ link.loading }
+
+													action={ link.action }
+
+													status={ link.status }
+												>
+												</Connect> );
+									}
+								} ) : null
+						}
+					</List>
+
+					<Router
+						history={ hashHistory }>
+						<Route
+							path={ path }
+							component={ view }
+						>
+							<IndexRoute
+								component={ index }
+							>
+							</IndexRoute>
+							{
+								doubt( link, ARRAY ) && truu( link )?
+									link.filter( ( link ) => {
+										return ( new RegExp( path ) ).test( link.path );
+									} ).map( ( link ) => {
+										<Route
+											path={ link.path }
+											component={ link.page }
+										>
+										</Route>
+									} ) : null
+							}
+						</Route>
+					</Router>
+				</div> );
 	}
 }
 

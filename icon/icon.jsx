@@ -109,10 +109,6 @@ class Icon extends Component {
 	constructor( property ){ super( property ); }
 
 	static resolve( icon, loading, name ){
-		if( falzy( icon ) ){
-			return null;
-		}
-
 		let parameter = raze( arguments );
 
 		if( protype( icon, STRING ) ){
@@ -121,7 +117,7 @@ class Icon extends Component {
 			icon = { "set": set, "icon": type };
 		}
 
-		if( !protype( icon, OBJECT ) ){
+		if( falzy( icon ) || !protype( icon, OBJECT ) ){
 			icon = { };
 		}
 
