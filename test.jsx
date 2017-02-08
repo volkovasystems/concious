@@ -2,7 +2,7 @@
 
 import React from "react";
 import ReactDOM from "react-dom";
-import { Router, Route, IndexRoute, hashHistory } from "react-router";
+import { Router, Route, IndexRoute, browserHistory } from "react-router";
 
 import "./concious.js";
 
@@ -29,14 +29,10 @@ import TestIndicator from "./test/test-indicator.js";
 import TestConnect from "./test/test-connect.js";
 
 ReactDOM.render( <Router
-					history={ hashHistory }>
+					history={ browserHistory }>
 					<Route
 						path="/"
 						component={ TestApp }>
-						<IndexRoute
-							component={ TestApp }>
-						</IndexRoute>
-
 						<Route
 							path="test-button-status"
 							component={ TestButtonStatus }>

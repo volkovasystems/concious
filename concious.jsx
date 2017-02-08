@@ -75,6 +75,10 @@ import { default as ToggleInput } from "toggle-input";
 import { default as RangeInput } from "range-input";
 import { default as ListInput } from "list-input";
 import { default as Connect } from "connect";
+import { default as Pane } from "pane";
+import { default as Bar } from "bar";
+import { default as Page } from "page";
+import { default as View } from "view";
 
 harden( "Component", Component );
 harden( "Icon", Icon );
@@ -94,6 +98,10 @@ harden( "ToggleInput", ToggleInput );
 harden( "RangeInput", RangeInput );
 harden( "ListInput", ListInput );
 harden( "Connect", Connect );
+harden( "Pane", Pane );
+harden( "Bar", Bar );
+harden( "Page", Page );
+harden( "View", View );
 
 export {
 	Component,
@@ -113,5 +121,9 @@ export {
 	ToggleInput,
 	RangeInput,
 	ListInput,
-	Connect
+	Connect,
+	Pane,
+	Bar,
+	Page,
+	View
 };

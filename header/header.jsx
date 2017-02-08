@@ -54,6 +54,7 @@
 */
 
 import harden from "harden";
+import kein from "kein";
 import kley from "kley";
 import protype from "protype";
 import truu from "truu";
@@ -62,50 +63,182 @@ import React from "react";
 import Component from "component";
 import Plate from "plate";
 
+harden( "CLOSE", "close" );
 harden( "EXPAND", "expand" );
+harden( "FOCUS", "focus" );
+harden( "MINIMIZE", "minimize" );
+harden( "MAXIMIZE", "maximize" );
+harden( "OPEN", "open" );
 harden( "NONE", "none" );
 harden( "RETRACT", "retract" );
-harden( "FOCUS", "focus" );
 harden( "REST", "rest" );
 
 class Header extends Component {
 	constructor( property ){ super( property ); }
 
-	expand( view ){
-		if( view === EXPAND ){
-			this.retract( );
+	expand( ){
+		this.edit( "view", EXPAND,
+	 		function done( ){
+				if( truu( this.property ) && protype( this.property.expand, FUNCTION ) ){
+					this.property.expand( );
+				}
+			} );
 
-		}else if( view === RETRACT ){
-			this.expand( );
-
-		}else{
-			this.suppress( RETRACT );
-			this.behave( EXPAND );
-
-			this.edit( "view", EXPAND );
-
-			if( truu( this.property ) && protype( this.property.expand, FUNCTION ) ){
-				this.property.expand( );
-			}
-		}
+		return this;
 	}
 
-	retract( view ){
-		if( view === RETRACT ){
-			this.expand( );
+	retract( ){
+		this.edit( "view", RETRACT,
+	 		function done( ){
+				if( truu( this.property ) && protype( this.property.retract, FUNCTION ) ){
+					this.property.retract( );
+				}
+			} );
 
-		}else if( view === EXPAND ){
-			this.retract( );
+		return this;
+	}
 
-		}else{
-			this.suppress( EXPAND );
-			this.behave( RETRACT );
+	maximize( ){
+		this.edit( "view", MAXIMIZE,
+	 		function done( ){
+				if( truu( this.property ) && protype( this.property.maximize, FUNCTION ) ){
+					this.property.maximize( );
+				}
+			} );
 
-			this.edit( "view", RETRACT );
+		return this;
+	}
 
-			if( truu( this.property ) && protype( this.property.retract, FUNCTION ) ){
-				this.property.retract( );
+	minimize( view ){
+		this.edit( "view", MINIMIZE,
+	 		function done( ){
+				if( truu( this.property ) && protype( this.property.minimize, FUNCTION ) ){
+					this.property.minimize( );
+				}
+			} );
+
+		return this;
+	}
+
+	close( ){
+		this.edit( "view", CLOSE,
+	 		function done( ){
+				if( truu( this.property ) && protype( this.property.close, FUNCTION ) ){
+					this.property.close( );
+				}
+			} );
+
+		return this;
+	}
+
+	open( ){
+		this.edit( "view", OPEN,
+	 		function done( ){
+				if( truu( this.property ) && protype( this.property.open, FUNCTION ) ){
+					this.property.open( );
+				}
+			} );
+
+		return this;
+	}
+
+	execute( view ){
+		switch( view ){
+			case RETRACT:
+				this.expand( );
+				break;
+
+			case EXPAND:
+				this.retract( );
+				break;
+
+			case MINIMIZE:
+				this.maximize( );
+				break;
+
+			case MAXIMIZE:
+				this.minimize( );
+				break;
+
+			case OPEN:
+				this.close( );
+		}
+
+		return this;
+	}
+
+	dynamic( ){
+		let { expand, retract, maximize, minimize, close, open } = this.property;
+
+		return ( protype( expand, FUNCTION ) && protype( retract, FUNCTION ) ) ||
+			( protype( minimize, FUNCTION ) && protype( maximize, FUNCTION ) ) ||
+			( protype( close, FUNCTION ) && protype( open, FUNCTION ) );
+	}
+
+	view( ){
+		if( this.dynamic( ) ){
+			if( truu( this.state ) && kein( this.state, "view" ) ){
+				return this.state.view;
 			}
+
+			if( truu( this.property ) &&
+				kein( this.property, "view" ) &&
+				this.property.view !== NONE )
+			{
+				return this.property.view;
+			}
+
+			let { expand, retract, maximize, minimize, close, open } = this.property;
+
+			if( protype( expand, FUNCTION ) && protype( retract, FUNCTION ) ){
+				return EXPAND;
+			}
+
+			if( protype( minimize, FUNCTION ) && protype( maximize, FUNCTION ) ){
+				return MAXIMIZE;
+			}
+
+			if( protype( close, FUNCTION ) && protype( open, FUNCTION ) ){
+				return OPEN;
+			}
+		}
+
+		return NONE;
+	}
+
+	adaptive( ){
+		let { action, icon, loading } = this.property;
+
+		return ( this.dynamic( ) && truu( action ) && ( truu( icon ) || loading === true ) );
+	}
+
+	overlay( ){
+		if( truu( this.state ) && kein( this.state, "overlay" ) ){
+			return this.state.overlay;
+		}
+
+		return ( this.adaptive( )? REST : NONE );
+	}
+
+	icon( view ){
+		switch( view ){
+			case RETRACT:
+				return "expand_more";
+
+			case EXPAND:
+				return "expand_less";
+
+			case MINIMIZE:
+				return "chevron_right";
+
+			case MAXIMIZE:
+				return "chevron_left";
+
+			case OPEN:
+				return "close";
+
+			default:
+				return "";
 		}
 	}
 
@@ -125,30 +258,19 @@ class Header extends Component {
 			status,
 			purpose,
 
-			view,
-			expand,
-			retract,
-
 			hidden
 		} = this.property;
 
 		label = label || this.content( );
 
-		let dynamic = ( protype( expand, FUNCTION ) && protype( retract, FUNCTION ) );
-		if( dynamic ){
-			view = this.state.view || view || EXPAND;
+		let view = this.view( );
 
-		}else{
-			view = NONE;
-		}
-
-		let overlay = this.state.overlay ||
-			( ( dynamic && truu( action ) && truu( icon ) )? REST : NONE );
+		let overlay = this.overlay( );
 
 		return ( <header
 					className={ kley( {
-						"view": dynamic && view,
-						"overlay": dynamic && truu( action ) && truu( icon ) && overlay === FOCUS
+						[ view ]: view !== NONE,
+						"overlay": overlay === FOCUS
 					},[
 						status,
 						purpose
@@ -156,7 +278,7 @@ class Header extends Component {
 
 					hidden={ hidden }
 
-					onMouseLeave={ ( ) => { this.edit( "overlay", REST ); } }
+					onMouseLeave={ ( ) => { this.adaptive( ) && this.edit( "overlay", REST ); } }
 				>
 					<div
 						className="emphasis">
@@ -176,30 +298,28 @@ class Header extends Component {
 						status={ status }
 						purpose={ purpose }
 
-						focus={ ( ) => { this.edit( "overlay", FOCUS ); } }
+						view={ view }
+
+						focus={ ( ) => { this.adaptive( ) && this.edit( "overlay", FOCUS ); } }
 					/>
 					{
-						dynamic?
+						this.dynamic( )?
 							<Button
 								name={ name }
 
-								category={ kley( {
-									"overlay": truu( action ) || loading
-								} ) }
+								category={ kley( { "overlay": this.adaptive( ) } ).join( " " ) }
 
 								icon={ {
 									"set": "material-icon",
-									"ligature": ( view !== RETRACT )? "expand_less" : "expand_more"
+									"ligature": this.icon( view )
 								} }
 
-								click={ ( ) => {
-									return ( view !== RETRACT )? this.retract( ) : this.expand( );
-								} }
+								click={ ( ) => { this.execute( view ) } }
 
 								status={ status }
 								purpose={ purpose }
 
-								hidden={ dynamic && truu( action ) && overlay === REST }
+								hidden={ overlay === REST }
 							/> : null
 					}
 				</header> );

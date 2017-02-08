@@ -52,7 +52,11 @@ module.exports = function build( parameter ){
 					"toggle-input": resolve( "toggle-input" ),
 					"range-input": resolve( "range-input" ),
 					"list-input": resolve( "list-input" ),
-					"connect": resolve( "connect" )
+					"connect": resolve( "connect" ),
+					"pane": resolve( "pane" ),
+					"bar": resolve( "bar" ),
+					"page": resolve( "page" ),
+					"view": resolve( "view" )
 				};
 
 				return component;
@@ -96,7 +100,11 @@ module.exports = function build( parameter ){
 			"ToggleInput": "toggle-input",
 			"RangeInput": "range-input",
 			"ListInput": "list-input",
-			"Connect": "connect"
+			"Connect": "connect",
+			"Pane": "pane",
+			"Bar": "bar",
+			"Page": "page",
+			"View": "view"
 		},
 
 		"plugins": [
@@ -121,9 +129,11 @@ module.exports = function build( parameter ){
 		"devServer": {
 			"clientLogLevel": "none",
 			"compress": true,
-			"colors": true,
 			"historyApiFallback": {
-				"index": "test-index.html"
+				"index": "test-index.html",
+				"rewrites": [
+					{ "from": /^\/.*/, "to": "test-index.html" }
+				]
 			},
 			"hot": true,
 			"inline": true,

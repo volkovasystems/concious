@@ -53,13 +53,148 @@
 	@end-include
 */
 
+import doubt from "doubt";
+import kley from  "kley";
+import truu from "truu";
+
 import React from "react";
-import { Router, Route, IndexRoute, Link, hashHistory } from "react-router";
+import {
+	Router,
+	Route,
+	IndexRoute,
+	IndexRedirect,
+	Link,
+	IndexLink,
+	browserHistory
+} from "react-router";
+import Bar from "bar";
 import Connect from "connect";
 import List from "List";
 
 class Dashbar extends Bar {
 	constructor( property ){ super( property ); }
+
+	resolveLink( link, path ){
+		if( !doubt( link, ARRAY ) ){
+			return [ ];
+		}
+
+		if( arid( link ) ){
+			return [ ];
+		}
+
+		/*;
+			@note:
+				Path should be relative
+			@end-note
+		*/
+		let pathPattern = new RegExp( `^${ path }` );
+
+		return link.filter( ( link ) => { return pathPattern.test( link.path ); } );
+	}
+
+	route( ){
+		let {
+			path,
+
+			view,
+			home,
+			redirect,
+
+			link
+		} = this.property;
+
+		if( filled( link ) ){
+			return ( <Router
+						history={ browserHistory }
+					>
+						<Route
+							path={ path }
+							component={ view }
+						>
+							{
+								truu( home )?
+									<IndexRoute component={ home } /> :
+
+								truly( redirect )?
+									<IndexRedirect to={ redirect } /> :
+
+								null
+							}
+							{
+								this.resolveLink( link, path ).map( ( link ) => {
+									<Route
+										path={ link.path }
+										component={ link.page }
+									>
+									</Route>
+								} )
+							}
+						</Route>
+					</Router> );
+		}
+
+		return null;
+	}
+
+	connect( ){
+		let {
+			name,
+
+			path,
+			link
+		} = this.property;
+
+		plough( this.component( )
+			.filter( ( connect ) => { return clazof( component, Connect ) } ),
+
+			link.map( ( link ) => {
+				if( ( new RegExp( path ) ).test( link.path ) ){
+					return ( <Connect
+								name={ name }
+
+								title={ link.title }
+								label={ link.label }
+								description={ link.description }
+								notice={ link.notice }
+
+								path={ link.path }
+
+								icon={ link.icon }
+								loading={ link.loading }
+
+								action={ link.action }
+
+								status={ link.status }
+
+								hidden={ link.hidden }
+							>
+							</Connect> );
+
+				}else{
+					return ( <Connect
+								name={ name }
+
+								title={ link.title }
+								label={ link.label }
+								description={ link.description }
+								notice={ link.notice }
+
+								url={ link.path }
+
+								icon={ link.icon }
+								loading={ link.loading }
+
+								action={ link.action }
+
+								status={ link.status }
+
+								hidden={ link.hidden }
+							>
+							</Connect> );
+				}
+			} ) );
+	}
 
 	render( ){
 		let {
@@ -67,15 +202,11 @@ class Dashbar extends Bar {
 
 			header,
 
-			path,
-			view,
-			index,
-			link,
-
 			hidden
 		} = this.property;
 
 		return ( <div
+					className={ kley( "left" ).join( " " ) }
 					hidden={ hidden }
 				>
 					<List
@@ -83,77 +214,10 @@ class Dashbar extends Bar {
 
 						header={ header }
 					>
-						{
-							doubt( link, ARRAY ) && truu( link )?
-								link.map( ( link ) => {
-									if( ( new RegExp( path ) ).test( link.path ) ){
-										return ( <Connect
-													name={ name }
-
-													title={ link.title }
-													label={ link.label }
-													description={ link.description }
-													notice={ link.notice }
-
-													path={ link.path }
-
-													icon={ link.icon }
-													loading={ link.loading }
-
-													action={ link.action }
-
-													status={ link.status }
-												>
-												</Connect> );
-
-									}else{
-										return ( <Connect
-													name={ name }
-
-													title={ link.title }
-													label={ link.label }
-													description={ link.description }
-													notice={ link.notice }
-
-													url={ link.path }
-
-													icon={ link.icon }
-													loading={ link.loading }
-
-													action={ link.action }
-
-													status={ link.status }
-												>
-												</Connect> );
-									}
-								} ) : null
-						}
+						{ this.connect( ) }
 					</List>
 
-					<Router
-						history={ hashHistory }>
-						<Route
-							path={ path }
-							component={ view }
-						>
-							<IndexRoute
-								component={ index }
-							>
-							</IndexRoute>
-							{
-								doubt( link, ARRAY ) && truu( link )?
-									link.filter( ( link ) => {
-										return ( new RegExp( path ) ).test( link.path );
-									} ).map( ( link ) => {
-										<Route
-											path={ link.path }
-											component={ link.page }
-										>
-										</Route>
-									} ) : null
-							}
-						</Route>
-					</Router>
+					{ this.route( ) }
 				</div> );
 	}
 }

@@ -51,6 +51,12 @@
 			"React": "react"
 		}
 	@end-include
+
+	@usage:
+		<View>
+			<Dashbar></Dashbar>
+		</View>
+	@end-usage
 */
 
 import React from "react";
@@ -73,7 +79,7 @@ class View extends Pane {
 		return ( <section
 					hidden={ hidden }
 				>
-					
+
 				</section>);
 	}
 }

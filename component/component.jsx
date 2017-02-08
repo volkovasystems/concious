@@ -196,22 +196,18 @@ class Component extends React.PureComponent {
 	}
 
 	disable( flag ){
-		if( truly( flag ) && protype( flag, BOOLEAN ) && flag ){
+		if( flag === true ){
 			this.behave( DISABLED );
 
-		}else if( truly( flag ) && protype( flag, BOOLEAN ) && !flag ){
+		}else if( flag === false ){
 			this.enable( true );
 
-		}else if( truu( this.property ) &&
-			protype( this.property.disabled, BOOLEAN ) &&
-			this.property.disabled )
-		{
+		}else if( truu( this.property ) && this.property.disabled === true ){
 			this.disable( true );
 
 		}else if( truu( this.property ) &&
-			( ( protype( this.property.disabled, BOOLEAN ) &&
-				!this.property.disabled ) ||
-			!kein( this.property, DISABLED ) ) )
+			( !kein( this.property, DISABLED ) ||
+		 		this.property.disabled === false ) )
 		{
 			this.enable( true );
 		}
@@ -219,32 +215,28 @@ class Component extends React.PureComponent {
 		return this;
 	}
 	enable( flag ){
-		if( truly( flag ) && protype( flag, BOOLEAN ) && flag ){
+		if( flag === true ){
 			this.suppress( DISABLED );
 
-		}else if( truly( flag ) && protype( flag, BOOLEAN ) && !flag ){
+		}else if( flag === false ){
 			this.disable( true );
 		}
 
 		return this;
 	}
 	hide( flag ){
-		if( truly( flag ) && protype( flag, BOOLEAN ) && flag ){
+		if( flag === true ){
 			this.behave( HIDDEN );
 
-		}else if( truly( flag ) && protype( flag, BOOLEAN ) && !flag ){
+		}else if( flag === false ){
 			this.show( true );
 
-		}else if( truu( this.property ) &&
-			protype( this.property.hidden, BOOLEAN ) &&
-			this.property.hidden )
-		{
+		}else if( truu( this.property ) && this.property.hidden === true ){
 			this.hide( true );
 
 		}else if( truu( this.property ) &&
-			( ( protype( this.property.hidden, BOOLEAN ) &&
-				!this.property.hidden ) ||
-			!kein( this.property, HIDDEN ) ) )
+			( !kein( this.property, HIDDEN ) ||
+		 		this.property.hidden === false ) )
 		{
 			this.show( true );
 		}
@@ -252,10 +244,10 @@ class Component extends React.PureComponent {
 		return this;
 	}
 	show( flag ){
-		if( truly( flag ) && protype( flag, BOOLEAN ) && flag ){
+		if( flag === true ){
 			this.suppress( HIDDEN );
 
-		}else if( truly( flag ) && protype( flag, BOOLEAN ) && !flag ){
+		}else if( flag === false ){
 			this.hide( true );
 		}
 
@@ -371,8 +363,6 @@ class Component extends React.PureComponent {
 		@end-method-documentation
 	*/
 	rename( name ){
-		console.log( name, this.name, this.property, this.state );
-
 		this.name = shardize( name ||
 
 			( truu( this.property ) && this.property.name ) ||

@@ -1,4 +1,10 @@
 section.view.pane.component {
+	position: fixed;
+	top: 0px;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+
 	flex-direction: row;
 
 	justify-content: space-between;
@@ -6,4 +12,7 @@ section.view.pane.component {
 
 	@include adaptive-width;
 	@include adaptive-height;
+
+	overflow-y: hidden;
+	overflow-x: auto;
 }
