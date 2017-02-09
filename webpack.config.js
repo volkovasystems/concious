@@ -3,6 +3,7 @@ require( "graceful-fs" ).gracefulify( require( "fs" ) );
 const path = require( "path" );
 const webpack = require( "webpack" );
 
+const CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
 const HotModuleReplacementPlugin = webpack.HotModuleReplacementPlugin;
 const UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
 
@@ -10,12 +11,92 @@ const mode = process.env.NODE_ENV;
 const directory = process.cwd( );
 
 module.exports = function build( parameter ){
+	parameter = parameter || { };
+
 	return {
-		"entry": parameter.test? "./test.js" : "./concious.support.js",
+		"entry": parameter.test? {
+			"test": [
+				"./test.js",
+				"./test/*.js"
+			],
+			"module": [
+				"cemento",
+				"doubt",
+				"harden",
+				"jquery",
+				"protype",
+				"kley",
+				"raze",
+				"react",
+				"react-dom"
+			],
+			"component": [
+				"component",
+				"icon",
+				"label",
+				"indicator",
+				"button",
+				"control",
+				"plate",
+				"header",
+				"item",
+				"list",
+				"select",
+				"input",
+				"text-input",
+				"note-input",
+				"toggle-input",
+				"range-input",
+				"list-input",
+				"connect",
+				"pane",
+				"bar",
+				"page",
+				"view"
+			]
+		} : {
+			"concious": "./concious.support.js",
+			"module": [
+				"cemento",
+				"doubt",
+				"harden",
+				"jquery",
+				"protype",
+				"kley",
+				"raze",
+				"react",
+				"react-dom"
+			],
+			"component": [
+				"component",
+				"icon",
+				"label",
+				"indicator",
+				"button",
+				"control",
+				"plate",
+				"header",
+				"item",
+				"list",
+				"select",
+				"input",
+				"text-input",
+				"note-input",
+				"toggle-input",
+				"range-input",
+				"list-input",
+				"connect",
+				"pane",
+				"bar",
+				"page",
+				"view"
+			]
+		},
+
+		//parameter.test? "./test.js" : "./concious.support.js",
 
 		"resolve": {
 			"descriptionFiles": [
-				".bower.json",
 				"bower.json",
 				"package.json"
 			],
@@ -66,12 +147,12 @@ module.exports = function build( parameter ){
 		"output": {
 			"library": parameter.test? "test" : "concious",
 			"libraryTarget": "umd",
-			"filename": parameter.test? "test.deploy.js" : "concious.deploy.js"
+			"filename": parameter.test? "[name].deploy.js" : "[name].deploy.js"
 		},
 
 		"module": {
 			"rules": [
-				{ "test": /\.support\.js$/, "loaders": [ "source-map-loader" ], "enforce": "pre" },
+				{ "test": /\.js$/, "loaders": [ "source-map-loader" ], "enforce": "pre" },
 				{ "test": /\.css$/, "loaders": [ "style-loader?singleton", "css-loader", "resolve-url-loader" ] },
 				{ "test": /\.(ttf|svg|eot|woff2?)$/, "loaders": [ "url-loader" ] }
 			]
@@ -108,6 +189,7 @@ module.exports = function build( parameter ){
 		},
 
 		"plugins": [
+			new CommonsChunkPlugin( { "names": [ "module", "component" ] } ),
 			( ( mode === "production" || mode === "test" )? new UglifyJsPlugin( {
 				"compress": {
 					"keep_fargs": true,
@@ -122,7 +204,7 @@ module.exports = function build( parameter ){
 			( mode === "test"? new HotModuleReplacementPlugin( ) : null )
 		].filter( ( plugin ) => { return !!plugin; } ),
 
-		"devtool": "inline-source-map",
+		"devtool": "cheap-module-inline-source-map",
 
 		"stats": { "warnings": false },
 

@@ -121,8 +121,8 @@ class Icon extends Component {
 			icon = { };
 		}
 
-		loading = optfor( parameter, BOOLEAN );
-		if( protype( loading, BOOLEAN ) && loading ){
+		loading = depher( parameter, BOOLEAN, false );
+		if( loading === true ){
 			icon.loading = loading;
 		}
 

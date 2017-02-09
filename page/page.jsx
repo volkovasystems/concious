@@ -54,29 +54,20 @@
 */
 
 import React from "react";
-import Component from "component";
-import Input from "input";
+import Pane from "pane";
 
-class Page extends Component {
+class Page extends Pane {
 	constructor( property ){ super( property ); }
 
 	render( ){
 		let {
-			name,
-
-			header,
-
-			control,
-
 			hidden
 		} = this.property;
 
 		return ( <div
-					className={ kley( "input" ).join( " " ) }
-
 					hidden={ hidden }
 				>
-
+					{ this.component( ) }
 				</div>);
 	}
 }

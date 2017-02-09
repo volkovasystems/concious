@@ -56,6 +56,7 @@
 */
 
 import clazof from "clazof";
+import harden from "harden";
 import kley from "kley";
 import protype from "protype";
 import truly from "truly";
@@ -67,12 +68,17 @@ import Icon from "icon";
 import Label from "label";
 import Button from "button";
 
+harden( "MAXIMIZE", "maximize" );
+harden( "MINIMIZE", "minimize" );
+
 class Plate extends Component {
 	constructor( property ){ super( property ); }
 
 	render( ){
 		let {
 			name,
+
+			view,
 
 			title,
 			label,

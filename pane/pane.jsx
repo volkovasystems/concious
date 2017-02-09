@@ -55,19 +55,34 @@
 */
 
 import clazof from "clazof";
-import protype from "protype";
-import titlelize from "titlelize";
-import truly from "truly";
-import truu from "truu";
+import harden from "harden";
+import kein from "kein";
 
 import React from "react";
 import Component from "component";
+
+harden( "BOTTOM", "bottom" );
+harden( "LEFT", "left" );
+harden( "MIDDLE", "middle" );
+harden( "RIGHT", "right" );
+harden( "TOP", "top" );
+harden( "MINIMIZE", "minimize" );
 
 class Pane extends Component {
 	constructor( property ){ super( property ); }
 
 	configure( ){
 		this.retype( "pane" );
+	}
+
+	layout( ){
+		let layout = this.property.layout;
+
+		if( kein( this.state, "layout" ) ){
+			layout = this.state.layout;
+		}
+
+		return layout;
 	}
 
 	pane( ){

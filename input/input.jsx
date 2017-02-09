@@ -77,10 +77,10 @@ class Input extends Component {
 	}
 
 	value( ){
-		if( truu( this.state ) && truu( this.state.value ) ){
+		if( truu( this.state.value ) ){
 			return this.state.value;
 
-		}else if( truu( this.property ) && truu( this.property.value ) ){
+		}else if( truu( this.property.value ) ){
 			return this.property.value;
 		}
 
@@ -88,7 +88,7 @@ class Input extends Component {
 	}
 
 	push( value ){
-		if( truu( this.property ) && truly( this.property.name ) ){
+		if( truly( this.property.name ) ){
 			if( truu( value ) ){
 				this.edit( this.property.name, value );
 
@@ -99,7 +99,7 @@ class Input extends Component {
 	}
 
 	change( ){
-		if( truu( this.property ) && protype( this.property.change, FUNCTION ) ){
+		if( protype( this.property.change, FUNCTION ) ){
 			this.property.change( this.property.name, this.retrieve( ) );
 		}
 	}

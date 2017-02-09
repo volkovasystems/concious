@@ -1,11 +1,11 @@
 yarn add \
 babel-runtime \
 called \
-ceries \
 clazof \
 depher \
 doubt \
 een \
+empt \
 ethernity \
 falze \
 falzy \
@@ -25,6 +25,7 @@ react-dom \
 react-router \
 shardize \
 snapd \
+stuffed \
 titlelize \
 transpher \
 truly \
@@ -62,11 +63,11 @@ yargs \
 --dev && \
 bower install \
 called \
-ceries \
 clazof \
 depher \
 doubt \
 een \
+empt \
 ethernity \
 falze \
 falzy \
@@ -85,9 +86,11 @@ raze \
 react \
 shardize \
 snapd \
+stuffed \
 titlelize \
 transpher \
 truly \
 truu \
 whyle \
+--force-latest \
 --save

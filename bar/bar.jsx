@@ -55,11 +55,6 @@
 	@end-include
 */
 
-import protype from "protype";
-import titlelize from "titlelize";
-import truly from "truly";
-import truu from "truu";
-
 import React from "react";
 import Pane from "pane";
 

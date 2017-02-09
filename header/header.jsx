@@ -177,14 +177,11 @@ class Header extends Component {
 
 	view( ){
 		if( this.dynamic( ) ){
-			if( truu( this.state ) && kein( this.state, "view" ) ){
+			if( kein( this.state, "view" ) ){
 				return this.state.view;
 			}
 
-			if( truu( this.property ) &&
-				kein( this.property, "view" ) &&
-				this.property.view !== NONE )
-			{
+			if( kein( this.property, "view" ) && this.property.view !== NONE ){
 				return this.property.view;
 			}
 
