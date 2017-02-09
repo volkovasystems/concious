@@ -1,11 +1,11 @@
 yarn add \
 babel-runtime \
 called \
-ceries \
 clazof \
 depher \
 doubt \
 een \
+empt \
 ethernity \
 falze \
 falzy \
@@ -14,6 +14,7 @@ harden \
 infiniti \
 kein \
 kley \
+llamalize \
 optfor \
 outre \
 plough \
@@ -25,6 +26,7 @@ react-dom \
 react-router \
 shardize \
 snapd \
+stuffed \
 titlelize \
 transpher \
 truly \
@@ -58,15 +60,16 @@ vinyl-paths \
 watch \
 webpack \
 webpack-dev-server \
+webpack-glob-entry \
 yargs \
 --dev && \
 bower install \
 called \
-ceries \
 clazof \
 depher \
 doubt \
 een \
+empt \
 ethernity \
 falze \
 falzy \
@@ -76,6 +79,7 @@ infiniti \
 jquery \
 kein \
 kley \
+llamalize \
 optfor \
 outre \
 plough \
@@ -85,9 +89,11 @@ raze \
 react \
 shardize \
 snapd \
+stuffed \
 titlelize \
 transpher \
 truly \
 truu \
 whyle \
+--force-latest \
 --save

@@ -78,6 +78,7 @@ import called from "called";
 import clazof from "clazof";
 import doubt from "doubt";
 import een from "een";
+import empt from "empt";
 import falze from "falze";
 import falzy from "falzy";
 import filled from "filled";
@@ -89,6 +90,7 @@ import pyck from "pyck";
 import protype from "protype";
 import shardize from "shardize";
 import snapd from "snapd";
+import stuffed from "stuffed";
 import truly from "truly";
 import truu from "truu";
 import whyle from "whyle";
@@ -130,7 +132,7 @@ class Component extends React.PureComponent {
 	}
 
 	stopEvent( event ){
-		if( truu( event ) ){
+		if( stuffed( event ) ){
 			event.stopPropagation( );
 			event.preventDefault( );
 		}
@@ -144,7 +146,7 @@ class Component extends React.PureComponent {
 	focus( event ){
 		this.behave( FOCUS );
 
-		if( truu( this.property ) && protype( this.property.focus, FUNCTION ) ){
+		if( protype( this.property.focus, FUNCTION ) ){
 			this.property.focus( this, event );
 		}
 
@@ -153,7 +155,7 @@ class Component extends React.PureComponent {
 	rest( event ){
 		this.suppress( FOCUS );
 
-		if( truu( this.property ) && protype( this.property.rest, FUNCTION ) ){
+		if( protype( this.property.rest, FUNCTION ) ){
 			this.property.rest( this, event );
 		}
 
@@ -162,7 +164,7 @@ class Component extends React.PureComponent {
 	press( event ){
 		this.behave( PRESS );
 
-		if( truu( this.property ) && protype( this.property.press, FUNCTION ) ){
+		if( protype( this.property.press, FUNCTION ) ){
 			this.property.press( this, event );
 		}
 
@@ -175,7 +177,7 @@ class Component extends React.PureComponent {
 	release( event ){
 		this.suppress( PRESS );
 
-		if( truu( this.property ) && protype( this.property.release, FUNCTION ) ){
+		if( protype( this.property.release, FUNCTION ) ){
 			this.property.release( this, event );
 		}
 
@@ -188,68 +190,30 @@ class Component extends React.PureComponent {
 			this.release( );
 		} );
 
-		if( truu( this.property ) && protype( this.property.click, FUNCTION ) ){
+		if( protype( this.property.click, FUNCTION ) ){
 			this.property.click( this, event );
 		}
 
 		return this;
 	}
 
-	disable( flag ){
-		if( flag === true ){
-			this.behave( DISABLED );
-
-		}else if( flag === false ){
-			this.enable( true );
-
-		}else if( truu( this.property ) && this.property.disabled === true ){
-			this.disable( true );
-
-		}else if( truu( this.property ) &&
-			( !kein( this.property, DISABLED ) ||
-		 		this.property.disabled === false ) )
-		{
-			this.enable( true );
-		}
+	disable( ){
+		this.behave( DISABLED );
 
 		return this;
 	}
 	enable( flag ){
-		if( flag === true ){
-			this.suppress( DISABLED );
-
-		}else if( flag === false ){
-			this.disable( true );
-		}
+		this.suppress( DISABLED );
 
 		return this;
 	}
 	hide( flag ){
-		if( flag === true ){
-			this.behave( HIDDEN );
-
-		}else if( flag === false ){
-			this.show( true );
-
-		}else if( truu( this.property ) && this.property.hidden === true ){
-			this.hide( true );
-
-		}else if( truu( this.property ) &&
-			( !kein( this.property, HIDDEN ) ||
-		 		this.property.hidden === false ) )
-		{
-			this.show( true );
-		}
+		this.behave( HIDDEN );
 
 		return this;
 	}
 	show( flag ){
-		if( flag === true ){
-			this.suppress( HIDDEN );
-
-		}else if( flag === false ){
-			this.hide( true );
-		}
+		this.suppress( HIDDEN );
 
 		return this;
 	}
@@ -292,31 +256,24 @@ class Component extends React.PureComponent {
 		return this;
 	}
 	resetBehavior( ){
-		if( truu( this.node ) && filled( this.behavior ) ){
+		if( stuffed( this.node ) && filled( this.behavior ) ){
 			this.node.removeClass( this.behavior.join( " " ) );
 		}
 	}
 	resetCategory( ){
-		let category = ( truu( this.property ) && this.property.category );
+		let category = this.property.category;
+
 		if( truu( this.node ) && truu( category ) ){
 			this.node.removeClass( plough( category ).filter( truly ).join( " " ) );
 		}
 	}
 
 	content( ){
-		if( truu( this.property ) ){
-			return pyck( plough( [ this.property.children ] ).filter( truly ), STRING );
-		}
-
-		return [ ];
+		return pyck( plough( [ this.property.children ] ).filter( truly ), STRING );
 	}
 	component( ){
-		if( truu( this.property ) ){
-			return pyck( plough( [ this.property.children ] ),
-				( child ) => { return clazof( child, Component ); } );
-		}
-
-		return [ ];
+		return pyck( plough( [ this.property.children ] ),
+			( child ) => { return clazof( child, Component ); } );
 	}
 
 	register( parent ){
@@ -365,9 +322,7 @@ class Component extends React.PureComponent {
 	rename( name ){
 		this.name = shardize( name ||
 
-			( truu( this.property ) && this.property.name ) ||
-
-			( truu( this.state ) && this.state.name ) ||
+			this.property.name || this.state.name ||
 
 			this.name || this.constructor.name );
 
@@ -388,7 +343,7 @@ class Component extends React.PureComponent {
 			done = called.bind( this )( done );
 
 			whyle.bind( this )( function condition( callback ){
-				callback( this.mounted( ) );
+				callback( !this.mounted( ) );
 
 			} )( function update( ){
 				if( this.mounted( ) ){
@@ -400,7 +355,7 @@ class Component extends React.PureComponent {
 		return this;
 	}
 	get( name ){
-		if( truu( this.state ) && protype( name, STRING ) && truly( name ) ){
+		if( protype( name, STRING ) && truly( name ) ){
 			return this.state[ name ];
 
 		}else{
@@ -420,7 +375,7 @@ class Component extends React.PureComponent {
 		if( protype( state, OBJECT ) && truu( state ) ){
 			this.set( state, done );
 
-		}else if( protype( this.state, OBJECT ) && truu( this.state ) ){
+		}else if( stuffed( this.state ) ){
 			this.set( this.state, done );
 		}
 
@@ -452,7 +407,7 @@ class Component extends React.PureComponent {
 		return this;
 	}
 	bindCategory( ){
-		if( truu( this.node ) && truu( this.property ) && truu( this.property.category ) ){
+		if( truu( this.node ) && stuffed( this.property ) && truu( this.property.category ) ){
 			this.node.addClass( plough( [ this.property.category ] ).join( " " ) );
 		}
 
@@ -466,7 +421,7 @@ class Component extends React.PureComponent {
 		return this;
 	}
 	bindParent( ){
-		if( falze( this.property ) ){
+		if( empt( this.property ) ){
 			return this;
 		}
 
@@ -515,7 +470,9 @@ class Component extends React.PureComponent {
 	build( ){
 		this.node = $( ReactDOM.findDOMNode( this ) );
 
-		this.node.data( INSTANCE, this );
+		if( truu( this.node ) ){
+			this.node.data( INSTANCE, this );
+		}
 
 		return this;
 	}
@@ -551,9 +508,19 @@ class Component extends React.PureComponent {
 	}
 
 	check( ){
-		this.disable( );
+		if( this.property.disabled === true ){
+			this.disable( );
 
-		this.hide( );
+		}else{
+			this.enable( );
+		}
+
+		if( this.property.hidden === true ){
+			this.hide( );
+
+		}else{
+			this.show( );
+		}
 
 		return this;
 	}

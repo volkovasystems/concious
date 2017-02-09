@@ -79,6 +79,7 @@ import { default as Pane } from "pane";
 import { default as Bar } from "bar";
 import { default as Page } from "page";
 import { default as View } from "view";
+import { default as Dashbar } from "dashbar";
 
 harden( "Component", Component );
 harden( "Icon", Icon );
@@ -102,6 +103,7 @@ harden( "Pane", Pane );
 harden( "Bar", Bar );
 harden( "Page", Page );
 harden( "View", View );
+harden( "Dashbar", Dashbar );
 
 export {
 	Component,
@@ -125,5 +127,6 @@ export {
 	Pane,
 	Bar,
 	Page,
-	View
+	View,
+	Dashbar
 };

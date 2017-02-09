@@ -210,7 +210,7 @@ class Control extends Component {
 										hidden={ action.hidden }
 									/> : null,
 
-								( protype( loading, BOOLEAN ) && loading )?
+								( loading === true )?
 									<Icon
 										key="loading"
 

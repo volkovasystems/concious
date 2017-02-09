@@ -59,6 +59,8 @@
 	@end-usage
 */
 
+import kley from "kley";
+
 import React from "react";
 import Pane from "pane";
 
@@ -67,19 +69,18 @@ class View extends Pane {
 
 	render( ){
 		let {
-			name,
-
-			header,
-
-			control,
-
 			hidden
 		} = this.property;
 
+		layout = this.layout( );
+
 		return ( <section
+					className={ kley( {
+						"layout": layout
+					} ).join( " " ) }
 					hidden={ hidden }
 				>
-
+					{ this.pane( ) }
 				</section>);
 	}
 }

@@ -90,7 +90,7 @@ class TextInput extends Input {
 			disabled
 		} = this.property;
 
-		let valued = ( truu( this.state ) && truly( this.state.value ) ) || truly( value );
+		let valued = truly( this.state.value ) || truly( value );
 
 		return ( <div
 					className={ kley( {

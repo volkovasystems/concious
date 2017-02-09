@@ -55,10 +55,8 @@
 
 import kein from "kein";
 import kley from "kley";
-import protype from "protype";
 import titlelize from "titlelize";
 import truly from "truly";
-import truu from "truu";
 
 import React from "react";
 import Indicator from "indicator";
@@ -68,8 +66,8 @@ class ToggleInput extends Input {
 	constructor( property ){ super( property ); }
 
 	toggle( ){
-		let value = truu( this.property ) && this.property.value;
-		if( truu( this.state ) && kein( this.state, "value" ) ){
+		let value = this.property.value;
+		if( kein( this.state, "value" ) ){
 			value = this.state.value;
 		}
 

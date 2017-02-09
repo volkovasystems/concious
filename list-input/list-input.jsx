@@ -80,16 +80,10 @@ class ListInput extends Input {
 
 	add( ){
 		let list = [ ];
-		if( truu( this.state ) &&
-			doubt( this.state.value, ARRAY ) &&
-			filled( this.state.value ) )
-		{
+		if( doubt( this.state.value, ARRAY ) && filled( this.state.value ) ){
 			list = [ ].concat( this.state.value );
 
-		}else if( truu( this.property ) &&
-			doubt( this.property.value, ARRAY ) &&
-			filled( this.property.value ) )
-		{
+		}else if( doubt( this.property.value, ARRAY ) && filled( this.property.value ) ){
 			list = [ ].concat( this.property.value );
 		}
 
@@ -113,16 +107,10 @@ class ListInput extends Input {
 	remove( value ){
 		let list = [ ];
 
-		if( truu( this.state ) &&
-			doubt( this.state.value, ARRAY ) &&
-			filled( this.state.value ) )
-		{
+		if( doubt( this.state.value, ARRAY ) && filled( this.state.value ) ){
 			list = [ ].concat( this.state.value );
 
-		}else if( truu( this.property ) &&
-			doubt( this.property.value, ARRAY ) &&
-			filled( this.property.value ) )
-		{
+		}else if( doubt( this.property.value, ARRAY ) && filled( this.property.value ) ){
 			list = [ ].concat( this.property.value );
 		}
 
@@ -183,7 +171,7 @@ class ListInput extends Input {
 			mode = TEXT;
 		}
 
-		if( truu( this.state ) && kein( this.state, "value" ) ){
+		if( truu( this.state.value ) ){
 			value = this.state.value;
 		}
 		let list = this.resolve( value );
