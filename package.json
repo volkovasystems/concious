@@ -8,9 +8,9 @@
   "scripts": {
     "preinstall": "yarn global add babel-cli bower browser-sync gulp-cli webpack webpack-dev-server watch veon && npm install levy -g && bower install --force-latest",
     "postinstall": "npm rebuild node-sass",
-    "deploy": "gulp clean && veon set production \"gulp && babel concious.js -o concious.support.js && webpack\"",
-    "build": "gulp clean && gulp && babel concious.js -o concious.support.js && webpack",
-    "test": "veon set test \"gulp && webpack --env.test\"",
+    "deploy": "gulp clean && veon set production \"gulp && babel concious.js -o concious.support.js && webpack --progress\"",
+    "build": "gulp clean && gulp && babel concious.js -o concious.support.js && webpack --progress",
+    "test": "veon set test \"gulp && webpack --env.test --progress\"",
     "watch": "gulp clean && watch \"npm run test\" ./ ./*/ --filter=./.filter.js --wait=5 --interval=5 --ignoreDotFiles",
     "live": "gulp clean && gulp watch",
     "server": "veon set test \"webpack-dev-server -d --env.test\"",
@@ -61,6 +61,7 @@
     "watch": "^1.0.1",
     "webpack": "^2.2.1",
     "webpack-dev-server": "^2.3.0",
+    "webpack-glob-entry": "^2.1.1",
     "yargs": "^6.6.0"
   },
   "dependencies": {
@@ -79,6 +80,7 @@
     "infiniti": "^0.6.0",
     "kein": "^0.8.0",
     "kley": "^0.2.0",
+    "llamalize": "^0.6.0",
     "optfor": "^0.10.0",
     "outre": "^0.8.0",
     "plough": "^0.9.0",

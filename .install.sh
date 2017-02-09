@@ -14,6 +14,7 @@ harden \
 infiniti \
 kein \
 kley \
+llamalize \
 optfor \
 outre \
 plough \
@@ -59,6 +60,7 @@ vinyl-paths \
 watch \
 webpack \
 webpack-dev-server \
+webpack-glob-entry \
 yargs \
 --dev && \
 bower install \
@@ -77,6 +79,7 @@ infiniti \
 jquery \
 kein \
 kley \
+llamalize \
 optfor \
 outre \
 plough \

@@ -1,5 +1,7 @@
 require( "graceful-fs" ).gracefulify( require( "fs" ) );
 
+const entry = require( "webpack-glob-entry" );
+const llamalize = require( "llamalize" );
 const path = require( "path" );
 const webpack = require( "webpack" );
 
@@ -10,90 +12,74 @@ const UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
 const mode = process.env.NODE_ENV;
 const directory = process.cwd( );
 
+const COMPONENT_LIST = [
+	"component",
+	"icon",
+	"label",
+	"indicator",
+	"button",
+	"control",
+	"plate",
+	"header",
+	"item",
+	"list",
+	"select",
+	"input",
+	"text-input",
+	"note-input",
+	"toggle-input",
+	"range-input",
+	"list-input",
+	"connect",
+	"pane",
+	"bar",
+	"page",
+	"view",
+	"dashbar"
+];
+
+const MODULE_LIST = [
+	"cemento",
+	"doubt",
+	"harden",
+	"protype",
+	"kley",
+	"raze"
+];
+
 module.exports = function build( parameter ){
 	parameter = parameter || { };
 
 	return {
-		"entry": parameter.test? {
-			"test": [
-				"./test.js",
-				"./test/*.js"
-			],
-			"module": [
-				"cemento",
-				"doubt",
-				"harden",
-				"jquery",
-				"protype",
-				"kley",
-				"raze",
-				"react",
-				"react-dom"
-			],
-			"component": [
-				"component",
-				"icon",
-				"label",
-				"indicator",
-				"button",
-				"control",
-				"plate",
-				"header",
-				"item",
-				"list",
-				"select",
-				"input",
-				"text-input",
-				"note-input",
-				"toggle-input",
-				"range-input",
-				"list-input",
-				"connect",
-				"pane",
-				"bar",
-				"page",
-				"view"
-			]
-		} : {
-			"concious": "./concious.support.js",
-			"module": [
-				"cemento",
-				"doubt",
-				"harden",
-				"jquery",
-				"protype",
-				"kley",
-				"raze",
-				"react",
-				"react-dom"
-			],
-			"component": [
-				"component",
-				"icon",
-				"label",
-				"indicator",
-				"button",
-				"control",
-				"plate",
-				"header",
-				"item",
-				"list",
-				"select",
-				"input",
-				"text-input",
-				"note-input",
-				"toggle-input",
-				"range-input",
-				"list-input",
-				"connect",
-				"pane",
-				"bar",
-				"page",
-				"view"
-			]
-		},
+		"entry": parameter.test?
+			{
+				"test": [ "./test.js" ]
+					.concat( ( ( entry ) => {
+						let test = [ ];
+						for( let name in entry ){
+							test.push( entry[ name ] );
+						}
+						return test;
+					} )( entry( "./test/*.js" ) ) ),
+				"module": MODULE_LIST,
+				"component": [
+					"jquery",
+					"react",
+					"react-dom",
+					"react-router"
+				].concat( COMPONENT_LIST )
+			} :
 
-		//parameter.test? "./test.js" : "./concious.support.js",
+			{
+				"concious": "./concious.support.js",
+				"module": MODULE_LIST,
+				"component": [
+					"jquery",
+					"react",
+					"react-dom",
+					"react-router"
+				].concat( COMPONENT_LIST )
+			},
 
 		"resolve": {
 			"descriptionFiles": [
@@ -115,30 +101,9 @@ module.exports = function build( parameter ){
 					return path.resolve( directory, `${ component }/${ component }.js` );
 				};
 
-				let component = {
-					"component": resolve( "component" ),
-					"icon": resolve( "icon" ),
-					"label": resolve( "label" ),
-					"indicator": resolve( "indicator" ),
-					"button": resolve( "button" ),
-					"control": resolve( "control" ),
-					"plate": resolve( "plate" ),
-					"header": resolve( "header" ),
-					"item": resolve( "item" ),
-					"list": resolve( "list" ),
-					"select": resolve( "select" ),
-					"input": resolve( "input" ),
-					"text-input": resolve( "text-input" ),
-					"note-input": resolve( "note-input" ),
-					"toggle-input": resolve( "toggle-input" ),
-					"range-input": resolve( "range-input" ),
-					"list-input": resolve( "list-input" ),
-					"connect": resolve( "connect" ),
-					"pane": resolve( "pane" ),
-					"bar": resolve( "bar" ),
-					"page": resolve( "page" ),
-					"view": resolve( "view" )
-				};
+				let component = { };
+
+				COMPONENT_LIST.forEach( ( name ) => { component[ name ] = resolve( name ); } )
 
 				return component;
 			} )( )
@@ -152,41 +117,27 @@ module.exports = function build( parameter ){
 
 		"module": {
 			"rules": [
-				{ "test": /\.js$/, "loaders": [ "source-map-loader" ], "enforce": "pre" },
+				{
+					"test": /\.js$/,
+					"loaders": [ "source-map-loader" ],
+					"enforce": "pre",
+					"exclude": /node_modules|bower_components/
+				},
 				{ "test": /\.css$/, "loaders": [ "style-loader?singleton", "css-loader", "resolve-url-loader" ] },
 				{ "test": /\.(ttf|svg|eot|woff2?)$/, "loaders": [ "url-loader" ] }
 			]
 		},
 
-		"externals": {
+		"externals": ( ( module ) => {
+			COMPONENT_LIST.forEach( ( name ) => { module[ llamalize( name, true ) ] = name; } );
+
+			return module;
+		} )( {
 			"React": "react",
 			"ReactDOM": "react-dom",
 			"$": "jquery",
-			"jQuery": "jquery",
-
-			"Component": "component",
-			"Icon": "icon",
-			"Label": "label",
-			"Indicator": "indicator",
-			"Button": "button",
-			"Control": "control",
-			"Plate": "plate",
-			"Header": "header",
-			"Item": "item",
-			"List": "list",
-			"Select": "select",
-			"Input": "input",
-			"TextInput": "text-input",
-			"NoteInput": "note-input",
-			"ToggleInput": "toggle-input",
-			"RangeInput": "range-input",
-			"ListInput": "list-input",
-			"Connect": "connect",
-			"Pane": "pane",
-			"Bar": "bar",
-			"Page": "page",
-			"View": "view"
-		},
+			"jQuery": "jquery"
+		} ),
 
 		"plugins": [
 			new CommonsChunkPlugin( { "names": [ "module", "component" ] } ),

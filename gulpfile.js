@@ -14,15 +14,24 @@ const uglify = require( "gulp-uglify" );
 const watch = require( "gulp-watch" );
 const vinylPath = require( "vinyl-paths" );
 
+const mode = process.env.NODE_ENV;
+console.log( `gulp mode: ${ mode }` );
+
 gulp.task( "style", function styleTask( ){
 	del.sync( "concious.css" );
 
-	return gulp.src( [
-			"*.scss",
-			"!./node_modules/**",
-			"!./bower_components/**",
-			"!.*"
-		] )
+	let style = [
+		"*.scss",
+		"!./node_modules/**",
+		"!./bower_components/**",
+		"!.*"
+	];
+
+	if( mode === "production" ){
+		style.push( "!**/*test*.scss" );
+	}
+
+	return gulp.src( style )
 		.pipe( plumber( ) )
 		.pipe( changed( "./", { "extension": ".css" } ) )
 		.pipe( debug( { "title": "File:" } ) )
@@ -33,13 +42,19 @@ gulp.task( "style", function styleTask( ){
 } );
 
 gulp.task( "script", function scriptTask( ){
-	return gulp.src( [
-			"*.jsx",
-			"./*/*.jsx",
-			"!./node_modules/**",
-			"!./bower_components/**",
-			"!.*"
-		] )
+	let script = [
+		"*.jsx",
+		"./*/*.jsx",
+		"!./node_modules/**",
+		"!./bower_components/**",
+		"!.*"
+	];
+
+	if( mode === "production" ){
+		script.push( "!**/*test*.jsx" );
+	}
+
+	return gulp.src( script )
 		.pipe( plumber( ) )
 		.pipe( changed( "./", { "extension": ".js" } ) )
 		.pipe( debug( { "title": "File:" } ) )
