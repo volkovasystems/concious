@@ -32,7 +32,7 @@ import TestLayout from './test/test-layout.js';
 const app = document.getElementById('root');
 
 ReactDOM.render(
-	<Router history={}>
+	<Router history={hashHistory}>
 		<Route path="/" component={TestApp}>
 			<Route path="test-button-status" component={TestButtonStatus}></Route>
 			<Route path="test-button-purpose" component={TestButtonPurpose}></Route>
