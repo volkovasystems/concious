@@ -12,9 +12,9 @@ $MINIMUM_WIDTH: $DEFAULT_DIMENSION;
 $MAXIMUM_Z-INDEX: 16777271;
 $MINIMUM_Z-INDEX: 0;
 
-$PHONE: "(min-device-width: 320px) and (max-device-width: 480px)";
-$TABLET: "(min-width: 768px) and (max-width: 1023px)";
-$DESKTOP: "(min-width: 1024px)";
+$PHONE: 320px;
+$TABLET: 768px;
+$DESKTOP: 1024px;
 
 
 @mixin hidden {
@@ -68,4 +68,22 @@ $DESKTOP: "(min-width: 1024px)";
 	height: $MINIMUM_HEIGHT;
 	min-height: $MINIMUM_HEIGHT;
 	max-height: $MINIMUM_HEIGHT;
+}
+
+@mixin PHONE {
+  @media (min-width: #{$PHONE}) and (max-width: #{$TABLET - 1px}) {
+    @content;
+  }
+}
+
+@mixin TABLET {
+  @media (min-width: #{$TABLET}) and (max-width: #{$DESKTOP - 1px}) {
+    @content;
+  }
+}
+
+@mixin DESKTOP {
+  @media (min-width: #{$DESKTOP}) {
+    @content;
+  }
 }
