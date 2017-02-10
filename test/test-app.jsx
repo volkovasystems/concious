@@ -47,11 +47,9 @@ export default class TestApp extends Component {
                         </li>
                         <li><Link to="test-indicator">Indicator</Link></li>
                     </ul>
-
                 </nav>
                 {this.props.children}
             </div>
-
         )
     }
 }

@@ -26,14 +26,14 @@ import TestNoteInput from './test/test-note-input.js';
 import TestToggleInput from './test/test-toggle-input.js';
 import TestListInput from './test/test-list-input.js';
 import TestIndicator from './test/test-indicator.js';
+import TestLayout from './test/test-layout.js';
 
 
 const app = document.getElementById('root');
 
 ReactDOM.render(
-	<Router history={hashHistory}>
+	<Router history={}>
 		<Route path="/" component={TestApp}>
-			<IndexRoute component={TestApp}></IndexRoute>
 			<Route path="test-button-status" component={TestButtonStatus}></Route>
 			<Route path="test-button-purpose" component={TestButtonPurpose}></Route>
 			<Route path="test-control-status" component={TestControlStatus}></Route>
