@@ -24,9 +24,10 @@ import TestRangeInput from './test/test-range-input.js';
 import TestTextInput from './test/test-text-input.js';
 import TestNoteInput from './test/test-note-input.js';
 import TestToggleInput from './test/test-toggle-input.js';
-import TestListInput from './test/test-list-input.js';
+import TestListInput from './test/test-list-input.js';	
 import TestIndicator from './test/test-indicator.js';
 import TestLayout from './test/test-layout.js';
+import TestPlayground from './test/test-playground.js';
 
 
 const app = document.getElementById('root');
@@ -53,5 +54,6 @@ ReactDOM.render(
 			<Route path="test-list-input" component={TestTextInput}></Route>
 			<Route path="test-toggle-input" component={TestToggleInput}></Route>
 			<Route path="test-indicator" component={TestIndicator}></Route>
+			<Route path="test-playground" component={TestPlayground}></Route>
 		</Route>
 	</Router>, app)
