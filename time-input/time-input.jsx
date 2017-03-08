@@ -54,17 +54,16 @@
 */
 
 import React from "react";
-import Component from "component";
+import Input from "input";
+import Form from "form";
 
-class TimeInput extends Component {
-	constructor( property ){
-		super( property );
-
-		this.name = "time-input";
-	}
+class TimeInput extends Input {
+	constructor( property ){ super( property ); }
 
 	render( ){
-		return ( <div></div> );
+		return ( <Form>
+
+				</Form> );
 	}
 }
 

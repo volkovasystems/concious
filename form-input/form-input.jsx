@@ -1,4 +1,3 @@
-
 "use strict";
 
 /*;
@@ -32,9 +31,9 @@
 	@module-configuration:
 		{
 			"package": "concious",
-			"path": "concious/input/input.jsx",
-			"file": "input.jsx",
-			"module": "Input",
+			"path": "concious/form-input/form-input.jsx",
+			"file": "form-input.jsx",
+			"module": "FormInput",
 			"author": "Richeve S. Bebedor",
 			"eMail": "richeve.bebedor@gmail.com",
 			"repository": "https://github.com/volkovasystems/concious.git",
@@ -44,94 +43,107 @@
 	@end-module-configuration
 
 	@module-documentation:
-		Input Component
+		FormInput Component
 	@end-module-documentation
 
 	@include:
 		{
 			"React": "react",
-			"Component": "component"
+			"Input": "input",
+			"Header": "header"
 		}
 	@end-include
 */
 
-import protype from "protype";
-import titlelize from "titlelize";
-import truly from "truly";
-import truu from "truu";
+import clazof from "clazof";
+import kein from "kein";
+import redupe from "redupe";
 import wichevr from "wichevr";
 import wichis from "wichis";
-import vound from "vound";
 
 import React from "react";
-import Component from "component";
+import Input from "input";
+import Header from "header";
 
-class Input extends Component {
+const INPUT = Symbol.for( "input" );
+
+class FormInput extends Input {
 	constructor( property ){ super( property ); }
 
 	configure( ){
-		this.retype( "input" );
+		this.retype( "form-input" );
 	}
 
-	prepare( ){
-		this.title = this.placeholder( );
+	header( ){
+		return ( <Header
+					name={ this.name }
+					...redupe( this.property.header, {
+						"title": this.placeholder( )
+					} )
+				/> );
 	}
 
-	/*;
-		@method-documentation:
+	input( data ){
+		data = wichis( data, { } );
 
-		@end-method-documentation
-	*/
-	placeholder( ){
-		return titlelize( wichevr( this.property.title, this.property.name ) );
+		if( kein( this, INPUT ) ){
+			return this[ INPUT ];
+		}
+
+		this[ INPUT ] = this.component( )
+			.filter( ( component ) => { return clazof( component, Input ) } )
+			.map( ( input, index ) => {
+				let name = input.props.name;
+
+				return React.cloneElement( input, {
+					"key": `input-${ index }`,
+					"value": wichevr( data[ name ], input.defer( ) )
+				} );
+			} );
+
+		return this[ INPUT ];
 	}
 
-	/*;
-		@method-documentation:
-
-		@end-method-documentation
-	*/
-	value( value ){
-		return wichis( value, this.state.value, this.property.value, this.defer( ) );
+	body( ){
+		return ( <List
+					name={ this.name }
+				>
+					{ this.input( this.property.data ); }
+				</List> );
 	}
 
-	/*;
-		@method-documentation:
-			This will be used to push value from outside of the input context.
-		@end-method-documentation
-	*/
-	push( value ){
-		this.edit( this.property.name, this.value( value ) )
+	control( ){
+		return ( <Control
+					name={ this.name }
+				>
+					{
+						wichis( this.component( )
+							.filter( ( component ) => {
+								return clazof( component, Control );
+							} ), null );
+					}
+				</Control> );
 	}
 
-	/*;
-		@method-documentation:
-			Calls the property change.
-		@end-method-documentation
-	*/
-	change( ){
-		vound( this.property.change, this )( this.retrieve( ) );
+	value( ){
+		let data = { };
+
+		this.input( ).forEach( ( input ) => {
+			data[ input.property.name ] = input.value( );
+		} );
+
+		return data;
 	}
 
-	/*;
-		@method-documentation:
-			This will be overridden to provide the default value for each kind of input.
-		@end-method-documentation
-	*/
-	defer( ){
-		return null;
+	mount( ){
+		this.edit( "input", this.input( this.property.data ) );
 	}
 
-	/*;
-		@method-documentation:
-			This will be used for validation.
-		@end-method-documentation
-	*/
-	validate( ){ return true; }
-
-	retrieve( ){ return this.value( ); }
-
-	clear( ){ this.edit( "value", null ); }
+	unmount( ){
+		while( this[ INPUT ].length ){ this[ INPUT ].pop( ); }
+		this[ INPUT ] = undefined;
+		delete this[ INPUT ];
+	}
 }
 
-export default Input;
+export default Form;

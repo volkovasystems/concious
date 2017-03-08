@@ -95,11 +95,12 @@ import truly from "truly";
 import React from "react";
 import Component from "component";
 
-const LIGATURE = "ligature";
-const ICON = "icon";
+const EMBEDDED = "embedded";
 const IMAGE = "image";
+const LIGATURE = "ligature";
 const LOADING = "loading";
 
+harden( "SHARP", "sharp" );
 harden( "SOFT", "soft" );
 harden( "ROUND", "round" );
 harden( "FIT", "fit" );
@@ -126,10 +127,7 @@ class Icon extends Component {
 			icon.loading = loading;
 		}
 
-		name = optfor( budge( parameter ), STRING );
-		if( protype( name, STRING ) && truly( name ) ){
-			icon.name = icon.name || name;
-		}
+		icon.name = wichevr( icon.name, optfor( budge( parameter ), STRING ) );
 
 		if( falzy( icon.set ) && falzy( icon.loading ) ){
 			return null;
@@ -149,82 +147,99 @@ class Icon extends Component {
 			loading
 		} = this.property;
 
-		if( protype( loading, BOOLEAN ) && loading ){
+		if( loading === true ){
 			return LOADING;
 		}
 
-		if( protype( icon, STRING ) && truly( icon ) ){
-			return ICON;
+		if( truly( icon ) && protype( icon, STRING ) ){
+			return EMBEDDED;
 		}
 
-		if( ( protype( image, STRING ) || protype( source, STRING ) ) &&
-	 		( truly( image ) || truly( source ) ) )
+		ligature = wichevr( ligature, this.extract( ) );
+		if( truly( ligature ) && protype( ligature, STRING ) ){
+			return LIGATURE;
+		}
+
+		if( ( truly( image ) && protype( image, STRING ) ) ||
+			( truly( source ) && protype( source, STRING ) ) )
 		{
 			return IMAGE;
 		}
+	}
 
-		ligature = ligature || this.extract( );
-		if( protype( ligature, STRING ) && truly( ligature ) ){
-			return LIGATURE;
+	image( ){
+		let { image, source } = this.property;
+
+		if( this.mode( ) === IMAGE ){
+			return `url( ${ wichevr( image, source ) } )`;
+
+		}else{
+			return "none";
+		}
+	}
+
+	layout( ){
+		if( this.mode( ) === IMAGE ){
+			return wichevr( this.property.layout, SPREAD );
+
+		}else{
+			return "";
+		}
+	}
+
+	edge( ){
+		return `${ wichevr( this.property.edge, SHARP ) } edge`;
+	}
+
+	ligature( ){
+		if( this.mode( ) === LIGATURE ){
+			return wichevr( this.property.ligature, this.extract( ) );
+
+		}else{
+			return "";
 		}
 	}
 
 	extract( ){
-		let content = this.content( );
+		return wichevr( this.content( )[ 0 ], "" );
+	}
 
-		if( doubt( content, ARRAY ) ){
-			return content[ 0 ];
+	body( ){
+		let mode = this.mode( );
+
+		if( mode === LOADING ){
+			return <div className="loader"></div>
+
+		}else if( mode === LIGATURE ){
+			return this.ligature( );
+
+		}else{
+			return null;
 		}
+	}
 
-		return null;
+	namespace( ){
+		let { set, icon } = this.property;
+
+		return `${ set } ${ wichevr( icon, "" ) }`.splice( /\s+/g, " " ).trim( );
 	}
 
 	render( ){
-		let {
-			set,
-			icon,
-			ligature,
-
-			image,
-			source,
-			layout,
-
-			loading,
-
-			edge,
-
-			hidden
-		} = this.property;
-
-		let mode = this.mode( );
-
-		ligature = ligature || this.extract( );
-
 		return ( <div
-					className={ kley( {
-						"loading": mode === LOADING || set,
+					className={
+						kley( [
+							this.namespace( ),
+							this.mode( ),
+							this.layout( ),
+							this.edge( )
+						] ).join( " " )
+					}
 
-						"icon": mode === ICON && icon,
-
-						"image": !loading && mode === IMAGE,
-						"layout": !loading && mode === IMAGE && layout,
-
-						"soft edge": edge === SOFT,
-						"round edge": edge === ROUND,
-					} ).join( " " ) }
-
-					style={ { "backgroundImage": ( mode === IMAGE )? `url( ${ image || source } )` : "none" } }
+					style={ { "backgroundImage": this.image( ) } }
 
 					aria-hidden="true"
-
-					hidden={ hidden }
 				>
-					{
-						( mode === LOADING )?
-							<div className="loader"></div> :
-
-						( mode === LIGATURE )? ligature : null
-					}
+					{ this.body( ) }
 				</div> );
 	}
 }

@@ -1,4 +1,5 @@
 yarn add \
+arid \
 babel-runtime \
 called \
 clazof \
@@ -60,10 +61,10 @@ vinyl-paths \
 watch \
 webpack \
 webpack-dev-server \
-webpack-glob-entry \
 yargs \
 --dev && \
 bower install \
+arid \
 called \
 clazof \
 depher \

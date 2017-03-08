@@ -101,6 +101,7 @@ import Label from "label";
 
 const ICON = "icon";
 const LABEL = "label";
+const LOADING = "loading";
 
 class Button extends Component {
 	constructor( property ){ super( property ); }
@@ -125,6 +126,8 @@ class Button extends Component {
 			return LABEL;
 		}
 	}
+
+
 
 	render( ){
 		let {
@@ -154,9 +157,7 @@ class Button extends Component {
 		return ( <button
 					type="button"
 
-					className={ kley( {
-						"icon": mode === ICON,
-						"label": mode === LABEL,
+					className={ kley( this.mode( ), {
 						"loading": loading
 					}, [
 						status,
@@ -168,8 +169,6 @@ class Button extends Component {
 					onMouseUp={ this.release.bind( this ) }
 					onMouseEnter={ this.focus.bind( this ) }
 					onMouseLeave={ this.rest.bind( this ) }
-
-					hidden={ hidden }
 				>
 					{
 						( truly( title ) && mode === LABEL )?

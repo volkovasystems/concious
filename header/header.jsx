@@ -58,6 +58,7 @@ import kein from "kein";
 import kley from "kley";
 import protype from "protype";
 import truu from "truu";
+import vound from "vound";
 
 import React from "react";
 import Component from "component";
@@ -77,67 +78,37 @@ class Header extends Component {
 	constructor( property ){ super( property ); }
 
 	expand( ){
-		this.edit( "view", EXPAND,
-	 		function done( ){
-				if( truu( this.property ) && protype( this.property.expand, FUNCTION ) ){
-					this.property.expand( );
-				}
-			} );
+		this.edit( "view", EXPAND, vound( this.property.expand, this ) );
 
 		return this;
 	}
 
 	retract( ){
-		this.edit( "view", RETRACT,
-	 		function done( ){
-				if( truu( this.property ) && protype( this.property.retract, FUNCTION ) ){
-					this.property.retract( );
-				}
-			} );
+		this.edit( "view", RETRACT, vound( this.property.retract, this ) );
 
 		return this;
 	}
 
 	maximize( ){
-		this.edit( "view", MAXIMIZE,
-	 		function done( ){
-				if( truu( this.property ) && protype( this.property.maximize, FUNCTION ) ){
-					this.property.maximize( );
-				}
-			} );
+		this.edit( "view", MAXIMIZE, vound( this.property.maximize, this ) );
 
 		return this;
 	}
 
 	minimize( view ){
-		this.edit( "view", MINIMIZE,
-	 		function done( ){
-				if( truu( this.property ) && protype( this.property.minimize, FUNCTION ) ){
-					this.property.minimize( );
-				}
-			} );
+		this.edit( "view", MINIMIZE, vound( this.property.minimize, this ) );
 
 		return this;
 	}
 
 	close( ){
-		this.edit( "view", CLOSE,
-	 		function done( ){
-				if( truu( this.property ) && protype( this.property.close, FUNCTION ) ){
-					this.property.close( );
-				}
-			} );
+		this.edit( "view", CLOSE, vound( this.property.close, this ) );
 
 		return this;
 	}
 
 	open( ){
-		this.edit( "view", OPEN,
-	 		function done( ){
-				if( truu( this.property ) && protype( this.property.open, FUNCTION ) ){
-					this.property.open( );
-				}
-			} );
+		this.edit( "view", OPEN, vound( this.property.open, this ) );
 
 		return this;
 	}
@@ -210,7 +181,7 @@ class Header extends Component {
 	}
 
 	overlay( ){
-		if( truu( this.state ) && kein( this.state, "overlay" ) ){
+		if( kein( this.state, "overlay" ) ){
 			return this.state.overlay;
 		}
 

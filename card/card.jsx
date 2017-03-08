@@ -31,9 +31,9 @@
 	@module-configuration:
 		{
 			"package": "concious",
-			"path": "concious/form/form.jsx",
-			"file": "form.jsx",
-			"module": "FormList",
+			"path": "concious/card/card.jsx",
+			"file": "card.jsx",
+			"module": "Card",
 			"author": "Richeve S. Bebedor",
 			"eMail": "richeve.bebedor@gmail.com",
 			"repository": "https://github.com/volkovasystems/concious.git",
@@ -43,53 +43,38 @@
 	@end-module-configuration
 
 	@module-documentation:
-		FormList Component
+		Card Component
 	@end-module-documentation
 
 	@include:
 		{
-			"React": "react"
+			"React": "react",
+			"Component": "component"
 		}
 	@end-include
 */
 
-import React from "react";
-import FormInput from "form-input";
-import Form from "form";
-import List from "list";
+import doubt from "doubt";
+import falze from "falze";
+import kley from "kley";
+import truly from "truly";
+import truu from "truu";
 
-class FormList extends FormInput {
+import React from "react";
+import Component from "component";
+import Icon from "icon";
+import Label from "label";
+
+class Card extends Component {
 	constructor( property ){ super( property ); }
 
-	list( ){
+	mode( ){
 
-	}
-
-	form( ){
-		return ( <Form>
-					{ this.input( ) }
-				</Form> );
 	}
 
 	render( ){
-		return ( <div>
-					<div
-						className="main"
-					>
-						{ this.header( ) }
 
-						{ this.list( ) }
-
-						<div
-							className="body"
-						>
-							{ this.form( ) }
-						</div>
-					</div>
-
-					{ this.control( ) }
-				</div> );
 	}
 }
 
-export default FormList;
+export default Card;

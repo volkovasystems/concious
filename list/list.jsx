@@ -62,9 +62,11 @@
 	@end-usage
 */
 
+import arid from "arid";
 import clazof from "clazof";
 import doubt from "doubt";
 import falze from "falze";
+import filled from "filled";
 import harden from "harden";
 import kley from "kley";
 import plough from "plough";
@@ -113,7 +115,7 @@ class List extends Component {
 	render( ){
 		let {
 			name,
-			
+
 			list,
 
 			header,
@@ -129,13 +131,13 @@ class List extends Component {
 		}
 
 		let item = this.item( );
-		if( falze( item ) && truu( list ) ){
+		if( arid( item ) && filled( list ) ){
 			item = this.wrap( list );
 		}
 
 		empty = empty || { "label": "Empty" };
 
-		let headed = truu( header );
+		let headed = stuffed( header );
 		if( headed ){
 			header.name = header.name || name;
 
@@ -162,19 +164,24 @@ class List extends Component {
 							<Header { ...header } /> : null
 					}
 					{
-						( truu( item ) && view !== RETRACT )?
+						( filled( item ) && view !== RETRACT )?
 							<ul>
 								{ item }
 							</ul> :
 
-						( truu( empty ) && view !== RETRACT )?
+						( stuffed( empty ) && view !== RETRACT )?
 							<Plate { ...empty } /> :
 
 						null
 					}
 					{
 						( controlled && view !== RETRACT )?
-							control : null
+							<div
+								className="footer">
+								{ control }
+							</div> :
+
+						null
 					}
 				</div> );
 	}

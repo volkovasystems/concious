@@ -1,11 +1,9 @@
 require( "graceful-fs" ).gracefulify( require( "fs" ) );
 
-const entry = require( "webpack-glob-entry" );
 const llamalize = require( "llamalize" );
 const path = require( "path" );
 const webpack = require( "webpack" );
 
-const CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
 const HotModuleReplacementPlugin = webpack.HotModuleReplacementPlugin;
 const UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
 
@@ -38,6 +36,13 @@ const COMPONENT_LIST = [
 	"dashbar"
 ];
 
+const PRIMARY_MODULE = [
+	"jquery",
+	"react",
+	"react-dom",
+	"react-router"
+];
+
 const MODULE_LIST = [
 	"cemento",
 	"doubt",
@@ -51,35 +56,7 @@ module.exports = function build( parameter ){
 	parameter = parameter || { };
 
 	return {
-		"entry": parameter.test?
-			{
-				"test": [ "./test.js" ]
-					.concat( ( ( entry ) => {
-						let test = [ ];
-						for( let name in entry ){
-							test.push( entry[ name ] );
-						}
-						return test;
-					} )( entry( "./test/*.js" ) ) ),
-				"module": MODULE_LIST,
-				"component": [
-					"jquery",
-					"react",
-					"react-dom",
-					"react-router"
-				].concat( COMPONENT_LIST )
-			} :
-
-			{
-				"concious": "./concious.support.js",
-				"module": MODULE_LIST,
-				"component": [
-					"jquery",
-					"react",
-					"react-dom",
-					"react-router"
-				].concat( COMPONENT_LIST )
-			},
+		"entry": parameter.test? "./test.js" : "./concious.support.js",
 
 		"resolve": {
 			"descriptionFiles": [
@@ -112,17 +89,11 @@ module.exports = function build( parameter ){
 		"output": {
 			"library": parameter.test? "test" : "concious",
 			"libraryTarget": "umd",
-			"filename": parameter.test? "[name].deploy.js" : "[name].deploy.js"
+			"filename": parameter.test? "test.deploy.js" : "concious.deploy.js"
 		},
 
 		"module": {
 			"rules": [
-				{
-					"test": /\.js$/,
-					"loaders": [ "source-map-loader" ],
-					"enforce": "pre",
-					"exclude": /node_modules|bower_components/
-				},
 				{ "test": /\.css$/, "loaders": [ "style-loader?singleton", "css-loader", "resolve-url-loader" ] },
 				{ "test": /\.(ttf|svg|eot|woff2?)$/, "loaders": [ "url-loader" ] }
 			]
@@ -140,7 +111,6 @@ module.exports = function build( parameter ){
 		} ),
 
 		"plugins": [
-			new CommonsChunkPlugin( { "names": [ "module", "component" ] } ),
 			( ( mode === "production" || mode === "test" )? new UglifyJsPlugin( {
 				"compress": {
 					"keep_fargs": true,
@@ -155,7 +125,7 @@ module.exports = function build( parameter ){
 			( mode === "test"? new HotModuleReplacementPlugin( ) : null )
 		].filter( ( plugin ) => { return !!plugin; } ),
 
-		"devtool": "cheap-module-inline-source-map",
+		"devtool": "#source-map",
 
 		"stats": { "warnings": false },
 

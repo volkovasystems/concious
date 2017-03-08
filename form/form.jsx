@@ -57,68 +57,21 @@ import React from "react";
 import Component from "component";
 import Input from "input";
 
-class Form extends Input {
+class Form extends FormInput {
 	constructor( property ){ super( property ); }
 
-	input( data ){
-		data = data || { };
-
-		return this.component( )
-			.filter( ( component ) => { return clazof( component, Input ) } )
-			.map( ( input, index ) => {
-
-				let name = input.props.name;
-
-				return React.cloneElement( input, {
-					"key": `input-${ index }`,
-					"value": data[ name ]
-				} );
-			} );
-	}
-
 	render( ){
-		let {
-			name,
-
-			header,
-
-			control,
-
-			hidden
-		} = this.property;
-
-		return ( <form
-					className={ kley( "input" ).join( " " ) }
-
-					hidden={ hidden }
-				>
-					{
-						headed?
-							<Header { ...header } /> : null
-					}
+		return ( <form>
 					<div className="main">
+						{ this.header( ) }
+
 						<div className="body">
-							{
-								truu( this.state ) && truu( this.state.input )?
-									<List
-										name={ name }
-										>
-										{ this.state.input }
-									</List> : null
-							}
+							{ this.body( ) }
 						</div>
 					</div>
-					{
-						controlled?
-							control : null
-					}
-				</form>);
-	}
 
-	mount( ){
-		if( truu( this.property ) ){
-			this.edit( "input", this.input( this.property.data ) );
-		}
+					{ this.control( ) }
+				</form>);
 	}
 }
 

@@ -71,6 +71,7 @@ import protype from "protype";
 import pyck from "pyck";
 import truly from "truly";
 import truu from "truu";
+import wichis from "wichis";
 
 import React from "react";
 import Component from "component";
@@ -81,16 +82,15 @@ class Control extends Component {
 	constructor( property ){ super( property ); }
 
 	control( ){
-		if( truu( this.property ) ){
-			return pyck( plough( [ this.property.children ] )
-				.filter( ( child ) => { return protype( child, OBJECT ); } ),
-				( child ) => { return clazof( child, Button, Control ); } )
-				.map( ( child, index ) => {
-					return React.cloneElement( child, { "key": `${ child.name }-${ index }` } )
-				} );
-		}
+		return wichis( this.component( )
+			.filter( ( component ) => { return clazof( component, Button, Control ); } )
+			.map( ( control, index ) => {
+				return React.cloneElement( control, { "key": `${ control.name }-${ index }` } )
+			} ), null );
+	}
 
-		return null;
+	recheck( ){
+
 	}
 
 	render( ){
@@ -115,14 +115,13 @@ class Control extends Component {
 			rest,
 			focus,
 
-			disabled,
-			hidden
+			disabled
 		} = this.property;
 
 		let control = this.control( );
 
 		let content = this.content( );
-		label = label || content;
+		label = wichis( label, content );
 
 		if( falze( control ) ){
 			icon = Icon.resolve( icon, name );
@@ -140,8 +139,6 @@ class Control extends Component {
 						status,
 						purpose
 					] ).join( " " ) }
-
-					hidden={ hidden }
 				>
 					{
 						truu( control )?

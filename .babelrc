@@ -1,5 +1,6 @@
 {
 	"presets": [ "latest", "react" ],
 	"plugins": [ "transform-runtime" ],
-	"sourceMaps": true
+	"sourceMaps": "both",
+	"retainLines": true
 }

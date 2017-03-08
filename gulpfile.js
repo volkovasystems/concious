@@ -35,9 +35,9 @@ gulp.task( "style", function styleTask( ){
 		.pipe( plumber( ) )
 		.pipe( changed( "./", { "extension": ".css" } ) )
 		.pipe( debug( { "title": "File:" } ) )
-		.pipe( sourcemap.init( { "identityMap": true } ) )
+		.pipe( sourcemap.init( ) )
 		.pipe( sass( { "outputStyle": "compressed" } ).on( "error", sass.logError ) )
-		.pipe( sourcemap.write( { "includeContent": true } ) )
+		.pipe( sourcemap.write( "./" ) )
 		.pipe( gulp.dest( "./" ) );
 } );
 
@@ -58,7 +58,7 @@ gulp.task( "script", function scriptTask( ){
 		.pipe( plumber( ) )
 		.pipe( changed( "./", { "extension": ".js" } ) )
 		.pipe( debug( { "title": "File:" } ) )
-		.pipe( sourcemap.init( { "identityMap": true } ) )
+		.pipe( sourcemap.init( ) )
 		.pipe( babel( ) )
 		.pipe( uglify( {
 			"compress": {
@@ -71,7 +71,7 @@ gulp.task( "script", function scriptTask( ){
 			"mangle": false
 		} ) )
 		.pipe( rename( { "extname": ".js" } ) )
-		.pipe( sourcemap.write( { "includeContent": true } ) )
+		.pipe( sourcemap.write( "./" ) )
 		.pipe( gulp.dest( "./" ) );
 } );
 

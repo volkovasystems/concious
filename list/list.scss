@@ -5,9 +5,8 @@ div.list.component {
 
 	align-items: stretch;
 
-	height: fit-content;
-	min-height: 0;
-	max-height: inherit;
+	@include adaptive-width;
+	@include fitted-height;
 
 	margin-top: $DEFAULT_GAP;
 	margin-bottom: $DEFAULT_GAP;
@@ -21,13 +20,8 @@ div.list.component {
 
 		align-items: stretch;
 
-		width: 100%;
-		min-width: 0;
-		max-width: 100%;
-
-		height: fit-content;
-		min-height: 0;
-		max-height: fit-content;
+		@include adaptive-width;
+		@include fitted-height;
 
 		overflow-y: auto;
 
@@ -49,5 +43,18 @@ div.list.component {
 		&> li:last-child {
 			margin-bottom: 0px;
 		}
+	}
+
+	& > div.footer {
+		position: relative;
+
+		display: flex;
+
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+
+		@include adaptive-width;
+		@include fixed-height;
 	}
 }

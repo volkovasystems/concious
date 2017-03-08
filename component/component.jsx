@@ -93,7 +93,9 @@ import snapd from "snapd";
 import stuffed from "stuffed";
 import truly from "truly";
 import truu from "truu";
+import vound from "vound";
 import whyle from "whyle";
+import wichevr from "wichevr";
 
 import $ from "jquery";
 import React from "react";
@@ -124,7 +126,8 @@ class Component extends React.PureComponent {
 		let name = shardize( this.constructor.name );
 		this.type = [ name, COMPONENT ];
 
-		this.name = shardize( property.name || this.name ) || name;
+		this.name = shardize( wichevr( property.name, this.name ) );
+		this.name = wichevr( this.name, name );
 
 		this.transfer( property );
 
@@ -146,27 +149,21 @@ class Component extends React.PureComponent {
 	focus( event ){
 		this.behave( FOCUS );
 
-		if( protype( this.property.focus, FUNCTION ) ){
-			this.property.focus( this, event );
-		}
+		vound( this.property.focus, this )( event );
 
 		return this;
 	}
 	rest( event ){
 		this.suppress( FOCUS );
 
-		if( protype( this.property.rest, FUNCTION ) ){
-			this.property.rest( this, event );
-		}
+		vound( this.property.rest, this )( event );
 
 		return this;
 	}
 	press( event ){
 		this.behave( PRESS );
 
-		if( protype( this.property.press, FUNCTION ) ){
-			this.property.press( this, event );
-		}
+		vound( this.property.press, this )( event );
 
 		snapd.bind( this )( function later( ){
 			this.release( );
@@ -177,9 +174,7 @@ class Component extends React.PureComponent {
 	release( event ){
 		this.suppress( PRESS );
 
-		if( protype( this.property.release, FUNCTION ) ){
-			this.property.release( this, event );
-		}
+		vound( this.property.release, this )( event );
 
 		return this;
 	}
@@ -190,9 +185,7 @@ class Component extends React.PureComponent {
 			this.release( );
 		} );
 
-		if( protype( this.property.click, FUNCTION ) ){
-			this.property.click( this, event );
-		}
+		vound( this.property.click, this )( event );
 
 		return this;
 	}
@@ -256,14 +249,14 @@ class Component extends React.PureComponent {
 		return this;
 	}
 	resetBehavior( ){
-		if( stuffed( this.node ) && filled( this.behavior ) ){
+		if( truly( this.node ) && filled( this.behavior ) ){
 			this.node.removeClass( this.behavior.join( " " ) );
 		}
 	}
 	resetCategory( ){
 		let category = this.property.category;
 
-		if( truu( this.node ) && truu( category ) ){
+		if( truly( this.node ) && truu( category ) ){
 			this.node.removeClass( plough( category ).filter( truly ).join( " " ) );
 		}
 	}
@@ -272,12 +265,13 @@ class Component extends React.PureComponent {
 		return pyck( plough( [ this.property.children ] ).filter( truly ), STRING );
 	}
 	component( ){
-		return pyck( plough( [ this.property.children ] ),
-			( child ) => { return clazof( child, Component ); } );
+		return pyck( plough( [ this.property.children ] ), ( child ) => {
+			return clazof( child, Component );
+		} );
 	}
 
 	register( parent ){
-		this.parent = this.parent || parent;
+		this.parent = wichevr( this.parent, parent );
 
 		parent.associate( this );
 
@@ -293,7 +287,7 @@ class Component extends React.PureComponent {
 		return this;
 	}
 	disconnect( ){
-		if( truu( this.parent ) && truu( this.parent.children ) ){
+		if( truly( this.parent ) && truly( this.parent.children ) ){
 			this.parent.children = this.parent.children.filter( ( child ) => {
 				return child.id !== this.id;
 			} );
@@ -302,12 +296,12 @@ class Component extends React.PureComponent {
 		return this;
 	}
 	pointer( name ){
-		if( truu( this.children ) ){
-			for( let index = 0; index < this.children.length; index++ ){
-				let child = this.children[ index ];
-				if( truu( child.property ) && child.property.pointer === name ){
-					return this.children[ index ];
-				}
+		let children = this.children;
+		let length  = children.length;
+		for( let index = 0; index < length; index++ ){
+			let child = children[ index ];
+			if( truu( child.property ) && child.property.pointer === name ){
+				return child;
 			}
 		}
 
@@ -320,11 +314,11 @@ class Component extends React.PureComponent {
 		@end-method-documentation
 	*/
 	rename( name ){
-		this.name = shardize( name ||
-
-			this.property.name || this.state.name ||
-
-			this.name || this.constructor.name );
+		this.name = shardize( wichevr( name,
+		 	this.property.name,
+			this.state.name,
+			this.name,
+			this.constructor.name ) );
 
 		return this;
 	}
@@ -355,7 +349,7 @@ class Component extends React.PureComponent {
 		return this;
 	}
 	get( name ){
-		if( protype( name, STRING ) && truly( name ) ){
+		if( truly( name ) && protype( name, STRING ) ){
 			return this.state[ name ];
 
 		}else{
@@ -383,7 +377,7 @@ class Component extends React.PureComponent {
 	}
 
 	bindName( ){
-		if( truu( this.node ) ){
+		if( truly( this.node ) ){
 			this.node.attr( "name", this.name );
 		}
 
@@ -391,30 +385,32 @@ class Component extends React.PureComponent {
 	}
 	bindID( ){
 		let namespace = outre( [ this.name ].concat( this.type ) ).join( "-" );
-		this.id = this.id || `${ namespace }-${ Math.ceil( Date.now( ) * Math.random( ) ) }`;
+		let random = Math.ceil( Date.now( ) * Math.random( ) );
 
-		if( truu( this.node ) ){
+		this.id = wichevr( this.id, `${ namespace }-${ random }` );
+
+		if( truly( this.node ) ){
 			this.node.attr( "id", this.id );
 		}
 
 		return this;
 	}
 	bindType( ){
-		if( truu( this.node ) ){
+		if( truly( this.node ) ){
 			this.node.addClass( this.type.join( " " ) );
 		}
 
 		return this;
 	}
 	bindCategory( ){
-		if( truu( this.node ) && stuffed( this.property ) && truu( this.property.category ) ){
+		if( truly( this.node ) && stuffed( this.property ) && truu( this.property.category ) ){
 			this.node.addClass( plough( [ this.property.category ] ).join( " " ) );
 		}
 
 		return this;
 	}
 	bindBehavior( ){
-		if( truu( this.node ) ){
+		if( truly( this.node ) ){
 			this.node.addClass( this.behavior.join( " " ) );
 		}
 
@@ -426,7 +422,6 @@ class Component extends React.PureComponent {
 		}
 
 		let children = this.property.children;
-
 		let parent = this;
 
 		if( doubt( children, ARRAY ) ){
@@ -439,12 +434,12 @@ class Component extends React.PureComponent {
 			} );
 		}
 
-		if( truu( this.node ) ){
+		if( truly( this.node ) ){
 			this.node.find( ".component" ).each( function onEachChild( index, child ){
 				child = $( child ).data( INSTANCE );
 
 				if( clazof( child, Component ) ){
-					if( falze( child.parent ) && child.parent !== parent ){
+					if( falzy( child.parent ) || child.parent !== parent ){
 						child.register( parent );
 					}
 				}
@@ -470,7 +465,7 @@ class Component extends React.PureComponent {
 	build( ){
 		this.node = $( ReactDOM.findDOMNode( this ) );
 
-		if( truu( this.node ) ){
+		if( truly( this.node ) ){
 			this.node.data( INSTANCE, this );
 		}
 
@@ -522,6 +517,8 @@ class Component extends React.PureComponent {
 			this.show( );
 		}
 
+		this.recheck( );
+
 		return this;
 	}
 
@@ -535,6 +532,7 @@ class Component extends React.PureComponent {
 	mount( ){ return this; }
 	update( ){ return this; }
 	unmount( ){ return this; }
+	recheck( ){ return this; }
 
 	componentWillUpdate( property ){
 		this.transfer( property );
