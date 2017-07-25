@@ -38,14 +38,15 @@
 			"eMail": "richeve.bebedor@gmail.com",
 			"repository": "https://github.com/volkovasystems/concious.git",
 			"test": "test.html",
-			"global": true
+			"global": true,
+			"class": true
 		}
 	@end-module-configuration
 
 	@module-documentation:
 		Control Component
 
-			Controls can act as a single button or multiple controls.
+		Controls can act as a single button or multiple controls.
 	@end-module-documentation
 
 	@include:
@@ -64,11 +65,8 @@
 */
 
 import clazof from "clazof";
-import falze from "falze";
-import kley from "kley";
-import plough from "plough";
-import protype from "protype";
-import pyck from "pyck";
+import filled from "filled";
+import klast from "klast";
 import truly from "truly";
 import truu from "truu";
 import wichis from "wichis";
@@ -78,147 +76,200 @@ import Component from "component";
 import Button from "button";
 import Icon from "icon";
 
+const CONTROL = Symbol( "control" );
+
 class Control extends Component {
 	constructor( property ){ super( property ); }
 
 	control( ){
-		return wichis( this.component( )
+		return ( this[ CONTROL ] = wichis( this[ CONTROL ], this.component( )
 			.filter( ( component ) => { return clazof( component, Button, Control ); } )
 			.map( ( control, index ) => {
 				return React.cloneElement( control, { "key": `${ control.name }-${ index }` } )
-			} ), null );
+			} ), [ ] ) );
 	}
 
-	recheck( ){
-
-	}
-
-	render( ){
+	icon( ){
 		let {
 			name,
 
-			icon,
-			loading,
+			status, purpose,
 
-			label,
-			title,
-			notice,
+			click, press, release, rest, focus,
 
-			status,
-			purpose,
+			disabled, hidden
+		} = this.property;
+
+		let icon = Icon.resolve( this.property );
+
+		if( truly( icon ) ){
+			return ( <Button
+						key="icon"
+
+						name={ name }
+
+						icon={ icon }
+
+						status={ status }
+						purpose={ purpose }
+
+						click={ click }
+						press={ press }
+						release={ release }
+						rest={ rest }
+						focus={ focus }
+
+						disabled={ disabled }
+						hidden={ hidden }
+					/> );
+		}
+
+		return null;
+	}
+
+	label( ){
+		let {
+			name,
+
+			title, label, notice,
+
+			status, purpose,
+
+			click, press, release, rest, focus,
+
+			disabled, hidden
+		} = this.property;
+
+		if( truly( label ) ){
+			return ( <Button
+						key="label"
+
+						name={ name }
+
+						title={ title }
+						label={ label }
+						notice={ notice }
+
+						status={ status }
+						purpose={ purpose }
+
+						click={ click }
+						press={ press }
+						release={ release }
+						rest={ rest }
+						focus={ focus }
+
+						disabled={ disabled }
+						hidden={ hidden }
+					/> );
+		}
+
+		return null;
+	}
+
+
+
+	action( ){
+		let {
+			name,
 
 			action,
 
-			click,
-			press,
-			release,
-			rest,
-			focus,
+			status, purpose,
 
-			disabled
+			click, press, release, rest, focus,
+
+			disabled, hidden
 		} = this.property;
 
+		if( truu( action ) ){
+			return ( <Button
+						key="action"
+
+						name={ name }
+
+						icon={ wichis( action.icon, {
+							"set": "material-icon",
+							"ligature": "more_vert"
+						} ) }
+
+						status={ wichevr( action.status, status ) }
+						purpose={ wichevr( action.purpose, purpose ) }
+
+						click={ wichevr( action.click, click ) }
+						press={ wichevr( action.press, press ) }
+						release={ wichevr( action.release, release ) }
+						rest={ wichevr( action.rest, rest ) }
+						focus={ wichevr( action.focus, focus ) }
+
+						disabled={ wichevr( action.disabled, disabled ) }
+						hidden={ wichevr( action.hidden, hidden ) }
+					/> );
+		}
+
+		return null;
+	}
+
+	loading( ){
+		let { name, loading } = this.property;
+
+		if( loading === true ){
+			return ( <Icon key="loading" name={ name } loading={ true } /> );
+		}
+
+		return null;
+	}
+
+	recheck( ){
+		if( this.property.loading === true ){
+			this.disable( );
+
+			this.control( ).forEach( ( control ) => { control.disable( ); } );
+
+		}else{
+			this.enable( );
+
+			this.control( ).forEach( ( control ) => { control.enable( ); } );
+		}
+	}
+
+	tag( ){
+		let { loading, status, purpose } = this.property;
+
+		return klast( {
+			"group": filled( this.control( ) ),
+			"loading": loading
+		}, status, purpose );
+	}
+
+	body( ){
 		let control = this.control( );
 
-		let content = this.content( );
-		label = wichis( label, content );
-
-		if( falze( control ) ){
-			icon = Icon.resolve( icon, name );
+		if( filled( control ) ){
+			return control;
 		}
 
-		if( protype( disabled, BOOLEAN ) && disabled && truu( control ) ){
-			control.forEach( ( control ) => { control.disable( true ) } );
-		}
+		return [
+			this.icon( ),
 
-		return ( <div
-					className={ kley( {
-						"set": truu( control ),
-						"loading": loading
-					}, [
-						status,
-						purpose
-					] ).join( " " ) }
-				>
-					{
-						truu( control )?
-							control :
-							( [
-								truu( icon )?
-									<Button
-										key="icon"
+			this.label( ),
 
-										name={ name }
+			this.action( ),
 
-										icon={ icon }
+			this.loading( )
+		];
+	}
 
-										status={ status }
-										purpose={ purpose }
-
-										click={ click }
-										press={ press }
-										release={ release }
-										rest={ rest }
-										focus={ focus }
-									/> : null,
-
-								truly( label )?
-									<Button
-										key="label"
-
-										name={ name }
-
-										title={ title }
-										notice={ notice }
-
-										label={ label }
-
-										status={ status }
-										purpose={ purpose }
-
-										click={ click }
-										press={ press }
-										release={ release }
-										rest={ rest }
-										focus={ focus }
-									/> : null,
-
-								truu( action )?
-									<Button
-										key="action"
-
-										name={ name }
-
-										icon={ {
-											"set": action.set || "material-icon",
-											"ligature": action.ligature || "more_vert"
-										} }
-
-										status={ action.status || status }
-										purpose={ action.purpose || purpose }
-
-										click={ action.click || click }
-										press={ action.press || press }
-										release={ action.release || release }
-										rest={ action.rest || rest }
-										focus={ action.focus || focus }
-
-										disabled={ action.disabled }
-										hidden={ action.hidden }
-									/> : null,
-
-								( loading === true )?
-									<Icon
-										key="loading"
-
-										name={ name }
-
-										loading={ true }
-									>
-									</Icon> : null
-							] )
-					}
+	render( ){
+		return ( <div className={ this.tag( ) }>
+					{ this.body( ) }
 				</div> );
+	}
+
+	unmount( ){
+		while( this[ CONTROL ].length ){ this[ CONTROL ].pop( ); }
+		this[ CONTROL ] = undefined;
+		delete this[ CONTROL ];
 	}
 }
 

@@ -74,137 +74,125 @@ harden( "MINIMIZE", "minimize" );
 class Plate extends Component {
 	constructor( property ){ super( property ); }
 
-	render( ){
+	icon( ){
+		let icon = Icon.resolve( this.property );
+
+		if( truly( icon ) ){
+			return ( <Icon { ...icon } /> )
+		}
+
+		return null;
+	}
+
+	label( ){
+		let { name, title, label, value, description, notice, target } = this.property;
+
+		let content = this.content( );
+		if( truly( label ) || truly( value ) || truu( content ) ){
+			return ( <div className="content">
+						{
+							[
+								truly( title )?
+									<Label name={ name } key="title" category="title" >
+										{ title }
+									</Label> : null,
+
+								<Label
+									name={ name }
+
+									key="value"
+
+									category="value"
+									target={ target }
+								>
+									{ wichis( label, value, content ) }
+								</Label>,
+
+								truly( description )?
+									<Label name={ name } key="description" category="description">
+										{ description }
+									</Label> : null,
+
+								truly( notice )?
+									<Label name={ name } key="notice" category="notice">
+										{ notice }
+									</Label> : null
+							]
+						}
+					</div> );
+		}
+
+		return null;
+	}
+
+	loading( ){
+		let { name, loading } = this.property;
+
+		if( loading === true ){
+			return ( <Icon name={ name } loading={ true } /> );
+		}
+
+		return null;
+	}
+
+	action( ){
 		let {
 			name,
-
-			view,
-
-			title,
-			label,
-			value,
-			description,
-			notice,
-			target,
-
-			icon,
-			loading,
-
 			action,
-
 			status,
 			purpose,
-
 			click,
 			press,
 			release,
-			rest,
 			focus,
-
+			rest,
+			disabled,
 			hidden
 		} = this.property;
 
-		label = value || label || this.content( ).join( " " );
+		if( truu( action ) ){
+			return ( <Button
+						name={ name }
 
-		let labeled = truly( title ) || truly( label ) || truly( description ) || truly( notice );
+						icon={ action.icon || {
+							"set": "material-icon",
+							"ligature": "more_vert"
+						} }
 
-		icon = Icon.resolve( icon, name );
+						status={ action.status || status }
+						purpose={ action.purpose || purpose }
 
+						click={ action.click || click }
+						press={ action.press || press }
+						release={ action.release || release }
+						focus={ action.focus || focus }
+						rest={ action.rest || rest }
+
+						disabled={ action.disabled }
+						hidden={ action.hidden }
+					/> )
+		}
+
+		return null;
+	}
+
+	tag( ){
+		let { description, status, purpose } = this.property;
+
+		return klast( { "descriptive": truly( description ) }, status, purpose );
+	}
+
+	render( ){
 		return ( <div
-					className={ kley( {
-						"descriptive": truly( description )
-					},
-					[
-						status,
-						purpose
-					] ).join( " " ) }
+					className={ this.tag( ) }
 
 					onMouseEnter={ this.focus.bind( this ) }
 					onMouseLeave={ this.rest.bind( this ) }
-
-					hidden={ hidden }
 				>
-					{
-						truu( icon )?
-							<Icon { ...icon }></Icon> : null
-					}
-					{
-						labeled?
-							<div
-								className="content">
-								{
-									[
-										truly( title )?
-											<Label
-												key="title"
-
-												category="title"
-											>
-												{ title }
-											</Label> : null,
-
-										truly( label )?
-											<Label
-												key="value"
-
-												category="value"
-												target={ target }
-											>
-												{ label }
-											</Label> : null,
-
-										truly( description )?
-											<Label
-												key="description"
-
-												category="description"
-											>
-												{ description }
-											</Label> : null,
-
-										truly( notice )?
-											<Label
-												key="notice"
-
-												category="notice"
-											>
-												{ notice }
-											</Label> : null,
-									]
-								}
-							</div> : null
-					}
-					{
-						( protype( loading, BOOLEAN ) && loading )?
-							<Icon
-								name={ name }
-
-								loading={ true }
-							>
-							</Icon> :
-
-						truu( action )?
-							<Button
-								name={ name }
-
-								icon={ action.icon || {
-									"set": "material-icon",
-									"ligature": "more_vert"
-								} }
-
-								status={ action.status || status }
-								purpose={ action.purpose || purpose }
-
-								click={ action.click || click }
-								press={ action.press || press }
-								release={ action.release || release }
-								focus={ action.focus || focus }
-								rest={ action.rest || rest }
-
-								disabled={ action.disabled }
-								hidden={ action.hidden }
-							/> : null
-					}
+					{ this.icon( ) }
+					{ this.label( ) }
+					{ this.action( ) }
+					{ this.loading( ) }
 				</div> );
 	}
 }

@@ -79,11 +79,9 @@ import clazof from "clazof";
 import doubt from "doubt";
 import een from "een";
 import empt from "empt";
-import falze from "falze";
 import falzy from "falzy";
 import filled from "filled";
 import harden from "harden";
-import kein from "kein";
 import outre from "outre";
 import plough from "plough";
 import pyck from "pyck";
@@ -249,14 +247,14 @@ class Component extends React.PureComponent {
 		return this;
 	}
 	resetBehavior( ){
-		if( truly( this.node ) && filled( this.behavior ) ){
+		if( clazof( this.node, "jQuery" ) && filled( this.behavior ) ){
 			this.node.removeClass( this.behavior.join( " " ) );
 		}
 	}
 	resetCategory( ){
 		let category = this.property.category;
 
-		if( truly( this.node ) && truu( category ) ){
+		if( clazof( this.node, "jQuery" ) && truu( category ) ){
 			this.node.removeClass( plough( category ).filter( truly ).join( " " ) );
 		}
 	}
@@ -278,10 +276,12 @@ class Component extends React.PureComponent {
 		return this;
 	}
 	associate( child ){
-		if( doubt( this.children, ARRAY ) &&
-			!een( this.children, child, ( item, child ) => { return item.id === child.id; } ) )
+		let children = this.children;
+
+		if( doubt( children, ARRAY ) &&
+			!een( children, child, ( item, child ) => { return item.id === child.id; } ) )
 		{
-			this.children.push( child );
+			children.push( child );
 		}
 
 		return this;
@@ -377,7 +377,7 @@ class Component extends React.PureComponent {
 	}
 
 	bindName( ){
-		if( truly( this.node ) ){
+		if( clazof( this.node, "jQuery" ) ){
 			this.node.attr( "name", this.name );
 		}
 
@@ -389,28 +389,30 @@ class Component extends React.PureComponent {
 
 		this.id = wichevr( this.id, `${ namespace }-${ random }` );
 
-		if( truly( this.node ) ){
+		if( clazof( this.node, "jQuery" ) ){
 			this.node.attr( "id", this.id );
 		}
 
 		return this;
 	}
 	bindType( ){
-		if( truly( this.node ) ){
+		if( clazof( this.node, "jQuery" ) ){
 			this.node.addClass( this.type.join( " " ) );
 		}
 
 		return this;
 	}
 	bindCategory( ){
-		if( truly( this.node ) && stuffed( this.property ) && truu( this.property.category ) ){
-			this.node.addClass( plough( [ this.property.category ] ).join( " " ) );
+		let category = this.property.category;
+
+		if( clazof( this.node, "jQuery" ) && truu( category ) ){
+			this.node.addClass( plough( category ).join( " " ) );
 		}
 
 		return this;
 	}
 	bindBehavior( ){
-		if( truly( this.node ) ){
+		if( clazof( this.node, "jQuery" ) ){
 			this.node.addClass( this.behavior.join( " " ) );
 		}
 
@@ -434,7 +436,7 @@ class Component extends React.PureComponent {
 			} );
 		}
 
-		if( truly( this.node ) ){
+		if( clazof( this.node, "jQuery" ) ){
 			this.node.find( ".component" ).each( function onEachChild( index, child ){
 				child = $( child ).data( INSTANCE );
 
@@ -463,10 +465,10 @@ class Component extends React.PureComponent {
 	}
 
 	build( ){
-		this.node = $( ReactDOM.findDOMNode( this ) );
+		let node = this.node = $( ReactDOM.findDOMNode( this ) );
 
-		if( truly( this.node ) ){
-			this.node.data( INSTANCE, this );
+		if( clazof( node, "jQuery" ) ){
+			node.data( INSTANCE, this );
 		}
 
 		return this;
@@ -533,6 +535,7 @@ class Component extends React.PureComponent {
 	update( ){ return this; }
 	unmount( ){ return this; }
 	recheck( ){ return this; }
+	tag( ){ return ""; }
 
 	componentWillUpdate( property ){
 		this.transfer( property );

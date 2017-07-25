@@ -48,6 +48,7 @@
 
 	@include:
 		{
+			"wichevr": "wichevr",
 			"React": "react",
 			"Component": "component"
 		}
@@ -62,6 +63,8 @@
 	@end-usage
 */
 
+import wichevr from "wichevr";
+
 import React from "react";
 import Component from "component";
 
@@ -69,20 +72,12 @@ class Label extends Component {
 	constructor( property ){ super( property ); }
 
 	render( ){
-		let {
-			text,
-			target,
-			hidden
-		} = this.property;
+		let { text, target } = this.property;
 
-		text = text || this.content( );
+		text = wichevr( text, this.content( ) );
 
-		return ( <div
-					hidden={ hidden }
-				>
-					<label
-						htmlFor={ target }
-					>
+		return ( <div>
+					<label htmlFor={ target }>
 						{ text }
 					</label>
 				</div> );

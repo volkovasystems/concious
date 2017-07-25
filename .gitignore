@@ -10,5 +10,5 @@ node_modules
 !.*.js
 !gulpfile.js
 !webpack.config.js
-!concious.support.js
-!concious.deploy.js
+!*.support.js
+!*.deploy.js

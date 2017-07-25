@@ -38,7 +38,8 @@
 			"eMail": "richeve.bebedor@gmail.com",
 			"repository": "https://github.com/volkovasystems/concious.git",
 			"test": "test.html",
-			"global": true
+			"global": true,
+			"class": true
 		}
 	@end-module-configuration
 
@@ -81,16 +82,12 @@
 	@end-usage
 */
 
-import budge from "budge";
-import depher from "depher";
-import doubt from "doubt";
 import falzy from "falzy";
 import harden from "harden";
-import kley from "kley";
-import optfor from "optfor";
+import klast from "klast";
 import protype from "protype";
-import raze from "raze";
 import truly from "truly";
+import wichevr from "wichevr";
 
 import React from "react";
 import Component from "component";
@@ -109,8 +106,10 @@ harden( "SPREAD", "spread" );
 class Icon extends Component {
 	constructor( property ){ super( property ); }
 
-	static resolve( icon, loading, name ){
-		let parameter = raze( arguments );
+	static resolve( property ){
+		property = wichevr( property, { } );
+
+		let { icon, loading, name } = property;
 
 		if( protype( icon, STRING ) ){
 			let [ set, type ] = icon.split( " " );
@@ -122,12 +121,11 @@ class Icon extends Component {
 			icon = { };
 		}
 
-		loading = depher( parameter, BOOLEAN, false );
 		if( loading === true ){
 			icon.loading = loading;
 		}
 
-		icon.name = wichevr( icon.name, optfor( budge( parameter ), STRING ) );
+		icon.name = wichevr( icon.name, name );
 
 		if( falzy( icon.set ) && falzy( icon.loading ) ){
 			return null;
@@ -137,22 +135,10 @@ class Icon extends Component {
 	}
 
 	mode( ){
-		let {
-			icon,
-			ligature,
-
-			image,
-			source,
-
-			loading
-		} = this.property;
+		let { icon, ligature, image, loading } = this.property;
 
 		if( loading === true ){
 			return LOADING;
-		}
-
-		if( truly( icon ) && protype( icon, STRING ) ){
-			return EMBEDDED;
 		}
 
 		ligature = wichevr( ligature, this.extract( ) );
@@ -160,31 +146,31 @@ class Icon extends Component {
 			return LIGATURE;
 		}
 
-		if( ( truly( image ) && protype( image, STRING ) ) ||
-			( truly( source ) && protype( source, STRING ) ) )
-		{
+		if( truly( icon ) && protype( icon, STRING ) ){
+			return EMBEDDED;
+		}
+
+		if( truly( image ) && protype( image, STRING ) ){
 			return IMAGE;
 		}
 	}
 
 	image( ){
-		let { image, source } = this.property;
+		let image = this.property.image;
 
-		if( this.mode( ) === IMAGE ){
-			return `url( ${ wichevr( image, source ) } )`;
-
-		}else{
-			return "none";
+		if( this.mode( ) === IMAGE && truly( image ) ){
+			return `url( ${ image } )`;
 		}
+
+		return "none";
 	}
 
 	layout( ){
 		if( this.mode( ) === IMAGE ){
 			return wichevr( this.property.layout, SPREAD );
-
-		}else{
-			return "";
 		}
+
+		return "";
 	}
 
 	edge( ){
@@ -194,10 +180,9 @@ class Icon extends Component {
 	ligature( ){
 		if( this.mode( ) === LIGATURE ){
 			return wichevr( this.property.ligature, this.extract( ) );
-
-		}else{
-			return "";
 		}
+
+		return "";
 	}
 
 	extract( ){
@@ -209,13 +194,13 @@ class Icon extends Component {
 
 		if( mode === LOADING ){
 			return <div className="loader"></div>
-
-		}else if( mode === LIGATURE ){
-			return this.ligature( );
-
-		}else{
-			return null;
 		}
+
+		if( mode === LIGATURE ){
+			return this.ligature( );
+		}
+
+		return null;
 	}
 
 	namespace( ){
@@ -224,16 +209,18 @@ class Icon extends Component {
 		return `${ set } ${ wichevr( icon, "" ) }`.splice( /\s+/g, " " ).trim( );
 	}
 
+	tag( ){
+		return klast( [
+			this.namespace( ),
+			this.mode( ),
+			this.layout( ),
+			this.edge( )
+		] );
+	}
+
 	render( ){
 		return ( <div
-					className={
-						kley( [
-							this.namespace( ),
-							this.mode( ),
-							this.layout( ),
-							this.edge( )
-						] ).join( " " )
-					}
+					className={ this.tag( ) }
 
 					style={ { "backgroundImage": this.image( ) } }
 

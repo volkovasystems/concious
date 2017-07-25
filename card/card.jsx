@@ -62,18 +62,72 @@ import truu from "truu";
 
 import React from "react";
 import Component from "component";
-import Icon from "icon";
-import Label from "label";
+
 
 class Card extends Component {
 	constructor( property ){ super( property ); }
 
-	mode( ){
+	background( ){
+		return ( <div
+					className="background">
+					<Image>
+					</Image>
+				</div> )
+	}
+
+	header( ){
+		let name = wichevr( this.property.name, this.name );
+		
+		return ( <Header
+					...wichis( this.property.header, {
+						"name": name,
+						"title": wichevr( this.property.title, titlelize( name ) )
+					} ) /> );
+	}
+
+	feature( ){
 
 	}
 
-	render( ){
+	body( ){
+		let header = ;
 
+		return ( <div
+					className="body">
+
+					{ this.feature( ) }
+				</div> )
+	}
+
+	intent( ){
+		return ( <div
+					className="intent">
+					<Control>
+						{ control }
+					</Control>
+					<div
+						className="resolve">
+
+					</div>
+				</div> );
+	}
+
+	layer( ){
+		return ( <div>
+
+				</div> )
+	}
+
+	render( ){
+		return ( <div>
+					<div
+						className="main">
+
+						{ this.body( ) }
+						{ this.background( ) }
+					</div>
+					{ this.intent( ) }
+				</div> );
 	}
 }
 

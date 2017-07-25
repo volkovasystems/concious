@@ -88,11 +88,10 @@
 	@end-usage
 */
 
-import doubt from "doubt";
-import falze from "falze";
 import kley from "kley";
 import truly from "truly";
 import truu from "truu";
+import wichis from "wichis";
 
 import React from "react";
 import Component from "component";
@@ -101,68 +100,98 @@ import Label from "label";
 
 const ICON = "icon";
 const LABEL = "label";
-const LOADING = "loading";
 
 class Button extends Component {
 	constructor( property ){ super( property ); }
 
 	mode( ){
-		let {
-			name,
-
-			icon,
-			loading,
-
-			label
-		} = this.property;
-
-		icon = Icon.resolve( icon, loading, name );
-
-		if( truu( icon ) ){
+		if( truly( Icon.resolve( this.property ) ) ){
 			return ICON;
 		}
 
-		if( truly( label ) || truu( this.content( ) ) ){
+		if( truly( this.property.label ) || truu( this.content( ) ) ){
 			return LABEL;
+		}
+
+		return false;
+	}
+
+	icon( ){
+		return ( <Icon { ...Icon.resolve( this.property ) }>
+					{ this.content( ) }
+				</Icon> );
+	}
+
+	title( ){
+		let { name, title } = this.property;
+
+		if( truly( title ) ){
+			return ( <Label name={ name } key="title" category="title">
+						{ title }
+					</Label> );
+		}
+
+		return null;
+	}
+
+	label( ){
+		let { name, label } = this.property;
+
+		return ( <Label name={ name } key="label" target={ this.id }>
+					{ wichis( label, this.content( ) ) }
+				</Label> );
+	}
+
+	notice( ){
+		let { name, notice } = this.property;
+
+		if( truly( notice ) ){
+			return ( <Label name={ name } key="notice" category="notice">
+						{ notice }
+					</Label> );
+		}
+
+		return null;
+	}
+
+	body( ){
+		let mode = this.mode( );
+
+		if( mode === ICON ){
+			return this.icon( );
+		}
+
+		if( mode === LABEL ){
+			return [
+				this.title( ),
+				this.label( ),
+				this.notice( )
+			];
+		}
+
+		return null;
+	}
+
+	tag( ){
+		let { loading, status, purpose } = this.property;
+
+		return klast( this.mode( ), { "loading": loading }, status, purpose );
+	}
+
+	recheck( ){
+		if( this.property.loading === true ){
+			this.disable( );
+
+		}else{
+			this.enable( );
 		}
 	}
 
-
-
 	render( ){
-		let {
-			name,
-
-			icon,
-			loading,
-
-			label,
-			title,
-			notice,
-
-			status,
-			purpose,
-
-			hidden
-		} = this.property;
-
-		let content = this.content( );
-
-		label = label || content;
-
-		icon = Icon.resolve( icon, loading, name );
-
-		let mode = this.mode( );
-
 		return ( <button
 					type="button"
 
-					className={ kley( this.mode( ), {
-						"loading": loading
-					}, [
-						status,
-						purpose
-					] ).join( " " ) }
+					className={ this.tag( ) }
 
 					onClick={ this.click.bind( this ) }
 					onMouseDown={ this.press.bind( this ) }
@@ -170,33 +199,7 @@ class Button extends Component {
 					onMouseEnter={ this.focus.bind( this ) }
 					onMouseLeave={ this.rest.bind( this ) }
 				>
-					{
-						( truly( title ) && mode === LABEL )?
-							<Label
-								name={ name }
-								category="title">
-								{ title }
-							</Label> : null
-					}
-					{
-						( mode === ICON )?
-							<Icon { ...icon }>{ content }</Icon> :
-
-						( truly( label ) && mode === LABEL )?
-							<Label
-								name={ name }
-								target={ this.id }>
-								{ label }
-							</Label> : null
-					}
-					{
-						( truly( notice ) && mode === LABEL )?
-							<Label
-								name={ name }
-								category="notice">
-								{ notice }
-							</Label> : null
-					}
+					{ this.body( ) }
 				</button> );
 	}
 }

@@ -45,7 +45,7 @@
 	@module-documentation:
 		Item Component
 
-			Items are higher order components.
+		Items are higher order components.
 	@end-module-documentation
 
 	@include:
@@ -71,156 +71,220 @@ import Plate from "plate";
 harden( "EXPAND", "expand" );
 harden( "NONE", "none" );
 harden( "RETRACT", "retract" );
+harden( "REST", "rest" );
+
+const ITEM = Symbol( "item" );
 
 class Item extends Component {
 	constructor( property ){ super( property ); }
 
-	component( ){
-		if( truu( this.property ) ){
-			return pyck( plough( [ this.property.children ] )
-				.filter( ( child ) => { return protype( child, OBJECT ); } ),
-				( child ) => { return clazof( child, Component ); } )
-				.map( ( child, index ) => {
-					return React.cloneElement( child, { "key": `${ child.name }-${ index }` } )
-				} );
+	item( ){
+		return ( this[ ITEM ] = wichis( this[ ITEM ], this.component( ).map( ( child, index ) => {
+			return React.cloneElement( child, { "key": `${ child.name }-${ index }` } )
+		} ), [ ] ) );
+	}
+
+	expand( ){
+		this.edit( "view", EXPAND, vound( this.property.expand, this ) );
+
+		return this;
+	}
+
+	retract( ){
+		this.edit( "view", RETRACT, vound( this.property.retract, this ) );
+
+		return this;
+	}
+
+	dynamic( ){
+		let { expand, retract } = this.property;
+
+		return ( protype( expand, FUNCTION ) && protype( retract, FUNCTION ) );
+	}
+
+	view( ){
+		if( this.dynamic( ) ){
+			if( kein( "view", this.state ) ){
+				return this.state.view;
+			}
+
+			if( kein( "view", this.property ) && this.property.view !== NONE ){
+				return this.property.view;
+			}
+
+			let { expand, retract } = this.property;
+
+			if( protype( expand, FUNCTION ) && protype( retract, FUNCTION ) ){
+				return EXPAND;
+			}
+		}
+
+		return NONE;
+	}
+
+	execute( view ){
+		switch( view ){
+			case RETRACT:
+				this.expand( );
+				break;
+
+			case EXPAND:
+				this.retract( );
+				break;
+		}
+
+		return this;
+	}
+
+	icon( view ){
+		switch( view ){
+			case RETRACT:
+				return "expand_more";
+
+			case EXPAND:
+				return "expand_less";
+
+			default:
+				return "";
+		}
+	}
+
+	adaptive( ){
+		let { action, icon, loading } = this.property;
+
+		return ( this.dynamic( ) && truu( action ) && ( truu( icon ) || loading === true ) );
+	}
+
+	control( ){
+		if( this.dynamic( ) ){
+			let {
+				name,
+
+				status,
+
+				disabled, hidden
+			} = this.property;
+
+			let adaptive = this.adaptive( );
+			let view = this.view( );
+			let overlay = this.overlay( );
+
+			return ( <Button
+						name={ name }
+
+						category={ klast( { "overlay": adaptive } ) }
+
+						icon={ {
+							"set": "material-icon",
+							"ligature": this.icon( view )
+						} }
+
+						click={ ( ) => { this.execute( view ) } }
+
+						status={ status }
+
+						disabled={ disabled }
+
+						hidden={ hidden || ( adaptive && overlay === REST ) }
+					/> );
 		}
 
 		return null;
 	}
 
-	expand( view ){
-		if( view === EXPAND ){
-			this.retract( );
-
-		}else if( view === RETRACT ){
-			this.expand( );
-
-		}else{
-			this.suppress( RETRACT );
-			this.behave( EXPAND );
-
-			this.edit( "view", EXPAND );
-		}
-	}
-
-	retract( view ){
-		if( view === RETRACT ){
-			this.expand( );
-
-		}else if( view === EXPAND ){
-			this.retract( );
-
-		}else{
-			this.suppress( EXPAND );
-			this.behave( RETRACT );
-
-			this.edit( "view", RETRACT );
-		}
-	}
-
-	render( ){
+	header( ){
 		let {
 			name,
 
-			icon,
-			loading,
+			icon, loading,
 
-			title,
-			label,
-			value,
-			description,
-			notice,
-			target,
+			title, label, value, description, notice, target,
 
 			action,
 
-			view,
-			expand,
-			retract,
-
 			status,
 
-			hidden
+			disabled, hidden
 		} = this.property;
 
-		label = label || this.content( ).join( " " );
+		let content = this.content( );
 
-		let dynamic = ( protype( expand, FUNCTION ) && protype( retract, FUNCTION ) );
-		if( dynamic ){
-			view = this.state.view || view || EXPAND;
+		if( truly( label ) || truly( value ) || truu( content ) ){
+			return ( <div className="header">
+						<Plate
+							name={ name }
 
-		}else{
-			view = NONE;
+							icon={ icon }
+							loading={ loading }
+
+							title={ title }
+							label={ label }
+							value={ value }
+							description={ description }
+							notice={ notice }
+							target={ target }
+
+							action={ action }
+
+							status={ status }
+
+							disabled={ disabled }
+							hidden={ hidden }
+						>
+							{ content }
+						</Plate>
+						{ this.control( ) }
+					</div> );
 		}
 
-		let labeled = truly( label ) || truly( value );
+		return null;
+	}
 
-		let component = this.component( );
+	body( ){
+		let item = this.item( );
 
+		if( filled( item ) ){
+			return ( <div className="body">
+						{ item }
+					</div> );
+		}
+
+		return null;
+	}
+
+	overlay( ){
+		if( kein( "overlay", this.state ) ){
+			return this.state.overlay;
+		}
+
+		return ( this.adaptive( )? REST : NONE );
+	}
+
+	tag( ){
+		let view = this.view( );
+
+		return klast( {
+			"overlay": overlay === FOCUS
+			[ view ]: view !== NONE
+		}, status );
+	}
+
+	render( ){
 		return ( <li
-					className={ kley( {
-							"view": dynamic && view
-						},[
-							status
-						] ).join( " " ) }
+					className={ this.tag( ) }
 
 					onMouseEnter={ this.focus.bind( this ) }
 					onMouseLeave={ this.rest.bind( this ) }
-
-					hidden={ hidden }
 				>
-					{
-						labeled?
-							<div
-								className="header">
-								<Plate
-									name={ name }
-
-									icon={ icon }
-									loading={ loading }
-
-									title={ title }
-									label={ label }
-									value={ value }
-									description={ description }
-									notice={ notice }
-									target={ target }
-
-									action={ action }
-
-									status={ status }
-								/>
-								{
-									dynamic?
-										<Button
-											name={ name }
-
-											category={ kley( {
-												"overlay": truu( action ) || loading
-											} ) }
-
-											icon={ {
-												"set": "material-icon",
-												"ligature": ( view === EXPAND )? "expand_less" : "expand_more"
-											} }
-
-											click={ ( ) => {
-												return ( view === EXPAND )? this.retract( ) : this.expand( );
-											} }
-
-											status={ status }
-										/> : null
-								}
-							</div> : null
-					}
-					{
-						truu( component )?
-							<div
-								className="body">
-								{ component }
-							</div> : null
-					}
+					{ this.header( ) }
+					{ this.body( ) }
 				</li> );
+	},
+
+	unmount( ){
+		while( this[ ITEM ].length ){ this[ ITEM ].pop( ); }
+		this[ ITEM ] = undefined;
+		delete this[ ITEM ];
 	}
 }
 

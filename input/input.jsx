@@ -55,10 +55,8 @@
 	@end-include
 */
 
-import protype from "protype";
 import titlelize from "titlelize";
 import truly from "truly";
-import truu from "truu";
 import wichevr from "wichevr";
 import wichis from "wichis";
 import vound from "vound";

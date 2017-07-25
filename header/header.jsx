@@ -148,11 +148,11 @@ class Header extends Component {
 
 	view( ){
 		if( this.dynamic( ) ){
-			if( kein( this.state, "view" ) ){
+			if( kein( "view", this.state ) ){
 				return this.state.view;
 			}
 
-			if( kein( this.property, "view" ) && this.property.view !== NONE ){
+			if( kein( "view", this.property ) && this.property.view !== NONE ){
 				return this.property.view;
 			}
 
@@ -181,7 +181,7 @@ class Header extends Component {
 	}
 
 	overlay( ){
-		if( kein( this.state, "overlay" ) ){
+		if( kein( "overlay", this.state ) ){
 			return this.state.overlay;
 		}
 
@@ -210,48 +210,25 @@ class Header extends Component {
 		}
 	}
 
-	render( ){
+	label( ){
 		let {
 			name,
 
-			icon,
-			loading,
+			icon, loading,
 
-			label,
-			description,
-			notice,
+			label, description, notice,
 
 			action,
 
-			status,
-			purpose,
+			status, purpose,
 
-			hidden
+			disabled, hidden
 		} = this.property;
 
-		label = label || this.content( );
+		let content = this.content( );
 
-		let view = this.view( );
-
-		let overlay = this.overlay( );
-
-		return ( <header
-					className={ kley( {
-						[ view ]: view !== NONE,
-						"overlay": overlay === FOCUS
-					},[
-						status,
-						purpose
-					] ).join( " " ) }
-
-					hidden={ hidden }
-
-					onMouseLeave={ ( ) => { this.adaptive( ) && this.edit( "overlay", REST ); } }
-				>
-					<div
-						className="emphasis">
-					</div>
-					<Plate
+		if( truly( label ) || truu( content ) ){
+			return ( <Plate
 						name={ name }
 
 						icon={ icon }
@@ -266,30 +243,80 @@ class Header extends Component {
 						status={ status }
 						purpose={ purpose }
 
-						view={ view }
+						view={ this.view( ) }
 
 						focus={ ( ) => { this.adaptive( ) && this.edit( "overlay", FOCUS ); } }
-					/>
-					{
-						this.dynamic( )?
-							<Button
-								name={ name }
 
-								category={ kley( { "overlay": this.adaptive( ) } ).join( " " ) }
+						disabled={ disabled }
+						hidden={ hidden }
+					>
+						{ content }
+					</Plate> );
+		}
 
-								icon={ {
-									"set": "material-icon",
-									"ligature": this.icon( view )
-								} }
+		return null;
+	}
 
-								click={ ( ) => { this.execute( view ) } }
+	control( ){
+		if( this.dynamic( ) ){
+			let {
+				name,
 
-								status={ status }
-								purpose={ purpose }
+				status, purpose
 
-								hidden={ overlay === REST }
-							/> : null
-					}
+				disabled, hidden
+			} = this.property;
+
+			let adaptive = this.adaptive( );
+			let view = this.view( );
+			let overlay = this.overlay( );
+
+			return ( <Button
+						name={ name }
+
+						category={ klast( { "overlay": adaptive } ) }
+
+						icon={ {
+							"set": "material-icon",
+							"ligature": this.icon( view )
+						} }
+
+						click={ ( ) => { this.execute( view ) } }
+
+						status={ status }
+						purpose={ purpose }
+
+						disabled={ disabled }
+						hidden={ hidden || ( adaptive && overlay === REST ) }
+					/> );
+		}
+
+		return null;
+	}
+
+	tag( ){
+		let { status, purpose } = this.property;
+
+		let view = this.view( );
+		let overlay = this.overlay( );
+
+		return klast( {
+			"overlay": overlay === FOCUS
+			[ view ]: view !== NONE,
+		}, status, purpose );
+	}
+
+	render( ){
+		return ( <header
+					className={ this.tag( ) }
+
+					onMouseLeave={ ( ) => { this.adaptive( ) && this.edit( "overlay", REST ); } }
+				>
+					<div
+						className="emphasis">
+					</div>
+					{ this.label( ) }
+					{ this.control( ) }
 				</header> );
 	}
 }

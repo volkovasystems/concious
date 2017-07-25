@@ -48,20 +48,29 @@
 
 	@include:
 		{
+			"harden": "harden",
+			"wichevr": "wichevr",
 			"React": "react",
 			"Component": "component"
 		}
 	@end-include
 */
 
+import harden from "harden";
+import wichevr from "wichevr";
+
 import React from "react";
 import Component from "component";
+
+harden( "NORMAL", "normal" );
 
 class Indicator extends Component {
 	constructor( property ){ super( property ); }
 
 	render( ){
-		return ( <div className={ this.property.status }></div> );
+		let status = wichevr( this.property.status, NORMAL );
+
+		return ( <div className={ status }></div> );
 	}
 }
 
